@@ -6,6 +6,7 @@ import type { LegalDocument } from '../data/auditDocuments';
 export function AuditView() {
   const [selectedCompanyId, setSelectedCompanyId] = useState<string | 'all'>('all');
   const [selectedDocType, setSelectedDocType] = useState<LegalDocument['documentType'] | 'All'>('All');
+  const [selectedJVPartner, setSelectedJVPartner] = useState<'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia'>('All');
   const [searchQuery, setSearchQuery] = useState('');
 
   const formatDate = (dateString: string) => {
@@ -32,6 +33,13 @@ export function AuditView() {
     .filter(doc => {
       if (selectedCompanyId !== 'all' && doc.companyId !== selectedCompanyId) return false;
       if (selectedDocType !== 'All' && doc.documentType !== selectedDocType) return false;
+
+      // Filter by JV Partner
+      if (selectedJVPartner !== 'All') {
+        const company = portfolioCompanies.find(c => c.id === doc.companyId);
+        if (!company || company.jvPartner !== selectedJVPartner) return false;
+      }
+
       if (searchQuery && !doc.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
           !doc.fileName.toLowerCase().includes(searchQuery.toLowerCase())) return false;
       return true;
@@ -154,6 +162,34 @@ export function AuditView() {
               }`}
             >
               {type}
+            </button>
+          ))}
+        </div>
+
+        {/* JV Partner Filter */}
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-sm font-medium text-gray-600 mr-2">JV Partner:</span>
+          <button
+            onClick={() => setSelectedJVPartner('All')}
+            className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+              selectedJVPartner === 'All'
+                ? 'bg-gray-900 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            All Partners
+          </button>
+          {(['Aviva', 'Mediobanca', 'Fastweb', 'Vonovia'] as const).map((partner) => (
+            <button
+              key={partner}
+              onClick={() => setSelectedJVPartner(partner)}
+              className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+                selectedJVPartner === partner
+                  ? 'bg-yellow-500 text-black'
+                  : 'bg-yellow-50 text-yellow-800 hover:bg-yellow-100'
+              }`}
+            >
+              {partner}
             </button>
           ))}
         </div>

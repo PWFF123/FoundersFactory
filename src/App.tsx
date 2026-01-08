@@ -94,27 +94,24 @@ function App() {
               Renewals & Notices
             </button>
 
-            {/* Studio Deals with Dropdown */}
+            {/* Investments with Dropdown - Consolidates Studio and Accelerator */}
             <div className="relative group">
               <button
-                onClick={() => {
-                  setActiveTab('studio');
-                  setStudioJVFilter('All');
-                }}
                 className={`px-6 py-4 font-semibold text-sm transition-colors whitespace-nowrap ${
-                  activeTab === 'studio'
+                  activeTab === 'studio' || activeTab === 'accelerator'
                     ? 'text-black border-b-2 border-ffYellow'
                     : 'text-gray-500 hover:text-black border-b-2 border-transparent'
                 }`}
               >
-                Studio Deals
+                Investments
               </button>
 
-              {/* Dropdown Menu - Stripe-inspired subtle dropdown */}
+              {/* Dropdown Menu - Investment Type & JV Partners */}
               <div className="absolute top-full left-0 mt-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-colors ease-out z-50">
-                <div className="bg-white rounded-lg shadow-md border border-gray-200 py-1 mt-1 min-w-[160px]">
-                  <div className="px-3 py-2 text-2xs font-semibold text-slate-500 uppercase tracking-wider">
-                    JV Partner
+                <div className="bg-white rounded-lg shadow-md border border-gray-200 py-1 mt-1 min-w-[200px]">
+                  {/* Studio Section */}
+                  <div className="px-3 py-2 text-2xs font-semibold text-gray-700 uppercase tracking-wider border-b border-gray-100">
+                    Studio Deals
                   </div>
                   <button
                     onClick={() => {
@@ -128,8 +125,8 @@ function App() {
                     }`}
                   >
                     <span className="flex items-center gap-2.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
-                      All
+                      <span className="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
+                      All Studio Deals
                     </span>
                   </button>
                   <button
@@ -145,7 +142,7 @@ function App() {
                   >
                     <span className="flex items-center gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-                      Aviva
+                      Studio - Aviva
                     </span>
                   </button>
                   <button
@@ -161,7 +158,7 @@ function App() {
                   >
                     <span className="flex items-center gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-                      Mediobanca
+                      Studio - Mediobanca
                     </span>
                   </button>
                   <button
@@ -177,7 +174,7 @@ function App() {
                   >
                     <span className="flex items-center gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                      Fastweb
+                      Studio - Fastweb
                     </span>
                   </button>
                   <button
@@ -193,34 +190,13 @@ function App() {
                   >
                     <span className="flex items-center gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
-                      Vonovia
+                      Studio - Vonovia
                     </span>
                   </button>
-                </div>
-              </div>
-            </div>
 
-            {/* Accelerator Investments with Dropdown */}
-            <div className="relative group">
-              <button
-                onClick={() => {
-                  setActiveTab('accelerator');
-                  setAcceleratorJVFilter('All');
-                }}
-                className={`px-6 py-4 font-semibold text-sm transition-colors whitespace-nowrap ${
-                  activeTab === 'accelerator'
-                    ? 'text-black border-b-2 border-ffYellow'
-                    : 'text-gray-500 hover:text-black border-b-2 border-transparent'
-                }`}
-              >
-                Accelerator Investments
-              </button>
-
-              {/* Dropdown Menu - Sophisticated Minimal Style */}
-              <div className="absolute top-full left-0 mt-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-colors ease-out z-50">
-                <div className="bg-white rounded-lg shadow-md border border-gray-200 py-1 mt-1 min-w-[160px]">
-                  <div className="px-3 py-2 text-2xs font-semibold text-slate-500 uppercase tracking-wider">
-                    JV Partner
+                  {/* Accelerator Section */}
+                  <div className="px-3 py-2 text-2xs font-semibold text-gray-700 uppercase tracking-wider border-t border-gray-100 mt-1">
+                    Accelerator Investments
                   </div>
                   <button
                     onClick={() => {
@@ -234,8 +210,8 @@ function App() {
                     }`}
                   >
                     <span className="flex items-center gap-2.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
-                      All
+                      <span className="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
+                      All Accelerator Deals
                     </span>
                   </button>
                   <button
@@ -251,7 +227,7 @@ function App() {
                   >
                     <span className="flex items-center gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-                      Aviva
+                      Accelerator - Aviva
                     </span>
                   </button>
                   <button
@@ -267,7 +243,7 @@ function App() {
                   >
                     <span className="flex items-center gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-                      Mediobanca
+                      Accelerator - Mediobanca
                     </span>
                   </button>
                   <button
@@ -283,7 +259,7 @@ function App() {
                   >
                     <span className="flex items-center gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                      Fastweb
+                      Accelerator - Fastweb
                     </span>
                   </button>
                   <button
@@ -299,7 +275,7 @@ function App() {
                   >
                     <span className="flex items-center gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
-                      Vonovia
+                      Accelerator - Vonovia
                     </span>
                   </button>
                 </div>
