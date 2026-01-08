@@ -1140,6 +1140,94 @@ function App() {
           </div>
         </div>
 
+        {/* Accelerator Only Deals Table */}
+        <div className="bg-white p-6 rounded-lg shadow mb-8">
+          <h3 className="text-lg font-bold text-blue-600 mb-6">Accelerator Only Deals</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b-2 border-blue-600">
+                  <th className="text-left py-3 px-4 text-xs font-bold text-blue-600 uppercase align-middle">Company</th>
+                  <th className="text-left py-3 px-4 text-xs font-bold text-blue-600 uppercase align-middle">Sector</th>
+                  <th className="text-left py-3 px-4 text-xs font-bold text-blue-600 uppercase align-middle">Investment</th>
+                  <th className="text-center py-3 px-4 text-xs font-bold text-blue-600 uppercase align-middle">Stage</th>
+                  <th className="text-left py-3 px-4 text-xs font-bold text-blue-600 uppercase align-middle">Valuation</th>
+                  <th className="text-left py-3 px-4 text-xs font-bold text-blue-600 uppercase align-middle">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* MSWA */}
+                <tr className="border-b border-gray-200 hover:bg-blue-50">
+                  <td className="py-4 px-4 align-middle">
+                    <p className="font-semibold text-sm">MSWA</p>
+                  </td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm text-gray-600">SaaS</p></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-semibold">£250K</p></td>
+                  <td className="py-4 px-4 text-center align-middle"><span className="px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800">Seed</span></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-bold text-teal-600">£2.5M</p></td>
+                  <td className="py-4 px-4 align-middle"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
+                </tr>
+
+                {/* Web3 */}
+                <tr className="border-b border-gray-200 hover:bg-blue-50">
+                  <td className="py-4 px-4 align-middle">
+                    <p className="font-semibold text-sm">Web3</p>
+                  </td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm text-gray-600">Blockchain</p></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-semibold">£300K</p></td>
+                  <td className="py-4 px-4 text-center align-middle"><span className="px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800">Pre-Seed</span></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-bold text-teal-600">£1.8M</p></td>
+                  <td className="py-4 px-4 align-middle"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
+                </tr>
+
+                {/* NatureTech */}
+                <tr className="border-b border-gray-200 hover:bg-blue-50">
+                  <td className="py-4 px-4 align-middle">
+                    <p className="font-semibold text-sm">NatureTech</p>
+                  </td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm text-gray-600">CleanTech</p></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-semibold">£200K</p></td>
+                  <td className="py-4 px-4 text-center align-middle"><span className="px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800">Seed</span></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-bold text-teal-600">£3.2M</p></td>
+                  <td className="py-4 px-4 align-middle"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
+                </tr>
+
+                {/* Rio */}
+                <tr className="border-b border-gray-200 hover:bg-blue-50">
+                  <td className="py-4 px-4 align-middle">
+                    <p className="font-semibold text-sm">Rio</p>
+                  </td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm text-gray-600">FinTech</p></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-semibold">£350K</p></td>
+                  <td className="py-4 px-4 text-center align-middle"><span className="px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800">Seed</span></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-bold text-teal-600">£4.1M</p></td>
+                  <td className="py-4 px-4 align-middle"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* Summary Stats for Accelerator Deals */}
+          <div className="mt-6 pt-4 border-t border-gray-200 grid grid-cols-4 gap-4">
+            <div className="text-center">
+              <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Total Companies</div>
+              <div className="text-2xl font-bold text-blue-600">4</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Total Invested</div>
+              <div className="text-2xl font-bold text-blue-600">£1.1M</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Total Valuation</div>
+              <div className="text-2xl font-bold text-teal-600">£11.6M</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Avg Multiple</div>
+              <div className="text-2xl font-bold text-teal-600">10.5x</div>
+            </div>
+          </div>
+        </div>
+
         {/* Obligations Tracker */}
         <ObligationsTracker
           obligations={[
