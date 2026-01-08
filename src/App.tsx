@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { DealGeographyGlobe } from './components/DealGeographyGlobe';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals'>('active');
+  const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals' | 'geography'>('active');
   const [expandedJV, setExpandedJV] = useState<string | null>(null);
   const [shareIssuances, setShareIssuances] = useState<{[key: string]: boolean}>({
     'aviva-2026-06': false,
@@ -78,6 +79,16 @@ function App() {
               }`}
             >
               Renewals & Notices
+            </button>
+            <button
+              onClick={() => setActiveTab('geography')}
+              className={`px-6 py-4 font-semibold text-sm transition-colors ${
+                activeTab === 'geography'
+                  ? 'text-black border-b-2 border-yellow-400'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Deal Geography
             </button>
           </div>
         </div>
@@ -1331,6 +1342,131 @@ function App() {
                 Critical dates for serving notice on subscription agreements and shareholders' agreements.
                 Missing these deadlines can have significant cash flow and equity implications.
               </p>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'geography' && (
+          <div className="space-y-8">
+            {/* Header Section */}
+            <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-6 rounded-lg border border-cyan-500/30">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold text-white mb-2">Global Deal Network</h2>
+                  <p className="text-slate-300 text-sm">Real-time visualization of corporate partnerships across 7 markets</p>
+                </div>
+                <div className="flex gap-4">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-cyan-400">7</div>
+                    <div className="text-xs text-slate-400 uppercase tracking-wider">Markets</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-yellow-400">11</div>
+                    <div className="text-xs text-slate-400 uppercase tracking-wider">Active Deals</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-green-400">£120M</div>
+                    <div className="text-xs text-slate-400 uppercase tracking-wider">Total Value</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Globe Visualization */}
+            <DealGeographyGlobe />
+
+            {/* Market Insights */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-lg border border-slate-700">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-3 h-3 rounded-full bg-yellow-400 animate-pulse" />
+                  <h3 className="text-white font-bold">Primary Hub</h3>
+                </div>
+                <div className="text-4xl font-bold text-yellow-400 mb-2">UK</div>
+                <div className="text-slate-300 text-sm mb-4">Central command for EMEA operations</div>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-400">Deal Value:</span>
+                    <span className="text-white font-semibold">£35M</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-400">Active Deals:</span>
+                    <span className="text-white font-semibold">3</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-lg border border-slate-700">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-3 h-3 rounded-full bg-purple-400 animate-pulse" />
+                  <h3 className="text-white font-bold">Asia-Pacific Lead</h3>
+                </div>
+                <div className="text-4xl font-bold text-purple-400 mb-2">Japan</div>
+                <div className="text-slate-300 text-sm mb-4">Fastest growing APAC market</div>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-400">Deal Value:</span>
+                    <span className="text-white font-semibold">£22M</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-400">Active Deals:</span>
+                    <span className="text-white font-semibold">2</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-lg border border-slate-700">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse" />
+                  <h3 className="text-white font-bold">Emerging Market</h3>
+                </div>
+                <div className="text-4xl font-bold text-green-400 mb-2">Germany</div>
+                <div className="text-slate-300 text-sm mb-4">Strategic European expansion</div>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-400">Deal Value:</span>
+                    <span className="text-white font-semibold">£18M</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-400">Active Deals:</span>
+                    <span className="text-white font-semibold">2</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Regional Breakdown */}
+            <div className="bg-white p-6 rounded-lg shadow">
+              <h3 className="text-lg font-bold text-black mb-6">Regional Distribution</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-semibold text-gray-700">EMEA</span>
+                    <span className="text-sm font-bold text-black">£68M (57%)</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-3">
+                    <div className="bg-yellow-400 h-3 rounded-full" style={{ width: '57%' }}></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-semibold text-gray-700">Asia-Pacific</span>
+                    <span className="text-sm font-bold text-black">£52M (43%)</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-3">
+                    <div className="bg-purple-400 h-3 rounded-full" style={{ width: '43%' }}></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <p className="text-sm text-gray-500 text-center">
+                  <span className="font-bold text-black">Live Network Visualization</span> ·
+                  Powered by real-time deal flow data across 7 global markets.
+                  Network connections show active partnerships and capital flows.
+                </p>
+              </div>
             </div>
           </div>
         )}
