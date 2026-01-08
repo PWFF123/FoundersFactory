@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { DealGeographyGlobe } from './components/DealGeographyGlobe';
 import { StudioDealsView } from './components/StudioDealsView';
 import { AcceleratorDealsView } from './components/AcceleratorDealsView';
+import { FinancingRoundsView } from './components/FinancingRoundsView';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals' | 'geography' | 'studio' | 'accelerator'>('active');
+  const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals' | 'geography' | 'studio' | 'accelerator' | 'financing'>('active');
   const [expandedJV, setExpandedJV] = useState<string | null>(null);
   const [shareIssuances, setShareIssuances] = useState<{[key: string]: boolean}>({
     'aviva-2026-06': false,
@@ -111,6 +112,16 @@ function App() {
               }`}
             >
               Accelerator Investments
+            </button>
+            <button
+              onClick={() => setActiveTab('financing')}
+              className={`px-6 py-4 font-semibold text-sm transition-colors ${
+                activeTab === 'financing'
+                  ? 'text-black border-b-2 border-yellow-400'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Financing Rounds
             </button>
           </div>
         </div>
@@ -1499,6 +1510,10 @@ function App() {
 
         {activeTab === 'accelerator' && (
           <AcceleratorDealsView />
+        )}
+
+        {activeTab === 'financing' && (
+          <FinancingRoundsView />
         )}
       </main>
     </div>
