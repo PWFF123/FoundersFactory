@@ -10,6 +10,11 @@ export interface StudioDeal {
   actualCompletion?: string;
   investmentAmount: number;
   currentValuation: number;
+  launchICDate: string; // Investment Committee approval date
+  spinOutStatus: 'In Studio' | 'IC Approved' | 'Legal Spin Out' | 'Fully Independent';
+  jvEquityStake: number; // JV partner equity %
+  incorporationLocation: string; // e.g., "UK", "Delaware, USA"
+  projectedClosingDate: string; // Expected legal close/exit date
   keyMetrics: {
     revenue?: number;
     users?: number;
@@ -41,6 +46,11 @@ export const activeStudioDeals: StudioDeal[] = [
     expectedCompletion: '2025-09-30',
     investmentAmount: 500000,
     currentValuation: 2500000,
+    launchICDate: '2024-02-15',
+    spinOutStatus: 'IC Approved',
+    jvEquityStake: 40,
+    incorporationLocation: 'UK',
+    projectedClosingDate: '2025-09-30',
     keyMetrics: {
       revenue: 45000,
       users: 1200,
@@ -92,6 +102,11 @@ export const activeStudioDeals: StudioDeal[] = [
     expectedCompletion: '2025-12-31',
     investmentAmount: 750000,
     currentValuation: 6500000,
+    launchICDate: '2023-07-10',
+    spinOutStatus: 'Legal Spin Out',
+    jvEquityStake: 40,
+    incorporationLocation: 'UK',
+    projectedClosingDate: '2025-12-31',
     keyMetrics: {
       revenue: 180000,
       users: 3500,
@@ -144,6 +159,11 @@ export const activeStudioDeals: StudioDeal[] = [
     expectedCompletion: '2025-11-30',
     investmentAmount: 600000,
     currentValuation: 1800000,
+    launchICDate: '2024-04-20',
+    spinOutStatus: 'IC Approved',
+    jvEquityStake: 45,
+    incorporationLocation: 'Italy',
+    projectedClosingDate: '2025-11-30',
     keyMetrics: {
       revenue: 12000,
       users: 450,
@@ -194,6 +214,11 @@ export const activeStudioDeals: StudioDeal[] = [
     expectedCompletion: '2026-05-31',
     investmentAmount: 400000,
     currentValuation: 800000,
+    launchICDate: '2024-10-15',
+    spinOutStatus: 'In Studio',
+    jvEquityStake: 50,
+    incorporationLocation: 'Germany',
+    projectedClosingDate: '2026-05-31',
     keyMetrics: {
       users: 50,
     },
@@ -241,6 +266,11 @@ export const activeStudioDeals: StudioDeal[] = [
     expectedCompletion: '2025-06-30',
     investmentAmount: 850000,
     currentValuation: 5200000,
+    launchICDate: '2023-05-15',
+    spinOutStatus: 'Legal Spin Out',
+    jvEquityStake: 45,
+    incorporationLocation: 'Italy',
+    projectedClosingDate: '2025-06-30',
     keyMetrics: {
       revenue: 95000,
       users: 2100,
@@ -296,6 +326,11 @@ export const completedStudioDeals: StudioDeal[] = [
     actualCompletion: '2024-02-15',
     investmentAmount: 650000,
     currentValuation: 8500000,
+    launchICDate: '2022-02-10',
+    spinOutStatus: 'Fully Independent',
+    jvEquityStake: 40,
+    incorporationLocation: 'UK',
+    projectedClosingDate: '2024-03-31',
     keyMetrics: {
       revenue: 420000,
       users: 12000,
@@ -340,6 +375,11 @@ export const completedStudioDeals: StudioDeal[] = [
     actualCompletion: '2023-11-30',
     investmentAmount: 500000,
     currentValuation: 4200000,
+    launchICDate: '2021-08-05',
+    spinOutStatus: 'Fully Independent',
+    jvEquityStake: 50,
+    incorporationLocation: 'Germany',
+    projectedClosingDate: '2023-12-31',
     keyMetrics: {
       revenue: 280000,
       users: 5500,

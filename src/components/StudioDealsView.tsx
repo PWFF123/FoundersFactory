@@ -3,7 +3,6 @@ import { activeStudioDeals, completedStudioDeals } from '../data/studioDeals';
 import type { StudioDeal } from '../data/studioDeals';
 
 export function StudioDealsView() {
-  const [selectedDeal, setSelectedDeal] = useState<StudioDeal | null>(null);
   const [showCompleted, setShowCompleted] = useState(false);
 
   const formatCurrency = (amount: number) => {
@@ -21,318 +20,226 @@ export function StudioDealsView() {
     });
   };
 
-  const getStageColor = (stage: string) => {
-    switch (stage) {
-      case 'Inception': return 'bg-blue-100 text-blue-800';
-      case 'Build': return 'bg-purple-100 text-purple-800';
-      case 'Scale': return 'bg-green-100 text-green-800';
-      case 'Exit': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-gray-100 text-gray-800';
+  const getSpinOutStatusColor = (status: string) => {
+    switch (status) {
+      case 'In Studio': return 'bg-gray-100 text-gray-700 border-gray-300';
+      case 'IC Approved': return 'bg-blue-100 text-blue-700 border-blue-300';
+      case 'Legal Spin Out': return 'bg-green-100 text-green-700 border-green-300';
+      case 'Fully Independent': return 'bg-purple-100 text-purple-700 border-purple-300';
+      default: return 'bg-gray-100 text-gray-700 border-gray-300';
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'On Track': return 'bg-green-100 text-green-800';
-      case 'At Risk': return 'bg-yellow-100 text-yellow-800';
-      case 'Delayed': return 'bg-red-100 text-red-800';
-      case 'Completed': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const getMilestoneStatusColor = (status: string) => {
-    switch (status) {
-      case 'Completed': return 'bg-green-500';
-      case 'In Progress': return 'bg-blue-500';
-      case 'Upcoming': return 'bg-gray-300';
-      case 'Blocked': return 'bg-red-500';
-      default: return 'bg-gray-300';
+  const getRowColor = (spinOutStatus: string) => {
+    switch (spinOutStatus) {
+      case 'In Studio': return 'bg-gray-50 border-l-4 border-gray-400';
+      case 'IC Approved': return 'bg-blue-50 border-l-4 border-blue-500';
+      case 'Legal Spin Out': return 'bg-green-50 border-l-4 border-green-500';
+      case 'Fully Independent': return 'bg-purple-50 border-l-4 border-purple-500';
+      default: return 'bg-white border-l-4 border-gray-300';
     }
   };
 
   const deals = showCompleted ? completedStudioDeals : activeStudioDeals;
+
+  // Group deals by JV partner
+  const dealsByPartner = deals.reduce((acc, deal) => {
+    if (!acc[deal.partner]) {
+      acc[deal.partner] = [];
+    }
+    acc[deal.partner].push(deal);
+    return acc;
+  }, {} as Record<string, StudioDeal[]>);
+
+  const partners = Object.keys(dealsByPartner).sort();
+
+  const totalInvestment = deals.reduce((sum, deal) => sum + deal.investmentAmount, 0);
+  const totalValuation = deals.reduce((sum, deal) => sum + deal.currentValuation, 0);
 
   return (
     <div className="space-y-6">
       {/* Header Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-white p-6 rounded-lg shadow border-l-4 border-blue-500">
-          <h3 className="text-sm font-light text-gray-500 uppercase mb-2">Active Studio Deals</h3>
-          <p className="text-3xl font-bold text-black">{activeStudioDeals.length}</p>
-          <p className="text-xs text-gray-500 mt-2">Currently in progress</p>
+          <h3 className="text-sm font-light text-gray-500 uppercase mb-2">
+            {showCompleted ? 'Completed Studio Deals' : 'Active Studio Deals'}
+          </h3>
+          <p className="text-3xl font-bold text-black">{deals.length}</p>
+          <p className="text-xs text-gray-500 mt-2">Across {partners.length} JV partners</p>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow border-l-4 border-green-500">
           <h3 className="text-sm font-light text-gray-500 uppercase mb-2">Total Investment</h3>
-          <p className="text-3xl font-bold text-black">
-            {formatCurrency(activeStudioDeals.reduce((sum, deal) => sum + deal.investmentAmount, 0))}
-          </p>
-          <p className="text-xs text-gray-500 mt-2">Across active deals</p>
+          <p className="text-3xl font-bold text-black">{formatCurrency(totalInvestment)}</p>
+          <p className="text-xs text-gray-500 mt-2">Capital deployed</p>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow border-l-4 border-purple-500">
           <h3 className="text-sm font-light text-gray-500 uppercase mb-2">Portfolio Value</h3>
-          <p className="text-3xl font-bold text-black">
-            {formatCurrency(activeStudioDeals.reduce((sum, deal) => sum + deal.currentValuation, 0))}
-          </p>
+          <p className="text-3xl font-bold text-black">{formatCurrency(totalValuation)}</p>
           <p className="text-xs text-gray-500 mt-2">Current valuation</p>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow border-l-4 border-yellow-500">
-          <h3 className="text-sm font-light text-gray-500 uppercase mb-2">Completed Exits</h3>
-          <p className="text-3xl font-bold text-black">{completedStudioDeals.length}</p>
-          <p className="text-xs text-gray-500 mt-2">Successful graduations</p>
+          <h3 className="text-sm font-light text-gray-500 uppercase mb-2">Avg JV Equity</h3>
+          <p className="text-3xl font-bold text-black">
+            {(deals.reduce((sum, d) => sum + d.jvEquityStake, 0) / deals.length).toFixed(1)}%
+          </p>
+          <p className="text-xs text-gray-500 mt-2">Partner stake</p>
         </div>
       </div>
 
       {/* Toggle Button */}
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center bg-white p-4 rounded-lg shadow">
         <h2 className="text-2xl font-bold text-black">
           {showCompleted ? 'Completed Studio Deals' : 'Active Studio Deals'}
         </h2>
         <button
           onClick={() => setShowCompleted(!showCompleted)}
-          className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
+          className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-medium"
         >
           {showCompleted ? 'View Active Deals' : 'View Completed Deals'}
         </button>
       </div>
 
-      {/* Deals Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {deals.map((deal) => (
-          <div
-            key={deal.id}
-            className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow cursor-pointer border border-gray-200"
-            onClick={() => setSelectedDeal(deal)}
-          >
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="text-xl font-bold text-black">{deal.companyName}</h3>
-                  <p className="text-sm text-gray-600 mt-1">{deal.sector} • {deal.partner}</p>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStageColor(deal.stage)}`}>
-                    {deal.stage}
-                  </span>
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(deal.status)}`}>
-                    {deal.status}
-                  </span>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                  <p className="text-xs text-gray-500">Investment</p>
-                  <p className="text-lg font-bold text-black">{formatCurrency(deal.investmentAmount)}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500">Valuation</p>
-                  <p className="text-lg font-bold text-black">{formatCurrency(deal.currentValuation)}</p>
-                </div>
-              </div>
-
-              {deal.keyMetrics.mrr && (
-                <div className="grid grid-cols-3 gap-4 mb-4 p-3 bg-gray-50 rounded">
-                  {deal.keyMetrics.revenue && (
-                    <div>
-                      <p className="text-xs text-gray-500">Revenue</p>
-                      <p className="text-sm font-semibold text-black">{formatCurrency(deal.keyMetrics.revenue)}</p>
-                    </div>
-                  )}
-                  {deal.keyMetrics.users && (
-                    <div>
-                      <p className="text-xs text-gray-500">Users</p>
-                      <p className="text-sm font-semibold text-black">{deal.keyMetrics.users.toLocaleString()}</p>
-                    </div>
-                  )}
-                  {deal.keyMetrics.mrr && (
-                    <div>
-                      <p className="text-xs text-gray-500">MRR</p>
-                      <p className="text-sm font-semibold text-black">{formatCurrency(deal.keyMetrics.mrr)}</p>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Milestone Progress */}
-              <div className="mb-4">
-                <p className="text-xs text-gray-500 mb-2">Milestone Progress</p>
-                <div className="flex gap-1">
-                  {deal.milestones.map((milestone, idx) => (
-                    <div
-                      key={idx}
-                      className={`h-2 flex-1 rounded ${getMilestoneStatusColor(milestone.status)}`}
-                      title={`${milestone.name}: ${milestone.status}`}
-                    />
-                  ))}
-                </div>
-                <p className="text-xs text-gray-500 mt-1">
-                  {deal.milestones.filter(m => m.status === 'Completed').length} of {deal.milestones.length} milestones completed
-                </p>
-              </div>
-
-              <div className="text-xs text-gray-500">
-                <p>CEO: {deal.team.ceo} • Team: {deal.team.headCount} people</p>
-                {deal.actualCompletion ? (
-                  <p className="mt-1">Completed: {formatDate(deal.actualCompletion)}</p>
-                ) : (
-                  <p className="mt-1">Expected: {formatDate(deal.expectedCompletion)}</p>
-                )}
+      {/* Deals by JV Partner */}
+      {partners.map((partner) => (
+        <div key={partner} className="bg-white rounded-lg shadow overflow-hidden">
+          {/* Partner Header */}
+          <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-6 py-4">
+            <div className="flex justify-between items-center">
+              <h3 className="text-xl font-bold text-white">{partner}</h3>
+              <div className="text-sm text-gray-300">
+                {dealsByPartner[partner].length} deal{dealsByPartner[partner].length > 1 ? 's' : ''}
               </div>
             </div>
           </div>
-        ))}
-      </div>
 
-      {/* Deal Detail Modal */}
-      {selectedDeal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50" onClick={() => setSelectedDeal(null)}>
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-6">
-                <div>
-                  <h2 className="text-3xl font-bold text-black">{selectedDeal.companyName}</h2>
-                  <p className="text-gray-600 mt-1">{selectedDeal.sector} • {selectedDeal.partner}</p>
+          {/* Table Header */}
+          <div className="bg-gray-100 border-b border-gray-300">
+            <div className="grid grid-cols-12 gap-2 px-4 py-3 text-xs font-bold text-gray-700 uppercase tracking-wide">
+              <div className="col-span-2">Company</div>
+              <div className="col-span-1">Launch IC</div>
+              <div className="col-span-2">Spin Out Status</div>
+              <div className="col-span-1">Invested</div>
+              <div className="col-span-1">JV Equity</div>
+              <div className="col-span-2">Incorporation</div>
+              <div className="col-span-2">Projected Close</div>
+              <div className="col-span-1">Sector</div>
+            </div>
+          </div>
+
+          {/* Deal Rows */}
+          <div className="divide-y divide-gray-200">
+            {dealsByPartner[partner].map((deal) => (
+              <div
+                key={deal.id}
+                className={`grid grid-cols-12 gap-2 px-4 py-4 hover:bg-gray-50 transition-colors ${getRowColor(deal.spinOutStatus)}`}
+              >
+                {/* Company Name */}
+                <div className="col-span-2">
+                  <p className="font-semibold text-gray-900 text-sm">{deal.companyName}</p>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    {deal.stage} • {deal.status}
+                  </p>
                 </div>
-                <button
-                  onClick={() => setSelectedDeal(null)}
-                  className="text-gray-500 hover:text-gray-700 text-2xl"
-                >
-                  ×
-                </button>
-              </div>
 
-              <div className="grid grid-cols-2 gap-6 mb-6">
-                <div className="space-y-4">
+                {/* Launch IC Date */}
+                <div className="col-span-1 flex items-center">
                   <div>
-                    <h3 className="font-bold text-lg mb-3">Deal Overview</h3>
-                    <div className="space-y-2">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Stage:</span>
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStageColor(selectedDeal.stage)}`}>
-                          {selectedDeal.stage}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Status:</span>
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(selectedDeal.status)}`}>
-                          {selectedDeal.status}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Investment:</span>
-                        <span className="font-semibold">{formatCurrency(selectedDeal.investmentAmount)}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Valuation:</span>
-                        <span className="font-semibold">{formatCurrency(selectedDeal.currentValuation)}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Started:</span>
-                        <span>{formatDate(selectedDeal.startDate)}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Expected End:</span>
-                        <span>{formatDate(selectedDeal.expectedCompletion)}</span>
-                      </div>
-                      {selectedDeal.actualCompletion && (
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Actual Completion:</span>
-                          <span className="font-semibold text-green-600">{formatDate(selectedDeal.actualCompletion)}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="font-bold text-lg mb-3">Team</h3>
-                    <div className="space-y-2">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">CEO:</span>
-                        <span className="font-semibold">{selectedDeal.team.ceo}</span>
-                      </div>
-                      {selectedDeal.team.cto && (
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">CTO:</span>
-                          <span className="font-semibold">{selectedDeal.team.cto}</span>
-                        </div>
-                      )}
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Team Size:</span>
-                        <span className="font-semibold">{selectedDeal.team.headCount} people</span>
-                      </div>
-                    </div>
+                    <p className="text-sm font-medium text-gray-900">{formatDate(deal.launchICDate)}</p>
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-bold text-lg mb-3">Key Metrics</h3>
-                    <div className="grid grid-cols-2 gap-4">
-                      {selectedDeal.keyMetrics.revenue && (
-                        <div className="bg-blue-50 p-4 rounded-lg">
-                          <p className="text-xs text-gray-600">Revenue</p>
-                          <p className="text-2xl font-bold text-black">{formatCurrency(selectedDeal.keyMetrics.revenue)}</p>
-                        </div>
-                      )}
-                      {selectedDeal.keyMetrics.users && (
-                        <div className="bg-green-50 p-4 rounded-lg">
-                          <p className="text-xs text-gray-600">Users</p>
-                          <p className="text-2xl font-bold text-black">{selectedDeal.keyMetrics.users.toLocaleString()}</p>
-                        </div>
-                      )}
-                      {selectedDeal.keyMetrics.mrr && (
-                        <div className="bg-purple-50 p-4 rounded-lg">
-                          <p className="text-xs text-gray-600">MRR</p>
-                          <p className="text-2xl font-bold text-black">{formatCurrency(selectedDeal.keyMetrics.mrr)}</p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
+                {/* Spin Out Status */}
+                <div className="col-span-2 flex items-center">
+                  <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getSpinOutStatusColor(deal.spinOutStatus)}`}>
+                    {deal.spinOutStatus}
+                  </span>
+                </div>
 
-                  {selectedDeal.nextSteps.length > 0 && (
-                    <div>
-                      <h3 className="font-bold text-lg mb-3">Next Steps</h3>
-                      <ul className="space-y-2">
-                        {selectedDeal.nextSteps.map((step, idx) => (
-                          <li key={idx} className="flex items-start gap-2">
-                            <span className="text-yellow-500 mt-1">▸</span>
-                            <span className="text-sm text-gray-700">{step}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                {/* Amount Invested */}
+                <div className="col-span-1 flex items-center">
+                  <p className="text-sm font-bold text-gray-900">{formatCurrency(deal.investmentAmount)}</p>
+                </div>
+
+                {/* JV Equity */}
+                <div className="col-span-1 flex items-center">
+                  <p className="text-sm font-bold text-indigo-600">{deal.jvEquityStake}%</p>
+                </div>
+
+                {/* Incorporation Location */}
+                <div className="col-span-2 flex items-center">
+                  <div>
+                    <p className="text-sm text-gray-700">{deal.incorporationLocation}</p>
+                  </div>
+                </div>
+
+                {/* Projected Closing */}
+                <div className="col-span-2 flex items-center">
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">
+                      {deal.actualCompletion ? formatDate(deal.actualCompletion) : formatDate(deal.projectedClosingDate)}
+                    </p>
+                    {deal.actualCompletion && (
+                      <p className="text-xs text-green-600 mt-0.5">✓ Completed</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Sector */}
+                <div className="col-span-1 flex items-center">
+                  <p className="text-xs text-gray-600">{deal.sector}</p>
                 </div>
               </div>
+            ))}
+          </div>
 
-              <div>
-                <h3 className="font-bold text-lg mb-3">Milestones</h3>
-                <div className="space-y-3">
-                  {selectedDeal.milestones.map((milestone, idx) => (
-                    <div key={idx} className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
-                      <div className={`w-3 h-3 rounded-full ${getMilestoneStatusColor(milestone.status)}`} />
-                      <div className="flex-1">
-                        <p className="font-semibold text-sm">{milestone.name}</p>
-                        <p className="text-xs text-gray-500">Due: {formatDate(milestone.dueDate)}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-xs font-medium">{milestone.status}</p>
-                        {milestone.completedDate && (
-                          <p className="text-xs text-green-600">✓ {formatDate(milestone.completedDate)}</p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+          {/* Partner Summary */}
+          <div className="bg-gray-50 px-6 py-3 border-t-2 border-gray-300">
+            <div className="flex justify-between items-center text-sm">
+              <span className="font-semibold text-gray-700">
+                {partner} Totals:
+              </span>
+              <div className="flex gap-6">
+                <span className="text-gray-600">
+                  Investment: <span className="font-bold text-black">
+                    {formatCurrency(dealsByPartner[partner].reduce((sum, d) => sum + d.investmentAmount, 0))}
+                  </span>
+                </span>
+                <span className="text-gray-600">
+                  Portfolio Value: <span className="font-bold text-black">
+                    {formatCurrency(dealsByPartner[partner].reduce((sum, d) => sum + d.currentValuation, 0))}
+                  </span>
+                </span>
               </div>
             </div>
           </div>
         </div>
-      )}
+      ))}
+
+      {/* Legend */}
+      <div className="bg-white p-6 rounded-lg shadow">
+        <h4 className="font-bold text-sm mb-3 text-gray-900">Status Legend</h4>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-gray-400 rounded"></div>
+            <span className="text-sm text-gray-700">In Studio</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-blue-500 rounded"></div>
+            <span className="text-sm text-gray-700">IC Approved</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-green-500 rounded"></div>
+            <span className="text-sm text-gray-700">Legal Spin Out</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-purple-500 rounded"></div>
+            <span className="text-sm text-gray-700">Fully Independent</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
