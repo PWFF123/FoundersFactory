@@ -11,12 +11,27 @@ export interface AcceleratorDeal {
   investmentAmount: number;
   equityStake: number;
   currentValuation: number;
+  initialValuation: number; // Valuation at investment
+  pricePerShare: number; // Current price per share
+  sharesOwned: number; // Number of shares we own
   keyMetrics: {
     revenue?: number;
     users?: number;
     mrr?: number;
     growth?: number; // Month-over-month %
   };
+  valuationHistory: {
+    date: string;
+    valuation: number;
+    event: string; // e.g., "Initial Investment", "Post-Program", "Seed Round"
+  }[];
+  fundraisingRounds?: {
+    roundName: string;
+    date: string;
+    amountRaised: number;
+    valuation: number;
+    leadInvestor?: string;
+  }[];
   programWeek?: number; // Current week in 12-week program
   weeklyProgress: {
     week: number;
@@ -46,13 +61,23 @@ export const activeAcceleratorDeals: AcceleratorDeal[] = [
     investmentAmount: 100000,
     equityStake: 7,
     currentValuation: 1400000,
-    programWeek: 8,
+    initialValuation: 1000000,
+    pricePerShare: 1.40,
+    sharesOwned: 70000,
     keyMetrics: {
       revenue: 8000,
       users: 250,
       mrr: 8000,
       growth: 35,
     },
+    valuationHistory: [
+      { date: '2024-10-01', valuation: 1000000, event: 'Initial Investment' },
+      { date: '2024-11-01', valuation: 1150000, event: 'Week 4 Milestone' },
+      { date: '2024-12-01', valuation: 1400000, event: 'Week 8 Progress' },
+    ],
+    fundraisingRounds: [
+      { roundName: 'Pre-Seed', date: '2024-10-01', amountRaised: 200000, valuation: 1000000, leadInvestor: 'Founders Factory' },
+    ],
     weeklyProgress: [
       { week: 1, milestone: 'Problem validation', status: 'Completed' },
       { week: 2, milestone: 'Customer interviews', status: 'Completed' },
@@ -87,13 +112,23 @@ export const activeAcceleratorDeals: AcceleratorDeal[] = [
     investmentAmount: 100000,
     equityStake: 8,
     currentValuation: 1250000,
-    programWeek: 8,
+    initialValuation: 1000000,
+    pricePerShare: 1.25,
+    sharesOwned: 80000,
     keyMetrics: {
       revenue: 5000,
       users: 120,
       mrr: 5000,
       growth: 28,
     },
+    valuationHistory: [
+      { date: '2024-10-01', valuation: 1000000, event: 'Initial Investment' },
+      { date: '2024-11-01', valuation: 1100000, event: 'Week 4 Milestone' },
+      { date: '2024-12-01', valuation: 1250000, event: 'Week 8 Progress' },
+    ],
+    fundraisingRounds: [
+      { roundName: 'Pre-Seed', date: '2024-10-01', amountRaised: 180000, valuation: 1000000, leadInvestor: 'Founders Factory' },
+    ],
     weeklyProgress: [
       { week: 1, milestone: 'Problem validation', status: 'Completed' },
       { week: 2, milestone: 'Customer interviews', status: 'Completed' },
@@ -128,9 +163,18 @@ export const activeAcceleratorDeals: AcceleratorDeal[] = [
     investmentAmount: 125000,
     equityStake: 7.5,
     currentValuation: 1666667,
+    initialValuation: 1666667,
+    pricePerShare: 1.00,
+    sharesOwned: 125000,
     keyMetrics: {
       users: 0,
     },
+    valuationHistory: [
+      { date: '2025-01-15', valuation: 1666667, event: 'Initial Investment' },
+    ],
+    fundraisingRounds: [
+      { roundName: 'Pre-Seed', date: '2025-01-15', amountRaised: 250000, valuation: 1666667, leadInvestor: 'Founders Factory' },
+    ],
     weeklyProgress: [
       { week: 1, milestone: 'Problem validation', status: 'Upcoming' },
       { week: 2, milestone: 'Customer interviews', status: 'Upcoming' },
@@ -165,7 +209,16 @@ export const activeAcceleratorDeals: AcceleratorDeal[] = [
     investmentAmount: 125000,
     equityStake: 8,
     currentValuation: 1562500,
+    initialValuation: 1562500,
+    pricePerShare: 1.00,
+    sharesOwned: 125000,
     keyMetrics: {},
+    valuationHistory: [
+      { date: '2025-01-15', valuation: 1562500, event: 'Initial Investment' },
+    ],
+    fundraisingRounds: [
+      { roundName: 'Pre-Seed', date: '2025-01-15', amountRaised: 220000, valuation: 1562500, leadInvestor: 'Founders Factory' },
+    ],
     weeklyProgress: [
       { week: 1, milestone: 'Problem validation', status: 'Upcoming' },
       { week: 2, milestone: 'Customer interviews', status: 'Upcoming' },
@@ -203,12 +256,24 @@ export const graduatedAcceleratorDeals: AcceleratorDeal[] = [
     investmentAmount: 100000,
     equityStake: 7,
     currentValuation: 3500000,
+    initialValuation: 1000000,
+    pricePerShare: 3.50,
+    sharesOwned: 70000,
     keyMetrics: {
       revenue: 45000,
       users: 850,
       mrr: 45000,
       growth: 52,
     },
+    valuationHistory: [
+      { date: '2024-04-01', valuation: 1000000, event: 'Initial Investment' },
+      { date: '2024-06-21', valuation: 1800000, event: 'Demo Day' },
+      { date: '2024-08-15', valuation: 3500000, event: 'Seed Round Close' },
+    ],
+    fundraisingRounds: [
+      { roundName: 'Pre-Seed', date: '2024-04-01', amountRaised: 180000, valuation: 1000000, leadInvestor: 'Founders Factory' },
+      { roundName: 'Seed', date: '2024-08-15', amountRaised: 1200000, valuation: 3500000, leadInvestor: 'Connect Ventures' },
+    ],
     weeklyProgress: [
       { week: 1, milestone: 'Problem validation', status: 'Completed' },
       { week: 2, milestone: 'Customer interviews', status: 'Completed' },
@@ -243,12 +308,23 @@ export const graduatedAcceleratorDeals: AcceleratorDeal[] = [
     investmentAmount: 100000,
     equityStake: 8,
     currentValuation: 2100000,
+    initialValuation: 1000000,
+    pricePerShare: 2.10,
+    sharesOwned: 80000,
     keyMetrics: {
       revenue: 28000,
       users: 420,
       mrr: 28000,
       growth: 38,
     },
+    valuationHistory: [
+      { date: '2024-04-01', valuation: 1000000, event: 'Initial Investment' },
+      { date: '2024-06-21', valuation: 1500000, event: 'Demo Day' },
+      { date: '2024-09-01', valuation: 2100000, event: 'Post-Program Update' },
+    ],
+    fundraisingRounds: [
+      { roundName: 'Pre-Seed', date: '2024-04-01', amountRaised: 180000, valuation: 1000000, leadInvestor: 'Founders Factory' },
+    ],
     weeklyProgress: [
       { week: 1, milestone: 'Problem validation', status: 'Completed' },
       { week: 2, milestone: 'Customer interviews', status: 'Completed' },
@@ -282,10 +358,20 @@ export const graduatedAcceleratorDeals: AcceleratorDeal[] = [
     investmentAmount: 125000,
     equityStake: 7.5,
     currentValuation: 0,
+    initialValuation: 1666667,
+    pricePerShare: 0,
+    sharesOwned: 125000,
     keyMetrics: {
       revenue: 0,
       users: 0,
     },
+    valuationHistory: [
+      { date: '2024-07-01', valuation: 1666667, event: 'Initial Investment' },
+      { date: '2024-09-20', valuation: 0, event: 'Company Wound Down' },
+    ],
+    fundraisingRounds: [
+      { roundName: 'Pre-Seed', date: '2024-07-01', amountRaised: 250000, valuation: 1666667, leadInvestor: 'Founders Factory' },
+    ],
     weeklyProgress: [
       { week: 1, milestone: 'Problem validation', status: 'Completed' },
       { week: 2, milestone: 'Customer interviews', status: 'Completed' },
