@@ -358,12 +358,12 @@ function App() {
             <table className="w-full">
               <thead>
                 <tr className="border-b-2 border-black">
-                  <th className="text-left py-3 px-4 text-xs font-bold text-black uppercase">Partner</th>
-                  <th className="text-left py-3 px-4 text-xs font-bold text-black uppercase">FF Stake</th>
-                  <th className="text-left py-3 px-4 text-xs font-bold text-black uppercase">Investment</th>
-                  <th className="text-left py-3 px-4 text-xs font-bold text-black uppercase">Portfolio Co's</th>
-                  <th className="text-left py-3 px-4 text-xs font-bold text-black uppercase">Portfolio Value</th>
-                  <th className="text-left py-3 px-4 text-xs font-bold text-black uppercase">Status</th>
+                  <th className="text-left py-3 px-4 text-xs font-bold text-black uppercase align-middle">Partner</th>
+                  <th className="text-left py-3 px-4 text-xs font-bold text-black uppercase align-middle">FF Stake</th>
+                  <th className="text-left py-3 px-4 text-xs font-bold text-black uppercase align-middle">Investment</th>
+                  <th className="text-center py-3 px-4 text-xs font-bold text-black uppercase align-middle">Portfolio Co's</th>
+                  <th className="text-left py-3 px-4 text-xs font-bold text-black uppercase align-middle">Portfolio Value</th>
+                  <th className="text-left py-3 px-4 text-xs font-bold text-black uppercase align-middle">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -373,7 +373,7 @@ function App() {
                   className="border-b border-gray-200 hover:bg-yellow-50 cursor-pointer"
                   onClick={() => toggleJV('aviva')}
                 >
-                  <td className="py-4 px-4">
+                  <td className="py-4 px-4 align-middle">
                     <div className="flex items-center gap-2">
                       <svg className={`w-4 h-4 transition-transform ${expandedJV === 'aviva' ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -381,11 +381,11 @@ function App() {
                       <p className="font-semibold text-sm">Aviva</p>
                     </div>
                   </td>
-                  <td className="py-4 px-4"><span className="text-sm font-bold">60%</span></td>
-                  <td className="py-4 px-4"><p className="text-sm font-semibold">£15M</p></td>
-                  <td className="py-4 px-4 text-center"><p className="text-sm font-semibold">12</p></td>
-                  <td className="py-4 px-4"><p className="text-sm font-bold text-teal-600">£45M</p></td>
-                  <td className="py-4 px-4"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
+                  <td className="py-4 px-4 align-middle"><span className="text-sm font-bold">60%</span></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-semibold">£15M</p></td>
+                  <td className="py-4 px-4 text-center align-middle"><p className="text-sm font-semibold">12</p></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-bold text-teal-600">£45M</p></td>
+                  <td className="py-4 px-4 align-middle"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
                 </tr>
                 {expandedJV === 'aviva' && (
                   <tr className="bg-gray-50">
@@ -547,7 +547,7 @@ function App() {
                 </>
                 {/* Mediobanca - Simplified */}
                 <tr className="border-b border-gray-200 hover:bg-yellow-50 bg-gray-50 cursor-pointer" onClick={() => toggleJV('mediobanca')}>
-                  <td className="py-4 px-4">
+                  <td className="py-4 px-4 align-middle">
                     <div className="flex items-center gap-2">
                       <svg className={`w-4 h-4 transition-transform ${expandedJV === 'mediobanca' ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -555,11 +555,11 @@ function App() {
                       <p className="font-semibold text-sm">Mediobanca</p>
                     </div>
                   </td>
-                  <td className="py-4 px-4"><span className="text-sm font-bold">55%</span></td>
-                  <td className="py-4 px-4"><p className="text-sm font-semibold">£10M</p></td>
-                  <td className="py-4 px-4 text-center"><p className="text-sm font-semibold">8</p></td>
-                  <td className="py-4 px-4"><p className="text-sm font-bold text-teal-600">£28M</p></td>
-                  <td className="py-4 px-4"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
+                  <td className="py-4 px-4 align-middle"><span className="text-sm font-bold">55%</span></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-semibold">£10M</p></td>
+                  <td className="py-4 px-4 text-center align-middle"><p className="text-sm font-semibold">8</p></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-bold text-teal-600">£28M</p></td>
+                  <td className="py-4 px-4 align-middle"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
                 </tr>
                 {expandedJV === 'mediobanca' && (
                   <tr className="bg-gray-50">
@@ -704,7 +704,7 @@ function App() {
 
                 {/* Vonovia - Simplified */}
                 <tr className="border-b border-gray-200 hover:bg-yellow-50 cursor-pointer" onClick={() => toggleJV('vonovia')}>
-                  <td className="py-4 px-4">
+                  <td className="py-4 px-4 align-middle">
                     <div className="flex items-center gap-2">
                       <svg className={`w-4 h-4 transition-transform ${expandedJV === 'vonovia' ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -712,11 +712,11 @@ function App() {
                       <p className="font-semibold text-sm">Vonovia</p>
                     </div>
                   </td>
-                  <td className="py-4 px-4"><span className="text-sm font-bold">50%</span></td>
-                  <td className="py-4 px-4"><p className="text-sm font-semibold">£8M</p></td>
-                  <td className="py-4 px-4 text-center"><p className="text-sm font-semibold">6</p></td>
-                  <td className="py-4 px-4"><p className="text-sm font-bold text-teal-600">£18M</p></td>
-                  <td className="py-4 px-4"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
+                  <td className="py-4 px-4 align-middle"><span className="text-sm font-bold">50%</span></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-semibold">£8M</p></td>
+                  <td className="py-4 px-4 text-center align-middle"><p className="text-sm font-semibold">6</p></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-bold text-teal-600">£18M</p></td>
+                  <td className="py-4 px-4 align-middle"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
                 </tr>
                 {expandedJV === 'vonovia' && (
                   <tr className="bg-gray-50">
@@ -820,7 +820,7 @@ function App() {
 
                 {/* Pico - Simplified */}
                 <tr className="border-b border-gray-200 hover:bg-yellow-50 bg-gray-50 cursor-pointer" onClick={() => toggleJV('pico')}>
-                  <td className="py-4 px-4">
+                  <td className="py-4 px-4 align-middle">
                     <div className="flex items-center gap-2">
                       <svg className={`w-4 h-4 transition-transform ${expandedJV === 'pico' ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -828,11 +828,11 @@ function App() {
                       <p className="font-semibold text-sm">Pico</p>
                     </div>
                   </td>
-                  <td className="py-4 px-4"><span className="text-sm font-bold">45%</span></td>
-                  <td className="py-4 px-4"><p className="text-sm font-semibold">£5M</p></td>
-                  <td className="py-4 px-4 text-center"><p className="text-sm font-semibold">4</p></td>
-                  <td className="py-4 px-4"><p className="text-sm font-bold text-teal-600">£12M</p></td>
-                  <td className="py-4 px-4"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
+                  <td className="py-4 px-4 align-middle"><span className="text-sm font-bold">45%</span></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-semibold">£5M</p></td>
+                  <td className="py-4 px-4 text-center align-middle"><p className="text-sm font-semibold">4</p></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-bold text-teal-600">£12M</p></td>
+                  <td className="py-4 px-4 align-middle"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
                 </tr>
                 {expandedJV === 'pico' && (
                   <tr className="bg-gray-50">
@@ -982,7 +982,7 @@ function App() {
 
                 {/* Fastweb - Simplified */}
                 <tr className="border-b border-gray-200 hover:bg-yellow-50 bg-gray-50 cursor-pointer" onClick={() => toggleJV('fastweb')}>
-                  <td className="py-4 px-4">
+                  <td className="py-4 px-4 align-middle">
                     <div className="flex items-center gap-2">
                       <svg className={`w-4 h-4 transition-transform ${expandedJV === 'fastweb' ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -990,11 +990,11 @@ function App() {
                       <p className="font-semibold text-sm">Fastweb</p>
                     </div>
                   </td>
-                  <td className="py-4 px-4"><span className="text-sm font-bold">40%</span></td>
-                  <td className="py-4 px-4"><p className="text-sm font-semibold">£4M</p></td>
-                  <td className="py-4 px-4 text-center"><p className="text-sm font-semibold">3</p></td>
-                  <td className="py-4 px-4"><p className="text-sm font-bold text-teal-600">£10M</p></td>
-                  <td className="py-4 px-4"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
+                  <td className="py-4 px-4 align-middle"><span className="text-sm font-bold">40%</span></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-semibold">£4M</p></td>
+                  <td className="py-4 px-4 text-center align-middle"><p className="text-sm font-semibold">3</p></td>
+                  <td className="py-4 px-4 align-middle"><p className="text-sm font-bold text-teal-600">£10M</p></td>
+                  <td className="py-4 px-4 align-middle"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
                 </tr>
                 {expandedJV === 'fastweb' && (
                   <tr className="bg-gray-50">
