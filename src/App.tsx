@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { DealGeographyGlobe } from './components/DealGeographyGlobe';
+import { StudioDealsView } from './components/StudioDealsView';
+import { AcceleratorDealsView } from './components/AcceleratorDealsView';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals' | 'geography'>('active');
+  const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals' | 'geography' | 'studio' | 'accelerator'>('active');
   const [expandedJV, setExpandedJV] = useState<string | null>(null);
   const [shareIssuances, setShareIssuances] = useState<{[key: string]: boolean}>({
     'aviva-2026-06': false,
@@ -89,6 +91,26 @@ function App() {
               }`}
             >
               Deal Geography
+            </button>
+            <button
+              onClick={() => setActiveTab('studio')}
+              className={`px-6 py-4 font-semibold text-sm transition-colors ${
+                activeTab === 'studio'
+                  ? 'text-black border-b-2 border-yellow-400'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Studio Deals
+            </button>
+            <button
+              onClick={() => setActiveTab('accelerator')}
+              className={`px-6 py-4 font-semibold text-sm transition-colors ${
+                activeTab === 'accelerator'
+                  ? 'text-black border-b-2 border-yellow-400'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Accelerator Investments
             </button>
           </div>
         </div>
@@ -1469,6 +1491,14 @@ function App() {
               </div>
             </div>
           </div>
+        )}
+
+        {activeTab === 'studio' && (
+          <StudioDealsView />
+        )}
+
+        {activeTab === 'accelerator' && (
+          <AcceleratorDealsView />
         )}
       </main>
     </div>
