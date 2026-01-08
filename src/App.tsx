@@ -326,28 +326,28 @@ function App() {
             {jvSubTab === 'overview' && (
               <div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="text-sm font-light text-gray-500 uppercase mb-2">Active Joint Ventures</h3>
-            <p className="text-3xl font-bold text-black">5</p>
-            <p className="text-xs text-gray-500 mt-2">Corporate partnerships</p>
+          <div className="bg-white px-6 py-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gray-200 hover:-translate-y-1">
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Active Joint Ventures</h3>
+            <p className="text-5xl font-bold text-black mb-3">5</p>
+            <p className="text-sm text-gray-600 font-medium">Corporate partnerships</p>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="text-sm font-light text-gray-500 uppercase mb-2">Total Portfolio Value</h3>
-            <p className="text-3xl font-bold text-black">£103M</p>
-            <p className="text-xs text-gray-500 mt-2">Across all JVs</p>
+          <div className="bg-white px-6 py-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gray-200 hover:-translate-y-1">
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Total Portfolio Value</h3>
+            <p className="text-5xl font-bold text-black mb-3">£103M</p>
+            <p className="text-sm text-gray-600 font-medium">Across all JVs</p>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="text-sm font-light text-gray-500 uppercase mb-2">Total Investments</h3>
-            <p className="text-3xl font-bold text-black">£38M</p>
-            <p className="text-xs text-gray-500 mt-2">Capital deployed</p>
+          <div className="bg-white px-6 py-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gray-200 hover:-translate-y-1">
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Total Investments</h3>
+            <p className="text-5xl font-bold text-black mb-3">£38M</p>
+            <p className="text-sm text-gray-600 font-medium">Capital deployed</p>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="text-sm font-light text-gray-500 uppercase mb-2">Obligations Status</h3>
-            <p className="text-3xl font-bold text-black">5/6</p>
-            <p className="text-xs text-gray-500 mt-2">On track</p>
+          <div className="bg-white px-6 py-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gray-200 hover:-translate-y-1">
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Obligations Status</h3>
+            <p className="text-5xl font-bold text-black mb-3">5/6</p>
+            <p className="text-sm text-gray-600 font-medium">On track</p>
           </div>
         </div>
 
