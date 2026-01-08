@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useEffect, useState } from 'react';
+import { useRef, useMemo, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Stars } from '@react-three/drei';
 import * as THREE from 'three';
@@ -10,6 +10,11 @@ interface Location {
   dealValue: number;
   deals: number;
   color: string;
+}
+
+interface Connection {
+  from: Location;
+  to: Location;
 }
 
 const locations: Location[] = [
@@ -37,7 +42,7 @@ function Globe() {
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (groupRef.current) {
       groupRef.current.rotation.y += 0.001;
     }
@@ -107,6 +112,7 @@ function Globe() {
               count={points.length}
               array={new Float32Array(points.flatMap(p => [p.x, p.y, p.z]))}
               itemSize={3}
+              args={[new Float32Array(points.flatMap(p => [p.x, p.y, p.z])), 3]}
             />
           </bufferGeometry>
           <primitive object={gridMaterial} />
@@ -119,7 +125,6 @@ function Globe() {
 function PulsingMarker({ location }: { location: Location }) {
   const markerRef = useRef<THREE.Mesh>(null);
   const glowRef = useRef<THREE.Mesh>(null);
-  const [scale, setScale] = useState(1);
 
   useFrame((state) => {
     const pulse = Math.sin(state.clock.elapsedTime * 2) * 0.3 + 1;
@@ -158,7 +163,6 @@ function PulsingMarker({ location }: { location: Location }) {
 }
 
 function ConnectionLine({ from, to }: { from: Location; to: Location }) {
-  const lineRef = useRef<THREE.Line>(null);
   const [progress, setProgress] = useState(0);
 
   useFrame((state) => {
@@ -199,12 +203,14 @@ function ConnectionLine({ from, to }: { from: Location; to: Location }) {
             count={points.length}
             array={new Float32Array(points.flatMap(p => [p.x, p.y, p.z]))}
             itemSize={3}
+            args={[new Float32Array(points.flatMap(p => [p.x, p.y, p.z])), 3]}
           />
           <bufferAttribute
             attach="attributes-color"
             count={gradientColors.length / 3}
             array={gradientColors}
             itemSize={3}
+            args={[gradientColors, 3]}
           />
         </bufferGeometry>
         <lineBasicMaterial vertexColors transparent opacity={0.3} linewidth={2} />
@@ -221,7 +227,7 @@ function ConnectionLine({ from, to }: { from: Location; to: Location }) {
 
 export function DealGeographyGlobe() {
   const connections = useMemo(() => {
-    const conns = [];
+    const conns: Connection[] = [];
     // Create connections from UK to all other locations
     const uk = locations.find(l => l.name === 'UK')!;
     locations.forEach(loc => {
