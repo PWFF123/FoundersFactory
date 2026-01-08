@@ -1,7 +1,32 @@
 import { useState } from 'react';
 import { Line, Pie } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+} from 'chart.js';
 import { activeAcceleratorDeals, graduatedAcceleratorDeals } from '../data/acceleratorDeals';
 import type { AcceleratorDeal } from '../data/acceleratorDeals';
+
+// Register Chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 export function AcceleratorDealsView() {
   const [selectedDeal, setSelectedDeal] = useState<AcceleratorDeal | null>(null);
