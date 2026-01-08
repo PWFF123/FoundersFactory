@@ -238,7 +238,7 @@ function App() {
                           </div>
                         </div>
 
-                        {/* Right Column - Equity Split & Share Issuance */}
+                        {/* Right Column - Equity Split & IC Requirements */}
                         <div className="space-y-4">
                           <h4 className="font-bold text-lg mb-4">Real-Time Equity Split</h4>
 
@@ -261,6 +261,43 @@ function App() {
                             <div className="flex justify-between mt-2 text-xs text-gray-500">
                               <span>27M shares</span>
                               <span>18M shares</span>
+                            </div>
+                          </div>
+
+                          {/* Investment Committee Requirements */}
+                          <div className="bg-white p-6 rounded-lg shadow-sm border border-purple-200">
+                            <h5 className="font-bold text-sm mb-3 flex items-center gap-2">
+                              <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                              </svg>
+                              Investment Committee (2025)
+                            </h5>
+
+                            <div className="space-y-3">
+                              <div className="p-3 bg-purple-50 rounded border border-purple-200">
+                                <div className="flex justify-between items-start mb-2">
+                                  <p className="text-sm font-semibold text-purple-900">Studio Deals</p>
+                                  <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">2/3 Approved</span>
+                                </div>
+                                <p className="text-xs text-gray-600 mb-1">Required IC approvals this year</p>
+                                <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                  <div className="bg-green-500 h-2 rounded-full" style={{width: '67%'}}></div>
+                                </div>
+                              </div>
+
+                              <div className="p-3 bg-blue-50 rounded border border-blue-200">
+                                <div className="flex justify-between items-start mb-2">
+                                  <p className="text-sm font-semibold text-blue-900">Accelerator Investments</p>
+                                  <span className="px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-800">N/A</span>
+                                </div>
+                                <p className="text-xs text-gray-600">Not applicable for this JV</p>
+                              </div>
+
+                              <div className="p-3 bg-yellow-50 rounded border border-yellow-200">
+                                <p className="text-xs font-semibold text-yellow-900 mb-1">Next IC Scheduled</p>
+                                <p className="text-sm font-bold text-black">15 Feb 2025</p>
+                                <p className="text-xs text-gray-600 mt-1">3 deals on agenda for review</p>
+                              </div>
                             </div>
                           </div>
 
@@ -398,6 +435,43 @@ function App() {
                             <div className="flex justify-between mt-2 text-xs text-gray-500">
                               <span>15.4M shares</span>
                               <span>12.6M shares</span>
+                            </div>
+                          </div>
+
+                          {/* Investment Committee Requirements */}
+                          <div className="bg-white p-6 rounded-lg shadow-sm border border-purple-200">
+                            <h5 className="font-bold text-sm mb-3 flex items-center gap-2">
+                              <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                              </svg>
+                              Investment Committee (2025)
+                            </h5>
+
+                            <div className="space-y-3">
+                              <div className="p-3 bg-purple-50 rounded border border-purple-200">
+                                <div className="flex justify-between items-start mb-2">
+                                  <p className="text-sm font-semibold text-purple-900">Studio Deals</p>
+                                  <span className="px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800">3/5 Approved</span>
+                                </div>
+                                <p className="text-xs text-gray-600 mb-1">Required IC approvals this year</p>
+                                <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                  <div className="bg-yellow-400 h-2 rounded-full" style={{width: '60%'}}></div>
+                                </div>
+                              </div>
+
+                              <div className="p-3 bg-blue-50 rounded border border-blue-200">
+                                <div className="flex justify-between items-start mb-2">
+                                  <p className="text-sm font-semibold text-blue-900">Accelerator Investments</p>
+                                  <span className="px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-800">N/A</span>
+                                </div>
+                                <p className="text-xs text-gray-600">Not applicable for this JV</p>
+                              </div>
+
+                              <div className="p-3 bg-red-50 rounded border border-red-200">
+                                <p className="text-xs font-semibold text-red-900 mb-1">Next IC Scheduled</p>
+                                <p className="text-sm font-bold text-black">28 Feb 2025</p>
+                                <p className="text-xs text-gray-600 mt-1">2 deals pending approval (urgent)</p>
+                              </div>
                             </div>
                           </div>
 
@@ -637,8 +711,48 @@ function App() {
                             </div>
                           </div>
 
-                          {/* Accelerator Performance */}
+                          {/* Investment Committee Requirements */}
                           <div className="bg-white p-6 rounded-lg shadow-sm border border-purple-200">
+                            <h5 className="font-bold text-sm mb-3 flex items-center gap-2">
+                              <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                              </svg>
+                              Investment Committee (2025)
+                            </h5>
+
+                            <div className="space-y-3">
+                              <div className="p-3 bg-purple-50 rounded border border-purple-200">
+                                <div className="flex justify-between items-start mb-2">
+                                  <p className="text-sm font-semibold text-purple-900">Studio Deals</p>
+                                  <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">1/2 Approved</span>
+                                </div>
+                                <p className="text-xs text-gray-600 mb-1">Required IC approvals this year</p>
+                                <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                  <div className="bg-green-500 h-2 rounded-full" style={{width: '50%'}}></div>
+                                </div>
+                              </div>
+
+                              <div className="p-3 bg-blue-50 rounded border border-blue-200">
+                                <div className="flex justify-between items-start mb-2">
+                                  <p className="text-sm font-semibold text-blue-900">Accelerator Investments</p>
+                                  <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">2/2 Approved</span>
+                                </div>
+                                <p className="text-xs text-gray-600 mb-1">Batch 3 cohort approvals</p>
+                                <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                  <div className="bg-green-500 h-2 rounded-full" style={{width: '100%'}}></div>
+                                </div>
+                              </div>
+
+                              <div className="p-3 bg-yellow-50 rounded border border-yellow-200">
+                                <p className="text-xs font-semibold text-yellow-900 mb-1">Next IC Scheduled</p>
+                                <p className="text-sm font-bold text-black">20 Mar 2025</p>
+                                <p className="text-xs text-gray-600 mt-1">1 studio deal + Batch 4 review</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Accelerator Performance */}
+                          <div className="bg-white p-6 rounded-lg shadow-sm border border-teal-200">
                             <h5 className="font-bold text-sm mb-3 flex items-center gap-2">
                               <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
@@ -759,6 +873,43 @@ function App() {
                             </div>
                           </div>
 
+                          {/* Investment Committee Requirements */}
+                          <div className="bg-white p-6 rounded-lg shadow-sm border border-purple-200">
+                            <h5 className="font-bold text-sm mb-3 flex items-center gap-2">
+                              <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                              </svg>
+                              Investment Committee (2025)
+                            </h5>
+
+                            <div className="space-y-3">
+                              <div className="p-3 bg-purple-50 rounded border border-purple-200">
+                                <div className="flex justify-between items-start mb-2">
+                                  <p className="text-sm font-semibold text-purple-900">Studio Deals</p>
+                                  <span className="px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-800">N/A</span>
+                                </div>
+                                <p className="text-xs text-gray-600">No studio program for this JV</p>
+                              </div>
+
+                              <div className="p-3 bg-blue-50 rounded border border-blue-200">
+                                <div className="flex justify-between items-start mb-2">
+                                  <p className="text-sm font-semibold text-blue-900">Accelerator Investments</p>
+                                  <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">2/2 Approved</span>
+                                </div>
+                                <p className="text-xs text-gray-600 mb-1">Batch 2 cohort fully approved</p>
+                                <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                  <div className="bg-green-500 h-2 rounded-full" style={{width: '100%'}}></div>
+                                </div>
+                              </div>
+
+                              <div className="p-3 bg-yellow-50 rounded border border-yellow-200">
+                                <p className="text-xs font-semibold text-yellow-900 mb-1">Next IC Scheduled</p>
+                                <p className="text-sm font-bold text-black">10 Apr 2025</p>
+                                <p className="text-xs text-gray-600 mt-1">Batch 3 cohort review (4 companies)</p>
+                              </div>
+                            </div>
+                          </div>
+
                           {/* Connectivity Innovation */}
                           <div className="bg-white p-6 rounded-lg shadow-sm border border-red-200">
                             <h5 className="font-bold text-sm mb-3 flex items-center gap-2">
@@ -799,41 +950,143 @@ function App() {
         <div className="bg-white p-6 rounded-lg shadow mb-8">
           <h3 className="text-lg font-bold text-black mb-6">Investment Obligations Tracker</h3>
           <div className="space-y-6">
-            <div className="space-y-2">
-              <div className="flex justify-between items-start">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3">
-                    <h4 className="font-bold text-sm text-black">Aviva</h4>
-                    <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">ON TRACK</span>
+            {/* Aviva - Studio Only */}
+            <div className="border border-gray-200 rounded-lg p-4">
+              <div className="space-y-3">
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3">
+                      <h4 className="font-bold text-base text-black">Aviva</h4>
+                      <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">ON TRACK</span>
+                    </div>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">Studio Investments · Deadline: 31 Dec 2026</p>
+                  <div className="text-right">
+                    <p className="text-xs text-gray-500">Next IC: 15 Feb 2025</p>
+                  </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-sm font-bold text-black">8 / 10</p>
-                  <p className="text-xs text-gray-500">80% complete</p>
+
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <p className="text-xs text-gray-600 font-medium">Studio Deals (Deadline: 31 Dec 2026)</p>
+                    <p className="text-sm font-bold text-black">8 / 10 committed</p>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="bg-green-500 h-2 rounded-full" style={{width: '80%'}}></div>
+                  </div>
+                  <div className="flex justify-between items-center text-xs text-gray-500">
+                    <span>IC Approvals: 2/3 for 2025</span>
+                    <span>80% complete</span>
+                  </div>
                 </div>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
-                <div className="bg-green-500 h-2.5 rounded-full" style={{width: '80%'}}></div>
               </div>
             </div>
 
-            <div className="space-y-2">
-              <div className="flex justify-between items-start">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3">
-                    <h4 className="font-bold text-sm text-black">Mediobanca</h4>
-                    <span className="px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800">AT RISK</span>
+            {/* Mediobanca - Studio Only */}
+            <div className="border border-yellow-300 rounded-lg p-4 bg-yellow-50">
+              <div className="space-y-3">
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3">
+                      <h4 className="font-bold text-base text-black">Mediobanca</h4>
+                      <span className="px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800">AT RISK</span>
+                    </div>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">Studio Investments · Deadline: 30 Jun 2026</p>
+                  <div className="text-right">
+                    <p className="text-xs text-red-600 font-medium">Next IC: 28 Feb 2025 (urgent)</p>
+                  </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-sm font-bold text-black">5 / 8</p>
-                  <p className="text-xs text-gray-500">63% complete</p>
+
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <p className="text-xs text-gray-600 font-medium">Studio Deals (Deadline: 30 Jun 2026)</p>
+                    <p className="text-sm font-bold text-black">5 / 8 committed</p>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="bg-yellow-400 h-2 rounded-full" style={{width: '63%'}}></div>
+                  </div>
+                  <div className="flex justify-between items-center text-xs text-gray-500">
+                    <span>IC Approvals: 3/5 for 2025 (2 pending)</span>
+                    <span>63% complete</span>
+                  </div>
                 </div>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
-                <div className="bg-yellow-400 h-2.5 rounded-full" style={{width: '63%'}}></div>
+            </div>
+
+            {/* Pico - Studio + Accelerator */}
+            <div className="border border-gray-200 rounded-lg p-4">
+              <div className="space-y-3">
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3">
+                      <h4 className="font-bold text-base text-black">Pico</h4>
+                      <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">ON TRACK</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs text-gray-500">Next IC: 20 Mar 2025</p>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <p className="text-xs text-gray-600 font-medium">Studio Deals (Deadline: 30 Jun 2026)</p>
+                      <p className="text-sm font-bold text-black">3 / 5 committed</p>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-green-500 h-2 rounded-full" style={{width: '60%'}}></div>
+                    </div>
+                    <div className="flex justify-between items-center text-xs text-gray-500">
+                      <span>IC Approvals: 1/2 for 2025</span>
+                      <span>60% complete</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 pt-2 border-t border-gray-200">
+                    <div className="flex justify-between items-center">
+                      <p className="text-xs text-blue-600 font-medium">Accelerator Investments (Batch 3)</p>
+                      <p className="text-sm font-bold text-black">2 / 2 committed</p>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-green-500 h-2 rounded-full" style={{width: '100%'}}></div>
+                    </div>
+                    <div className="flex justify-between items-center text-xs text-gray-500">
+                      <span>IC Approvals: 2/2 approved</span>
+                      <span>100% complete</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Fastweb - Accelerator Only */}
+            <div className="border border-gray-200 rounded-lg p-4">
+              <div className="space-y-3">
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3">
+                      <h4 className="font-bold text-base text-black">Fastweb</h4>
+                      <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">ON TRACK</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs text-gray-500">Next IC: 10 Apr 2025</p>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <p className="text-xs text-blue-600 font-medium">Accelerator Investments (Batch 2)</p>
+                    <p className="text-sm font-bold text-black">2 / 2 committed</p>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="bg-green-500 h-2 rounded-full" style={{width: '100%'}}></div>
+                  </div>
+                  <div className="flex justify-between items-center text-xs text-gray-500">
+                    <span>IC Approvals: 2/2 approved (Batch 3 pending)</span>
+                    <span>100% complete</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
