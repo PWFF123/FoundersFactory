@@ -118,9 +118,9 @@ function App() {
                       setActiveTab('studio');
                       setStudioJVFilter('All');
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
                       activeTab === 'studio' && studioJVFilter === 'All'
-                        ? 'text-black font-medium bg-gray-50/80'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
                         : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
@@ -131,9 +131,9 @@ function App() {
                       setActiveTab('studio');
                       setStudioJVFilter('Aviva');
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
                       activeTab === 'studio' && studioJVFilter === 'Aviva'
-                        ? 'text-black font-medium bg-gray-50/80'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
                         : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
@@ -144,9 +144,9 @@ function App() {
                       setActiveTab('studio');
                       setStudioJVFilter('Mediobanca');
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
                       activeTab === 'studio' && studioJVFilter === 'Mediobanca'
-                        ? 'text-black font-medium bg-gray-50/80'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
                         : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
@@ -157,9 +157,9 @@ function App() {
                       setActiveTab('studio');
                       setStudioJVFilter('Fastweb');
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
                       activeTab === 'studio' && studioJVFilter === 'Fastweb'
-                        ? 'text-black font-medium bg-gray-50/80'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
                         : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
@@ -170,9 +170,9 @@ function App() {
                       setActiveTab('studio');
                       setStudioJVFilter('Vonovia');
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
                       activeTab === 'studio' && studioJVFilter === 'Vonovia'
-                        ? 'text-black font-medium bg-gray-50/80'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
                         : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
@@ -219,9 +219,9 @@ function App() {
                       setActiveTab('accelerator');
                       setAcceleratorJVFilter('Aviva');
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
                       activeTab === 'accelerator' && acceleratorJVFilter === 'Aviva'
-                        ? 'text-black font-medium bg-gray-50/80'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
                         : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
@@ -232,9 +232,9 @@ function App() {
                       setActiveTab('accelerator');
                       setAcceleratorJVFilter('Mediobanca');
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
                       activeTab === 'accelerator' && acceleratorJVFilter === 'Mediobanca'
-                        ? 'text-black font-medium bg-gray-50/80'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
                         : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
@@ -245,9 +245,9 @@ function App() {
                       setActiveTab('accelerator');
                       setAcceleratorJVFilter('Fastweb');
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
                       activeTab === 'accelerator' && acceleratorJVFilter === 'Fastweb'
-                        ? 'text-black font-medium bg-gray-50/80'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
                         : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
@@ -258,9 +258,9 @@ function App() {
                       setActiveTab('accelerator');
                       setAcceleratorJVFilter('Vonovia');
                     }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
                       activeTab === 'accelerator' && acceleratorJVFilter === 'Vonovia'
-                        ? 'text-black font-medium bg-gray-50/80'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
                         : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
