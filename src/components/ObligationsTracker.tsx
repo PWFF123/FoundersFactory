@@ -69,8 +69,8 @@ export const ObligationsTracker: React.FC<ObligationsTrackerProps> = ({
                 <svg viewBox="0 0 100 100" className="w-full h-full">
                   <defs>
                     <linearGradient id={`grad-${obligation.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor={obligation.status === 'on-track' ? '#10b981' : obligation.status === 'at-risk' ? '#f59e0b' : '#3b82f6'} stopOpacity="0.2" />
-                      <stop offset="100%" stopColor={obligation.status === 'on-track' ? '#10b981' : obligation.status === 'at-risk' ? '#f59e0b' : '#3b82f6'} stopOpacity="0.05" />
+                      <stop offset="0%" stopColor={obligation.status === 'on-track' ? '#14b8a6' : obligation.status === 'at-risk' ? '#f59e0b' : '#3b82f6'} stopOpacity="0.2" />
+                      <stop offset="100%" stopColor={obligation.status === 'on-track' ? '#14b8a6' : obligation.status === 'at-risk' ? '#f59e0b' : '#3b82f6'} stopOpacity="0.05" />
                     </linearGradient>
                   </defs>
                   {/* Isometric cube */}
@@ -88,9 +88,9 @@ export const ObligationsTracker: React.FC<ObligationsTrackerProps> = ({
                       {getJVName(obligation.jvId)}
                     </h4>
                     <span className={`px-2 py-1 rounded text-xs font-medium ${
-                      obligation.status === 'on-track' ? 'bg-green-100 text-green-800' :
+                      obligation.status === 'on-track' ? 'bg-teal-100 text-teal-800' :
                       obligation.status === 'at-risk' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-green-100 text-green-800'
+                      'bg-teal-100 text-teal-800'
                     }`}>
                       {obligation.status.replace('-', ' ').toUpperCase()}
                     </span>
@@ -128,9 +128,9 @@ export const ObligationsTracker: React.FC<ObligationsTrackerProps> = ({
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div
                     className={`h-2 rounded-full transition-all duration-700 ease-out ${
-                      obligation.status === 'on-track' ? 'bg-green-500' :
+                      obligation.status === 'on-track' ? 'bg-teal-500' :
                       obligation.status === 'at-risk' ? 'bg-yellow-400' :
-                      'bg-green-500'
+                      'bg-teal-500'
                     }`}
                     style={{ width: `${Math.min(progress, 100)}%` }}
                   ></div>
@@ -145,7 +145,7 @@ export const ObligationsTracker: React.FC<ObligationsTrackerProps> = ({
       <div className="mt-6 pt-4 border-t border-gray-200 grid grid-cols-3 gap-4 relative z-10">
         <div className="text-center">
           <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">On Track</div>
-          <div className="text-2xl font-bold text-green-600">
+          <div className="text-2xl font-bold text-teal-600">
             {obligations.filter(o => o.status === 'on-track').length}
           </div>
         </div>
@@ -157,7 +157,7 @@ export const ObligationsTracker: React.FC<ObligationsTrackerProps> = ({
         </div>
         <div className="text-center">
           <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Completed</div>
-          <div className="text-2xl font-bold text-green-600">
+          <div className="text-2xl font-bold text-teal-600">
             {obligations.filter(o => o.status === 'completed').length}
           </div>
         </div>

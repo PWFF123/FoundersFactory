@@ -77,7 +77,7 @@ export const JVDetailTable: React.FC<JVDetailTableProps> = ({ jointVentures }) =
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-medium ${
                       jv.status === 'active'
-                        ? 'bg-green-100 text-green-800'
+                        ? 'bg-teal-100 text-teal-800'
                         : 'bg-gray-100 text-gray-800'
                     }`}
                   >

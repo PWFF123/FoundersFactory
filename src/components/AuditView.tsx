@@ -20,7 +20,7 @@ export function AuditView() {
   const getDocTypeBadge = (docType: LegalDocument['documentType']) => {
     switch (docType) {
       case 'FF Investment': return { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200' };
-      case 'Priced Round': return { bg: 'bg-green-50', text: 'text-green-700', border: 'border-green-200' };
+      case 'Priced Round': return { bg: 'bg-teal-50', text: 'text-teal-700', border: 'border-teal-200' };
       case 'Shareholder Agreement': return { bg: 'bg-purple-50', text: 'text-purple-700', border: 'border-purple-200' };
       case 'Articles': return { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200' };
       case 'Cap Table': return { bg: 'bg-indigo-50', text: 'text-indigo-700', border: 'border-indigo-200' };

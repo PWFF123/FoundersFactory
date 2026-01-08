@@ -50,7 +50,7 @@ export function FinancingRoundsView() {
     switch (partner) {
       case 'Aviva': return 'bg-blue-50 text-blue-700';
       case 'Mediobanca': return 'bg-purple-50 text-purple-700';
-      case 'Fastweb': return 'bg-green-50 text-green-700';
+      case 'Fastweb': return 'bg-teal-50 text-teal-700';
       case 'Vonovia': return 'bg-orange-50 text-orange-700';
       default: return 'bg-gray-50 text-gray-700';
     }
@@ -66,7 +66,7 @@ export function FinancingRoundsView() {
 
   const getNewsCategoryBadge = (category: NewsArticle['category']) => {
     switch (category) {
-      case 'funding': return { bg: 'bg-green-50', text: 'text-green-700', icon: '💰', label: 'Funding' };
+      case 'funding': return { bg: 'bg-teal-50', text: 'text-teal-700', icon: '💰', label: 'Funding' };
       case 'partnership': return { bg: 'bg-blue-50', text: 'text-blue-700', icon: '🤝', label: 'Partnership' };
       case 'product': return { bg: 'bg-purple-50', text: 'text-purple-700', icon: '🚀', label: 'Product' };
       case 'team': return { bg: 'bg-amber-50', text: 'text-amber-700', icon: '👥', label: 'Team' };
@@ -108,7 +108,7 @@ export function FinancingRoundsView() {
 
         <div className="bg-white border border-gray-200 rounded-lg p-5">
           <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Total Gain</div>
-          <div className={`text-3xl font-semibold mb-1 ${totalGain >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+          <div className={`text-3xl font-semibold mb-1 ${totalGain >= 0 ? 'text-teal-600' : 'text-red-600'}`}>
             {formatCurrency(totalGain)}
           </div>
           <div className="text-sm text-gray-600">{totalMOIC.toFixed(2)}x MOIC</div>
@@ -205,7 +205,7 @@ export function FinancingRoundsView() {
               className={`px-3.5 py-1.5 text-[13px] font-medium rounded-md transition-all ${
                 filterJVPartner === 'Fastweb'
                   ? 'bg-gray-900 text-white shadow-sm'
-                  : 'text-gray-700 hover:text-gray-900 hover:bg-green-50/30'
+                  : 'text-gray-700 hover:text-gray-900 hover:bg-teal-50/30'
               }`}
             >
               <span className="flex items-center gap-2">
@@ -321,7 +321,7 @@ export function FinancingRoundsView() {
                 </div>
                 <div>
                   <p className="text-xs text-gray-500 mb-1">MRR</p>
-                  <p className="text-sm font-semibold text-green-600">
+                  <p className="text-sm font-semibold text-teal-600">
                     {company.keyMetrics.mrr ? formatCurrency(company.keyMetrics.mrr) : 'N/A'}
                   </p>
                 </div>
@@ -425,7 +425,7 @@ export function FinancingRoundsView() {
                   </div>
                   <div>
                     <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Unrealized Gain</p>
-                    <p className={`text-xl font-semibold ${selectedCompany.currentPositionValue >= selectedCompany.ourTotalInvestment ? 'text-green-600' : 'text-red-600'}`}>
+                    <p className={`text-xl font-semibold ${selectedCompany.currentPositionValue >= selectedCompany.ourTotalInvestment ? 'text-teal-600' : 'text-red-600'}`}>
                       {formatCurrency(selectedCompany.currentPositionValue - selectedCompany.ourTotalInvestment)}
                     </p>
                   </div>
@@ -490,7 +490,7 @@ export function FinancingRoundsView() {
                   {selectedCompany.keyMetrics.growthRate && (
                     <div>
                       <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">MoM Growth</p>
-                      <p className="text-xl font-semibold text-green-600">{selectedCompany.keyMetrics.growthRate}%</p>
+                      <p className="text-xl font-semibold text-teal-600">{selectedCompany.keyMetrics.growthRate}%</p>
                     </div>
                   )}
                 </div>

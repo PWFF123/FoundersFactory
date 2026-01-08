@@ -38,7 +38,7 @@ export const PortfolioValueCard: React.FC<PortfolioValueCardProps> = ({ companie
                 </p>
                 <span
                   className={`text-xs font-medium ${
-                    company.valuationChange >= 0 ? 'text-green-600' : 'text-red-600'
+                    company.valuationChange >= 0 ? 'text-teal-600' : 'text-red-600'
                   }`}
                 >
                   {company.valuationChange >= 0 ? '↑' : '↓'} {formatPercentage(company.valuationChange)}

@@ -17,7 +17,7 @@ export const MetricsCard: React.FC<MetricsCardProps> = ({
 }) => {
   const getTrendColor = () => {
     if (!trend) return '';
-    return trend === 'up' ? 'text-green-600' : trend === 'down' ? 'text-red-600' : 'text-ffMidGrey';
+    return trend === 'up' ? 'text-teal-600' : trend === 'down' ? 'text-red-600' : 'text-ffMidGrey';
   };
 
   return (

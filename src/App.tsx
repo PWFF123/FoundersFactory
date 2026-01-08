@@ -384,8 +384,8 @@ function App() {
                   <td className="py-4 px-4"><span className="text-sm font-bold">60%</span></td>
                   <td className="py-4 px-4"><p className="text-sm font-semibold">£15M</p></td>
                   <td className="py-4 px-4 text-center"><p className="text-sm font-semibold">12</p></td>
-                  <td className="py-4 px-4"><p className="text-sm font-bold text-green-600">£45M</p></td>
-                  <td className="py-4 px-4"><span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">ACTIVE</span></td>
+                  <td className="py-4 px-4"><p className="text-sm font-bold text-teal-600">£45M</p></td>
+                  <td className="py-4 px-4"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
                 </tr>
                 {expandedJV === 'aviva' && (
                   <tr className="bg-gray-50">
@@ -412,7 +412,7 @@ function App() {
                             <p className="text-xs text-gray-500 uppercase mb-1">Remaining Cash to Deploy</p>
                             <p className="text-2xl font-bold text-black">£6.5M</p>
                             <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                              <div className="bg-green-500 h-2 rounded-full" style={{width: '57%'}}></div>
+                              <div className="bg-teal-500 h-2 rounded-full" style={{width: '57%'}}></div>
                             </div>
                             <p className="text-xs text-gray-500 mt-1">£8.5M deployed of £15M total</p>
                           </div>
@@ -422,12 +422,12 @@ function App() {
                             <div className="bg-white p-4 rounded-lg shadow-sm border-2 border-yellow-400">
                               <p className="text-xs text-gray-500 uppercase mb-1">FF Equity Value</p>
                               <p className="text-2xl font-bold text-black">£27M</p>
-                              <p className="text-xs text-green-600 mt-1">↑ +35% since inception</p>
+                              <p className="text-xs text-teal-600 mt-1">↑ +35% since inception</p>
                             </div>
                             <div className="bg-white p-4 rounded-lg shadow-sm">
                               <p className="text-xs text-gray-500 uppercase mb-1">Aviva Equity Value</p>
                               <p className="text-2xl font-bold text-black">£18M</p>
-                              <p className="text-xs text-green-600 mt-1">↑ +20% since inception</p>
+                              <p className="text-xs text-teal-600 mt-1">↑ +20% since inception</p>
                             </div>
                           </div>
                         </div>
@@ -471,11 +471,11 @@ function App() {
                               <div className="p-3 bg-purple-50 rounded border border-purple-200">
                                 <div className="flex justify-between items-start mb-2">
                                   <p className="text-sm font-semibold text-purple-900">Studio Deals</p>
-                                  <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">2/3 Approved</span>
+                                  <span className="px-2 py-1 rounded text-xs font-medium bg-teal-100 text-teal-800">2/3 Approved</span>
                                 </div>
                                 <p className="text-xs text-gray-600 mb-1">Required IC approvals this year</p>
                                 <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                                  <div className="bg-green-500 h-2 rounded-full" style={{width: '67%'}}></div>
+                                  <div className="bg-teal-500 h-2 rounded-full" style={{width: '67%'}}></div>
                                 </div>
                               </div>
 
@@ -519,7 +519,7 @@ function App() {
                                       e.stopPropagation();
                                       toggleShareIssuance('aviva-2026-06');
                                     }}
-                                    className="w-5 h-5 text-green-600 rounded"
+                                    className="w-5 h-5 text-teal-600 rounded"
                                   />
                                   <span className="text-xs text-gray-600">Done</span>
                                 </label>
@@ -558,8 +558,8 @@ function App() {
                   <td className="py-4 px-4"><span className="text-sm font-bold">55%</span></td>
                   <td className="py-4 px-4"><p className="text-sm font-semibold">£10M</p></td>
                   <td className="py-4 px-4 text-center"><p className="text-sm font-semibold">8</p></td>
-                  <td className="py-4 px-4"><p className="text-sm font-bold text-green-600">£28M</p></td>
-                  <td className="py-4 px-4"><span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">ACTIVE</span></td>
+                  <td className="py-4 px-4"><p className="text-sm font-bold text-teal-600">£28M</p></td>
+                  <td className="py-4 px-4"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
                 </tr>
                 {expandedJV === 'mediobanca' && (
                   <tr className="bg-gray-50">
@@ -586,7 +586,7 @@ function App() {
                             <p className="text-xs text-gray-500 uppercase mb-1">Remaining Cash to Deploy</p>
                             <p className="text-2xl font-bold text-black">£3.2M</p>
                             <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                              <div className="bg-green-500 h-2 rounded-full" style={{width: '68%'}}></div>
+                              <div className="bg-teal-500 h-2 rounded-full" style={{width: '68%'}}></div>
                             </div>
                             <p className="text-xs text-gray-500 mt-1">£6.8M deployed of £10M total</p>
                           </div>
@@ -596,12 +596,12 @@ function App() {
                             <div className="bg-white p-4 rounded-lg shadow-sm border-2 border-yellow-400">
                               <p className="text-xs text-gray-500 uppercase mb-1">FF Equity Value</p>
                               <p className="text-2xl font-bold text-black">£15.4M</p>
-                              <p className="text-xs text-green-600 mt-1">↑ +28% since inception</p>
+                              <p className="text-xs text-teal-600 mt-1">↑ +28% since inception</p>
                             </div>
                             <div className="bg-white p-4 rounded-lg shadow-sm">
                               <p className="text-xs text-gray-500 uppercase mb-1">Mediobanca Value</p>
                               <p className="text-2xl font-bold text-black">£12.6M</p>
-                              <p className="text-xs text-green-600 mt-1">↑ +26% since inception</p>
+                              <p className="text-xs text-teal-600 mt-1">↑ +26% since inception</p>
                             </div>
                           </div>
                         </div>
@@ -678,21 +678,21 @@ function App() {
                                   <p className="text-sm font-semibold">FinTech Alpha</p>
                                   <p className="text-xs text-gray-500">Series A · FinTech</p>
                                 </div>
-                                <p className="text-sm font-bold text-green-600">£8.2M</p>
+                                <p className="text-sm font-bold text-teal-600">£8.2M</p>
                               </div>
                               <div className="flex justify-between items-center">
                                 <div>
                                   <p className="text-sm font-semibold">InsureTech Pro</p>
                                   <p className="text-xs text-gray-500">Seed · InsurTech</p>
                                 </div>
-                                <p className="text-sm font-bold text-green-600">£6.5M</p>
+                                <p className="text-sm font-bold text-teal-600">£6.5M</p>
                               </div>
                               <div className="flex justify-between items-center">
                                 <div>
                                   <p className="text-sm font-semibold">WealthManager AI</p>
                                   <p className="text-xs text-gray-500">Series A · WealthTech</p>
                                 </div>
-                                <p className="text-sm font-bold text-green-600">£5.8M</p>
+                                <p className="text-sm font-bold text-teal-600">£5.8M</p>
                               </div>
                             </div>
                           </div>
@@ -715,8 +715,8 @@ function App() {
                   <td className="py-4 px-4"><span className="text-sm font-bold">50%</span></td>
                   <td className="py-4 px-4"><p className="text-sm font-semibold">£8M</p></td>
                   <td className="py-4 px-4 text-center"><p className="text-sm font-semibold">6</p></td>
-                  <td className="py-4 px-4"><p className="text-sm font-bold text-green-600">£18M</p></td>
-                  <td className="py-4 px-4"><span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">ACTIVE</span></td>
+                  <td className="py-4 px-4"><p className="text-sm font-bold text-teal-600">£18M</p></td>
+                  <td className="py-4 px-4"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
                 </tr>
                 {expandedJV === 'vonovia' && (
                   <tr className="bg-gray-50">
@@ -734,7 +734,7 @@ function App() {
                             </div>
                             <div className="bg-white p-4 rounded-lg shadow-sm">
                               <p className="text-xs text-gray-500 uppercase mb-1">Remaining Term</p>
-                              <p className="text-2xl font-bold text-green-600">4.5 years</p>
+                              <p className="text-2xl font-bold text-teal-600">4.5 years</p>
                               <p className="text-xs text-gray-500 mt-1">Ends: Dec 2027</p>
                             </div>
                           </div>
@@ -743,7 +743,7 @@ function App() {
                             <p className="text-xs text-gray-500 uppercase mb-1">Remaining Cash to Deploy</p>
                             <p className="text-2xl font-bold text-black">£2.8M</p>
                             <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                              <div className="bg-green-500 h-2 rounded-full" style={{width: '65%'}}></div>
+                              <div className="bg-teal-500 h-2 rounded-full" style={{width: '65%'}}></div>
                             </div>
                             <p className="text-xs text-gray-500 mt-1">£5.2M deployed of £8M total</p>
                           </div>
@@ -753,12 +753,12 @@ function App() {
                             <div className="bg-white p-4 rounded-lg shadow-sm border-2 border-yellow-400">
                               <p className="text-xs text-gray-500 uppercase mb-1">FF Equity Value</p>
                               <p className="text-2xl font-bold text-black">£9.0M</p>
-                              <p className="text-xs text-green-600 mt-1">↑ +12.5% since inception</p>
+                              <p className="text-xs text-teal-600 mt-1">↑ +12.5% since inception</p>
                             </div>
                             <div className="bg-white p-4 rounded-lg shadow-sm">
                               <p className="text-xs text-gray-500 uppercase mb-1">Vonovia Equity Value</p>
                               <p className="text-2xl font-bold text-black">£9.0M</p>
-                              <p className="text-xs text-green-600 mt-1">↑ +12.5% since inception</p>
+                              <p className="text-xs text-teal-600 mt-1">↑ +12.5% since inception</p>
                             </div>
                           </div>
                         </div>
@@ -790,23 +790,23 @@ function App() {
                           </div>
 
                           {/* PropTech Focus */}
-                          <div className="bg-white p-6 rounded-lg shadow-sm border border-green-200">
+                          <div className="bg-white p-6 rounded-lg shadow-sm border border-teal-200">
                             <h5 className="font-bold text-sm mb-3 flex items-center gap-2">
-                              <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <svg className="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                               </svg>
                               PropTech Investment Focus
                             </h5>
                             <div className="space-y-3">
-                              <div className="p-3 bg-green-50 rounded">
+                              <div className="p-3 bg-teal-50 rounded">
                                 <p className="text-sm font-semibold">Smart Building Solutions</p>
                                 <p className="text-xs text-gray-600 mt-1">2 portfolio companies · £6.2M total value</p>
                               </div>
-                              <div className="p-3 bg-green-50 rounded">
+                              <div className="p-3 bg-teal-50 rounded">
                                 <p className="text-sm font-semibold">Tenant Experience Platforms</p>
                                 <p className="text-xs text-gray-600 mt-1">2 portfolio companies · £5.8M total value</p>
                               </div>
-                              <div className="p-3 bg-green-50 rounded">
+                              <div className="p-3 bg-teal-50 rounded">
                                 <p className="text-sm font-semibold">Energy Management</p>
                                 <p className="text-xs text-gray-600 mt-1">2 portfolio companies · £6.0M total value</p>
                               </div>
@@ -831,8 +831,8 @@ function App() {
                   <td className="py-4 px-4"><span className="text-sm font-bold">45%</span></td>
                   <td className="py-4 px-4"><p className="text-sm font-semibold">£5M</p></td>
                   <td className="py-4 px-4 text-center"><p className="text-sm font-semibold">4</p></td>
-                  <td className="py-4 px-4"><p className="text-sm font-bold text-green-600">£12M</p></td>
-                  <td className="py-4 px-4"><span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">ACTIVE</span></td>
+                  <td className="py-4 px-4"><p className="text-sm font-bold text-teal-600">£12M</p></td>
+                  <td className="py-4 px-4"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
                 </tr>
                 {expandedJV === 'pico' && (
                   <tr className="bg-gray-50">
@@ -859,7 +859,7 @@ function App() {
                             <p className="text-xs text-gray-500 uppercase mb-1">Remaining Cash to Deploy</p>
                             <p className="text-2xl font-bold text-black">£1.5M</p>
                             <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                              <div className="bg-green-500 h-2 rounded-full" style={{width: '70%'}}></div>
+                              <div className="bg-teal-500 h-2 rounded-full" style={{width: '70%'}}></div>
                             </div>
                             <p className="text-xs text-gray-500 mt-1">£3.5M deployed of £5M total</p>
                           </div>
@@ -869,12 +869,12 @@ function App() {
                             <div className="bg-white p-4 rounded-lg shadow-sm border-2 border-yellow-400">
                               <p className="text-xs text-gray-500 uppercase mb-1">FF Equity Value</p>
                               <p className="text-2xl font-bold text-black">£6.6M</p>
-                              <p className="text-xs text-green-600 mt-1">↑ +45% since inception</p>
+                              <p className="text-xs text-teal-600 mt-1">↑ +45% since inception</p>
                             </div>
                             <div className="bg-white p-4 rounded-lg shadow-sm">
                               <p className="text-xs text-gray-500 uppercase mb-1">Pico Equity Value</p>
                               <p className="text-2xl font-bold text-black">£5.4M</p>
-                              <p className="text-xs text-green-600 mt-1">↑ +35% since inception</p>
+                              <p className="text-xs text-teal-600 mt-1">↑ +35% since inception</p>
                             </div>
                           </div>
                         </div>
@@ -918,22 +918,22 @@ function App() {
                               <div className="p-3 bg-purple-50 rounded border border-purple-200">
                                 <div className="flex justify-between items-start mb-2">
                                   <p className="text-sm font-semibold text-purple-900">Studio Deals</p>
-                                  <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">1/2 Approved</span>
+                                  <span className="px-2 py-1 rounded text-xs font-medium bg-teal-100 text-teal-800">1/2 Approved</span>
                                 </div>
                                 <p className="text-xs text-gray-600 mb-1">Required IC approvals this year</p>
                                 <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                                  <div className="bg-green-500 h-2 rounded-full" style={{width: '50%'}}></div>
+                                  <div className="bg-teal-500 h-2 rounded-full" style={{width: '50%'}}></div>
                                 </div>
                               </div>
 
                               <div className="p-3 bg-blue-50 rounded border border-blue-200">
                                 <div className="flex justify-between items-start mb-2">
                                   <p className="text-sm font-semibold text-blue-900">Accelerator Investments</p>
-                                  <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">2/2 Approved</span>
+                                  <span className="px-2 py-1 rounded text-xs font-medium bg-teal-100 text-teal-800">2/2 Approved</span>
                                 </div>
                                 <p className="text-xs text-gray-600 mb-1">Batch 3 cohort approvals</p>
                                 <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                                  <div className="bg-green-500 h-2 rounded-full" style={{width: '100%'}}></div>
+                                  <div className="bg-teal-500 h-2 rounded-full" style={{width: '100%'}}></div>
                                 </div>
                               </div>
 
@@ -959,7 +959,7 @@ function App() {
                                   <p className="text-sm font-semibold">Batch 1 (Complete)</p>
                                   <p className="text-xs text-gray-600">2 companies graduated</p>
                                 </div>
-                                <p className="text-lg font-bold text-green-600">+52%</p>
+                                <p className="text-lg font-bold text-teal-600">+52%</p>
                               </div>
                               <div className="flex justify-between items-center p-3 bg-purple-50 rounded">
                                 <div>
@@ -993,8 +993,8 @@ function App() {
                   <td className="py-4 px-4"><span className="text-sm font-bold">40%</span></td>
                   <td className="py-4 px-4"><p className="text-sm font-semibold">£4M</p></td>
                   <td className="py-4 px-4 text-center"><p className="text-sm font-semibold">3</p></td>
-                  <td className="py-4 px-4"><p className="text-sm font-bold text-green-600">£10M</p></td>
-                  <td className="py-4 px-4"><span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">ACTIVE</span></td>
+                  <td className="py-4 px-4"><p className="text-sm font-bold text-teal-600">£10M</p></td>
+                  <td className="py-4 px-4"><span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span></td>
                 </tr>
                 {expandedJV === 'fastweb' && (
                   <tr className="bg-gray-50">
@@ -1012,7 +1012,7 @@ function App() {
                             </div>
                             <div className="bg-white p-4 rounded-lg shadow-sm">
                               <p className="text-xs text-gray-500 uppercase mb-1">Remaining Term</p>
-                              <p className="text-2xl font-bold text-green-600">3.7 years</p>
+                              <p className="text-2xl font-bold text-teal-600">3.7 years</p>
                               <p className="text-xs text-gray-500 mt-1">Ends: Jan 2028</p>
                             </div>
                           </div>
@@ -1021,7 +1021,7 @@ function App() {
                             <p className="text-xs text-gray-500 uppercase mb-1">Remaining Cash to Deploy</p>
                             <p className="text-2xl font-bold text-black">£1.2M</p>
                             <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                              <div className="bg-green-500 h-2 rounded-full" style={{width: '70%'}}></div>
+                              <div className="bg-teal-500 h-2 rounded-full" style={{width: '70%'}}></div>
                             </div>
                             <p className="text-xs text-gray-500 mt-1">£2.8M deployed of £4M total</p>
                           </div>
@@ -1031,12 +1031,12 @@ function App() {
                             <div className="bg-white p-4 rounded-lg shadow-sm border-2 border-yellow-400">
                               <p className="text-xs text-gray-500 uppercase mb-1">FF Equity Value</p>
                               <p className="text-2xl font-bold text-black">£6.0M</p>
-                              <p className="text-xs text-green-600 mt-1">↑ +50% since inception</p>
+                              <p className="text-xs text-teal-600 mt-1">↑ +50% since inception</p>
                             </div>
                             <div className="bg-white p-4 rounded-lg shadow-sm">
                               <p className="text-xs text-gray-500 uppercase mb-1">Fastweb Equity Value</p>
                               <p className="text-2xl font-bold text-black">£4.0M</p>
-                              <p className="text-xs text-green-600 mt-1">↑ +33% since inception</p>
+                              <p className="text-xs text-teal-600 mt-1">↑ +33% since inception</p>
                             </div>
                           </div>
                         </div>
@@ -1088,11 +1088,11 @@ function App() {
                               <div className="p-3 bg-blue-50 rounded border border-blue-200">
                                 <div className="flex justify-between items-start mb-2">
                                   <p className="text-sm font-semibold text-blue-900">Accelerator Investments</p>
-                                  <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">2/2 Approved</span>
+                                  <span className="px-2 py-1 rounded text-xs font-medium bg-teal-100 text-teal-800">2/2 Approved</span>
                                 </div>
                                 <p className="text-xs text-gray-600 mb-1">Batch 2 cohort fully approved</p>
                                 <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                                  <div className="bg-green-500 h-2 rounded-full" style={{width: '100%'}}></div>
+                                  <div className="bg-teal-500 h-2 rounded-full" style={{width: '100%'}}></div>
                                 </div>
                               </div>
 
@@ -1116,12 +1116,12 @@ function App() {
                               <div className="p-3 bg-red-50 rounded">
                                 <p className="text-sm font-semibold">5G Network Solutions</p>
                                 <p className="text-xs text-gray-600 mt-1">1 portfolio company · £4.2M value</p>
-                                <p className="text-xs text-green-600 mt-1">Series A raised £3M</p>
+                                <p className="text-xs text-teal-600 mt-1">Series A raised £3M</p>
                               </div>
                               <div className="p-3 bg-red-50 rounded">
                                 <p className="text-sm font-semibold">IoT Connectivity Platform</p>
                                 <p className="text-xs text-gray-600 mt-1">1 portfolio company · £3.5M value</p>
-                                <p className="text-xs text-green-600 mt-1">Seed stage · Growing fast</p>
+                                <p className="text-xs text-teal-600 mt-1">Seed stage · Growing fast</p>
                               </div>
                               <div className="p-3 bg-red-50 rounded">
                                 <p className="text-sm font-semibold">Edge Computing Startup</p>
@@ -1215,7 +1215,7 @@ function App() {
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
                   {[
                     { name: 'UK', value: '£35M', deals: 3, color: 'from-yellow-500 to-yellow-600' },
-                    { name: 'Germany', value: '£18M', deals: 2, color: 'from-green-500 to-green-600' },
+                    { name: 'Germany', value: '£18M', deals: 2, color: 'from-teal-500 to-teal-600' },
                     { name: 'Japan', value: '£22M', deals: 2, color: 'from-purple-500 to-purple-600' },
                     { name: 'Saudi Arabia', value: '£15M', deals: 1, color: 'from-orange-500 to-orange-600' },
                     { name: 'Australia', value: '£12M', deals: 1, color: 'from-blue-500 to-blue-600' },
@@ -1331,7 +1331,7 @@ function App() {
                       <h4 className="text-xl font-bold text-black">Bosch</h4>
                       <p className="text-sm text-gray-500 mt-1">Manufacturing & IoT • Stage: Term Sheet</p>
                     </div>
-                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">ADVANCED</span>
+                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ADVANCED</span>
                   </div>
 
                   <div className="grid grid-cols-4 gap-4 mb-4">
@@ -1349,7 +1349,7 @@ function App() {
                     </div>
                     <div>
                       <p className="text-xs text-gray-500 uppercase mb-1">IC Status</p>
-                      <p className="text-sm font-semibold text-green-600">Approved</p>
+                      <p className="text-sm font-semibold text-teal-600">Approved</p>
                     </div>
                   </div>
 
@@ -1476,9 +1476,9 @@ function App() {
                 <p className="text-xs text-gray-500 mt-2">Within 6 months</p>
               </div>
 
-              <div className="bg-white p-6 rounded-lg shadow border-l-4 border-green-500">
+              <div className="bg-white p-6 rounded-lg shadow border-l-4 border-teal-500">
                 <h3 className="text-sm font-light text-gray-500 uppercase mb-2">Future Renewals</h3>
-                <p className="text-3xl font-bold text-green-600">5</p>
+                <p className="text-3xl font-bold text-teal-600">5</p>
                 <p className="text-xs text-gray-500 mt-2">Beyond 6 months</p>
               </div>
             </div>
@@ -1494,7 +1494,7 @@ function App() {
                     <div>
                       <h4 className="text-xl font-bold text-black flex items-center gap-3">
                         Aviva
-                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">ACTIVE</span>
+                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span>
                       </h4>
                       <p className="text-sm text-gray-600 mt-1">7-year term • Started Jan 2022 • Ends Dec 2028</p>
                     </div>
@@ -1536,7 +1536,7 @@ function App() {
                             type="checkbox"
                             checked={renewalReminders['aviva-sub']}
                             onChange={() => toggleRenewalReminder('aviva-sub')}
-                            className="w-5 h-5 text-green-600 rounded"
+                            className="w-5 h-5 text-teal-600 rounded"
                           />
                           <span className="text-xs font-medium text-gray-700">Calendar Set</span>
                         </label>
@@ -1587,7 +1587,7 @@ function App() {
                             type="checkbox"
                             checked={renewalReminders['aviva-sha']}
                             onChange={() => toggleRenewalReminder('aviva-sha')}
-                            className="w-5 h-5 text-green-600 rounded"
+                            className="w-5 h-5 text-teal-600 rounded"
                           />
                           <span className="text-xs font-medium text-gray-700">Calendar Set</span>
                         </label>
@@ -1611,7 +1611,7 @@ function App() {
                     <div>
                       <h4 className="text-xl font-bold text-black flex items-center gap-3">
                         Mediobanca
-                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">ACTIVE</span>
+                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800">ACTIVE</span>
                       </h4>
                       <p className="text-sm text-gray-600 mt-1">5-year term • Started Mar 2022 • Ends Jun 2027</p>
                     </div>
@@ -1652,7 +1652,7 @@ function App() {
                             type="checkbox"
                             checked={renewalReminders['mediobanca-sub']}
                             onChange={() => toggleRenewalReminder('mediobanca-sub')}
-                            className="w-5 h-5 text-green-600 rounded"
+                            className="w-5 h-5 text-teal-600 rounded"
                           />
                           <span className="text-xs font-medium text-gray-700">Calendar Set</span>
                         </label>
@@ -1702,7 +1702,7 @@ function App() {
                             type="checkbox"
                             checked={renewalReminders['mediobanca-sha']}
                             onChange={() => toggleRenewalReminder('mediobanca-sha')}
-                            className="w-5 h-5 text-green-600 rounded"
+                            className="w-5 h-5 text-teal-600 rounded"
                           />
                           <span className="text-xs font-medium text-gray-700">Calendar Set</span>
                         </label>
@@ -1729,11 +1729,11 @@ function App() {
                     <div className="space-y-2">
                       <div className="text-xs">
                         <span className="text-gray-600">Sub Agreement:</span>
-                        <span className="font-bold text-green-600 ml-2">Jun 2027</span>
+                        <span className="font-bold text-teal-600 ml-2">Jun 2027</span>
                       </div>
                       <div className="text-xs">
                         <span className="text-gray-600">SHA:</span>
-                        <span className="font-bold text-green-600 ml-2">Dec 2027</span>
+                        <span className="font-bold text-teal-600 ml-2">Dec 2027</span>
                       </div>
                     </div>
                   </div>
@@ -1761,11 +1761,11 @@ function App() {
                     <div className="space-y-2">
                       <div className="text-xs">
                         <span className="text-gray-600">Sub Agreement:</span>
-                        <span className="font-bold text-green-600 ml-2">Jul 2027</span>
+                        <span className="font-bold text-teal-600 ml-2">Jul 2027</span>
                       </div>
                       <div className="text-xs">
                         <span className="text-gray-600">SHA:</span>
-                        <span className="font-bold text-green-600 ml-2">Jan 2028</span>
+                        <span className="font-bold text-teal-600 ml-2">Jan 2028</span>
                       </div>
                     </div>
                   </div>

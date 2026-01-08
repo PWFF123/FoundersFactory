@@ -62,7 +62,7 @@ export function AcceleratorDealsView({ initialJVFilter = 'All' }: AcceleratorDea
       case 'Application': return 'bg-gray-100 text-gray-700 border-gray-300';
       case 'Due Diligence': return 'bg-yellow-100 text-yellow-700 border-yellow-300';
       case 'Active Program': return 'bg-blue-100 text-blue-700 border-blue-300';
-      case 'Post-Program': return 'bg-green-100 text-green-700 border-green-300';
+      case 'Post-Program': return 'bg-teal-100 text-teal-700 border-green-300';
       case 'Follow-on': return 'bg-purple-100 text-purple-700 border-purple-300';
       case 'Exited': return 'bg-red-100 text-red-700 border-red-300';
       default: return 'bg-gray-100 text-gray-700 border-gray-300';
@@ -74,7 +74,7 @@ export function AcceleratorDealsView({ initialJVFilter = 'All' }: AcceleratorDea
       case 'Application': return 'bg-gray-50 border-l-4 border-gray-400';
       case 'Due Diligence': return 'bg-yellow-50 border-l-4 border-yellow-500';
       case 'Active Program': return 'bg-blue-50 border-l-4 border-blue-500';
-      case 'Post-Program': return 'bg-green-50 border-l-4 border-green-500';
+      case 'Post-Program': return 'bg-teal-50 border-l-4 border-green-500';
       case 'Follow-on': return 'bg-purple-50 border-l-4 border-purple-500';
       case 'Exited': return 'bg-red-50 border-l-4 border-red-500';
       default: return 'bg-white border-l-4 border-gray-300';
@@ -236,7 +236,7 @@ export function AcceleratorDealsView({ initialJVFilter = 'All' }: AcceleratorDea
 
                 {/* MOIC */}
                 <div className="col-span-1 flex items-center">
-                  <p className={`text-sm font-bold ${calculateMOIC(deal) >= 1 ? 'text-green-600' : 'text-red-600'}`}>
+                  <p className={`text-sm font-bold ${calculateMOIC(deal) >= 1 ? 'text-teal-600' : 'text-red-600'}`}>
                     {calculateMOIC(deal).toFixed(2)}x
                   </p>
                 </div>
@@ -297,7 +297,7 @@ export function AcceleratorDealsView({ initialJVFilter = 'All' }: AcceleratorDea
             <span className="text-sm text-gray-700">Active Program</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-green-500 rounded"></div>
+            <div className="w-4 h-4 bg-teal-500 rounded"></div>
             <span className="text-sm text-gray-700">Post-Program</span>
           </div>
           <div className="flex items-center gap-2">
@@ -403,7 +403,7 @@ function CompanyDetailModal({ deal, onClose, formatCurrency, formatDate, calcula
               <span>{deal.partner}</span>
               <span className="text-gray-300">|</span>
               <span className={`font-medium ${
-                deal.status === 'On Track' ? 'text-green-600' :
+                deal.status === 'On Track' ? 'text-teal-600' :
                 deal.status === 'At Risk' ? 'text-amber-600' : 'text-gray-600'
               }`}>
                 {deal.status}
@@ -430,13 +430,13 @@ function CompanyDetailModal({ deal, onClose, formatCurrency, formatDate, calcula
 
             <div className="bg-white border border-gray-200 rounded-lg p-5">
               <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">MOIC</div>
-              <div className={`text-2xl font-semibold mb-1 ${moic >= 1 ? 'text-green-600' : 'text-red-600'}`}>{moic.toFixed(2)}x</div>
+              <div className={`text-2xl font-semibold mb-1 ${moic >= 1 ? 'text-teal-600' : 'text-red-600'}`}>{moic.toFixed(2)}x</div>
               <div className="text-sm text-gray-600">Multiple on capital</div>
             </div>
 
             <div className="bg-white border border-gray-200 rounded-lg p-5">
               <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">ROI</div>
-              <div className={`text-2xl font-semibold mb-1 ${roi >= 0 ? 'text-green-600' : 'text-red-600'}`}>{roi.toFixed(1)}%</div>
+              <div className={`text-2xl font-semibold mb-1 ${roi >= 0 ? 'text-teal-600' : 'text-red-600'}`}>{roi.toFixed(1)}%</div>
               <div className="text-sm text-gray-600">Return on investment</div>
             </div>
           </div>
@@ -616,7 +616,7 @@ function CompanyDetailModal({ deal, onClose, formatCurrency, formatDate, calcula
                 {deal.keyMetrics.growth !== undefined && (
                   <div className="flex justify-between items-center py-3 border-b border-gray-100">
                     <span className="text-sm text-gray-600">Growth (MoM)</span>
-                    <span className="font-semibold text-green-600">+{deal.keyMetrics.growth}%</span>
+                    <span className="font-semibold text-teal-600">+{deal.keyMetrics.growth}%</span>
                   </div>
                 )}
                 {deal.pricePerShare && (

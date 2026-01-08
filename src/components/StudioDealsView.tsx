@@ -34,7 +34,7 @@ export function StudioDealsView({ initialJVFilter = 'All' }: StudioDealsViewProp
     switch (status) {
       case 'In Studio': return 'bg-gray-100 text-gray-700 border-gray-300';
       case 'IC Approved': return 'bg-blue-100 text-blue-700 border-blue-300';
-      case 'Legal Spin Out': return 'bg-green-100 text-green-700 border-green-300';
+      case 'Legal Spin Out': return 'bg-teal-100 text-teal-700 border-green-300';
       case 'Fully Independent': return 'bg-purple-100 text-purple-700 border-purple-300';
       default: return 'bg-gray-100 text-gray-700 border-gray-300';
     }
@@ -44,7 +44,7 @@ export function StudioDealsView({ initialJVFilter = 'All' }: StudioDealsViewProp
     switch (spinOutStatus) {
       case 'In Studio': return 'bg-gray-50 border-l-4 border-gray-400';
       case 'IC Approved': return 'bg-blue-50 border-l-4 border-blue-500';
-      case 'Legal Spin Out': return 'bg-green-50 border-l-4 border-green-500';
+      case 'Legal Spin Out': return 'bg-teal-50 border-l-4 border-green-500';
       case 'Fully Independent': return 'bg-purple-50 border-l-4 border-purple-500';
       default: return 'bg-white border-l-4 border-gray-300';
     }
@@ -197,7 +197,7 @@ export function StudioDealsView({ initialJVFilter = 'All' }: StudioDealsViewProp
                       {deal.actualCompletion ? formatDate(deal.actualCompletion) : formatDate(deal.projectedClosingDate)}
                     </p>
                     {deal.actualCompletion && (
-                      <p className="text-xs text-green-600 mt-0.5">✓ Completed</p>
+                      <p className="text-xs text-teal-600 mt-0.5">✓ Completed</p>
                     )}
                   </div>
                 </div>
@@ -246,7 +246,7 @@ export function StudioDealsView({ initialJVFilter = 'All' }: StudioDealsViewProp
             <span className="text-sm text-gray-700">IC Approved</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-green-500 rounded"></div>
+            <div className="w-4 h-4 bg-teal-500 rounded"></div>
             <span className="text-sm text-gray-700">Legal Spin Out</span>
           </div>
           <div className="flex items-center gap-2">
