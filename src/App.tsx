@@ -4,6 +4,7 @@ import { StudioDealsView } from './components/StudioDealsView';
 import { AcceleratorDealsView } from './components/AcceleratorDealsView';
 import { FinancingRoundsView } from './components/FinancingRoundsView';
 import { AuditView } from './components/AuditView';
+import { ObligationsTracker } from './components/ObligationsTracker';
 
 function App() {
   const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals' | 'studio' | 'accelerator' | 'financing' | 'audit'>('active');
@@ -1140,150 +1141,20 @@ function App() {
         </div>
 
         {/* Obligations Tracker */}
-        <div className="bg-white p-6 rounded-lg shadow mb-8">
-          <h3 className="text-lg font-bold text-black mb-6">Investment Obligations Tracker</h3>
-          <div className="space-y-6">
-            {/* Aviva - Studio Only */}
-            <div className="border border-gray-200 rounded-lg p-4">
-              <div className="space-y-3">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3">
-                      <h4 className="font-bold text-base text-black">Aviva</h4>
-                      <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">ON TRACK</span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-xs text-gray-500">Next IC: 15 Feb 2025</p>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <p className="text-xs text-gray-600 font-medium">Studio Deals (Deadline: 31 Dec 2026)</p>
-                    <p className="text-sm font-bold text-black">8 / 10 committed</p>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-green-500 h-2 rounded-full" style={{width: '80%'}}></div>
-                  </div>
-                  <div className="flex justify-between items-center text-xs text-gray-500">
-                    <span>IC Approvals: 2/3 for 2025</span>
-                    <span>80% complete</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Mediobanca - Studio Only */}
-            <div className="border border-yellow-300 rounded-lg p-4 bg-yellow-50">
-              <div className="space-y-3">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3">
-                      <h4 className="font-bold text-base text-black">Mediobanca</h4>
-                      <span className="px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800">AT RISK</span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-xs text-red-600 font-medium">Next IC: 28 Feb 2025 (urgent)</p>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <p className="text-xs text-gray-600 font-medium">Studio Deals (Deadline: 30 Jun 2026)</p>
-                    <p className="text-sm font-bold text-black">5 / 8 committed</p>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-yellow-400 h-2 rounded-full" style={{width: '63%'}}></div>
-                  </div>
-                  <div className="flex justify-between items-center text-xs text-gray-500">
-                    <span>IC Approvals: 3/5 for 2025 (2 pending)</span>
-                    <span>63% complete</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Pico - Studio + Accelerator */}
-            <div className="border border-gray-200 rounded-lg p-4">
-              <div className="space-y-3">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3">
-                      <h4 className="font-bold text-base text-black">Pico</h4>
-                      <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">ON TRACK</span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-xs text-gray-500">Next IC: 20 Mar 2025</p>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <p className="text-xs text-gray-600 font-medium">Studio Deals (Deadline: 30 Jun 2026)</p>
-                      <p className="text-sm font-bold text-black">3 / 5 committed</p>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-green-500 h-2 rounded-full" style={{width: '60%'}}></div>
-                    </div>
-                    <div className="flex justify-between items-center text-xs text-gray-500">
-                      <span>IC Approvals: 1/2 for 2025</span>
-                      <span>60% complete</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2 pt-2 border-t border-gray-200">
-                    <div className="flex justify-between items-center">
-                      <p className="text-xs text-blue-600 font-medium">Accelerator Investments (Batch 3)</p>
-                      <p className="text-sm font-bold text-black">2 / 2 committed</p>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-green-500 h-2 rounded-full" style={{width: '100%'}}></div>
-                    </div>
-                    <div className="flex justify-between items-center text-xs text-gray-500">
-                      <span>IC Approvals: 2/2 approved</span>
-                      <span>100% complete</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Fastweb - Accelerator Only */}
-            <div className="border border-gray-200 rounded-lg p-4">
-              <div className="space-y-3">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3">
-                      <h4 className="font-bold text-base text-black">Fastweb</h4>
-                      <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">ON TRACK</span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-xs text-gray-500">Next IC: 10 Apr 2025</p>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <p className="text-xs text-blue-600 font-medium">Accelerator Investments (Batch 2)</p>
-                    <p className="text-sm font-bold text-black">2 / 2 committed</p>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-green-500 h-2 rounded-full" style={{width: '100%'}}></div>
-                  </div>
-                  <div className="flex justify-between items-center text-xs text-gray-500">
-                    <span>IC Approvals: 2/2 approved (Batch 3 pending)</span>
-                    <span>100% complete</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ObligationsTracker
+          obligations={[
+            { id: '1', jvId: 'aviva', type: 'studio', current: 8, target: 10, deadline: '2026-12-31', status: 'on-track' },
+            { id: '2', jvId: 'mediobanca', type: 'studio', current: 5, target: 8, deadline: '2026-06-30', status: 'at-risk' },
+            { id: '3', jvId: 'pico', type: 'studio', current: 3, target: 5, deadline: '2026-06-30', status: 'on-track' },
+            { id: '4', jvId: 'fastweb', type: 'accelerator', current: 2, target: 2, deadline: '2025-12-31', status: 'completed' },
+          ]}
+          jointVentures={[
+            { id: 'aviva', partnerName: 'Aviva', shareholding: 50, investmentAmount: 50000000, portfolioCompanies: 10, portfolioValue: 75000000, status: 'active' },
+            { id: 'mediobanca', partnerName: 'Mediobanca', shareholding: 50, investmentAmount: 40000000, portfolioCompanies: 8, portfolioValue: 60000000, status: 'active' },
+            { id: 'pico', partnerName: 'Pico', shareholding: 50, investmentAmount: 30000000, portfolioCompanies: 7, portfolioValue: 45000000, status: 'active' },
+            { id: 'fastweb', partnerName: 'Fastweb', shareholding: 50, investmentAmount: 20000000, portfolioCompanies: 5, portfolioValue: 30000000, status: 'active' },
+          ]}
+        />
 
         <div className="bg-white p-6 rounded-lg shadow">
           <p className="text-sm text-gray-500 text-center">
