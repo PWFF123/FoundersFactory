@@ -62,7 +62,7 @@ function App() {
       {/* Tab Navigation - Stripe-inspired refined navigation */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-8">
-          <div className="flex gap-1 overflow-x-auto">
+          <div className="flex gap-1 flex-wrap">
             <button
               onClick={() => setActiveTab('active')}
               className={`px-6 py-4 font-semibold text-sm transition-colors whitespace-nowrap ${
