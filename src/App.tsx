@@ -5,7 +5,8 @@ import { AcceleratorDealsView } from './components/AcceleratorDealsView';
 import { FinancingRoundsView } from './components/FinancingRoundsView';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals' | 'geography' | 'studio' | 'accelerator' | 'financing'>('active');
+  const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals' | 'studio' | 'accelerator' | 'financing'>('active');
+  const [jvSubTab, setJvSubTab] = useState<'overview' | 'geography'>('overview');
   const [expandedJV, setExpandedJV] = useState<string | null>(null);
   const [shareIssuances, setShareIssuances] = useState<{[key: string]: boolean}>({
     'aviva-2026-06': false,
@@ -84,16 +85,6 @@ function App() {
               Renewals & Notices
             </button>
             <button
-              onClick={() => setActiveTab('geography')}
-              className={`px-6 py-4 font-semibold text-sm transition-colors ${
-                activeTab === 'geography'
-                  ? 'text-black border-b-2 border-yellow-400'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-            >
-              Deal Geography
-            </button>
-            <button
               onClick={() => setActiveTab('studio')}
               className={`px-6 py-4 font-semibold text-sm transition-colors ${
                 activeTab === 'studio'
@@ -131,6 +122,32 @@ function App() {
       <main className="max-w-7xl mx-auto px-8 py-8">
         {activeTab === 'active' && (
           <div>
+            {/* JV Subtab Navigation */}
+            <div className="mb-6 bg-white rounded-lg shadow-sm border border-gray-200 p-1 inline-flex">
+              <button
+                onClick={() => setJvSubTab('overview')}
+                className={`px-6 py-3 font-semibold text-sm rounded-md transition-all ${
+                  jvSubTab === 'overview'
+                    ? 'bg-black text-white'
+                    : 'text-gray-600 hover:text-black hover:bg-gray-50'
+                }`}
+              >
+                Overview
+              </button>
+              <button
+                onClick={() => setJvSubTab('geography')}
+                className={`px-6 py-3 font-semibold text-sm rounded-md transition-all ${
+                  jvSubTab === 'geography'
+                    ? 'bg-black text-white'
+                    : 'text-gray-600 hover:text-black hover:bg-gray-50'
+                }`}
+              >
+                Deal Geography
+              </button>
+            </div>
+
+            {jvSubTab === 'overview' && (
+              <div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white p-6 rounded-lg shadow">
             <h3 className="text-sm font-light text-gray-500 uppercase mb-2">Active Joint Ventures</h3>
@@ -1099,6 +1116,94 @@ function App() {
             Real-time data integration will be implemented in the next phase.
           </p>
         </div>
+              </div>
+            )}
+
+            {jvSubTab === 'geography' && (
+              <div className="space-y-6">
+                {/* Isometric Header */}
+                <div className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-black rounded-2xl overflow-hidden shadow-2xl border border-slate-700">
+                  {/* Isometric grid background */}
+                  <div className="absolute inset-0 opacity-10">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <pattern id="isometric-grid" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(30)">
+                          <path d="M 0 0 L 40 0 L 40 40" fill="none" stroke="white" strokeWidth="0.5" opacity="0.3"/>
+                        </pattern>
+                      </defs>
+                      <rect width="100%" height="100%" fill="url(#isometric-grid)" />
+                    </svg>
+                  </div>
+
+                  <div className="relative p-8">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">
+                          Global Deal Network
+                        </h2>
+                        <p className="text-slate-300 text-sm">
+                          Real-time visualization of corporate partnerships across 7 markets
+                        </p>
+                      </div>
+                      <div className="flex gap-6">
+                        <div className="text-center bg-slate-800/50 backdrop-blur-sm px-6 py-3 rounded-lg border border-cyan-500/30">
+                          <div className="text-3xl font-bold text-cyan-400">7</div>
+                          <div className="text-xs text-slate-400 uppercase tracking-wider mt-1">Markets</div>
+                        </div>
+                        <div className="text-center bg-slate-800/50 backdrop-blur-sm px-6 py-3 rounded-lg border border-yellow-500/30">
+                          <div className="text-3xl font-bold text-yellow-400">£120M</div>
+                          <div className="text-xs text-slate-400 uppercase tracking-wider mt-1">Deal Value</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Globe Container */}
+                <div className="bg-gradient-to-br from-slate-900 to-slate-950 rounded-2xl shadow-2xl border border-slate-800 overflow-hidden">
+                  <DealGeographyGlobe />
+                </div>
+
+                {/* Market Stats Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                  {[
+                    { name: 'UK', value: '£35M', deals: 3, color: 'from-yellow-500 to-yellow-600' },
+                    { name: 'Germany', value: '£18M', deals: 2, color: 'from-green-500 to-green-600' },
+                    { name: 'Japan', value: '£22M', deals: 2, color: 'from-purple-500 to-purple-600' },
+                    { name: 'Saudi Arabia', value: '£15M', deals: 1, color: 'from-orange-500 to-orange-600' },
+                    { name: 'Australia', value: '£12M', deals: 1, color: 'from-blue-500 to-blue-600' },
+                    { name: 'Singapore', value: '£10M', deals: 1, color: 'from-teal-500 to-teal-600' },
+                    { name: 'Thailand', value: '£8M', deals: 1, color: 'from-pink-500 to-pink-600' },
+                  ].map((market) => (
+                    <div key={market.name} className="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow border border-gray-200">
+                      <div className={`w-full h-2 bg-gradient-to-r ${market.color} rounded-full mb-3`}></div>
+                      <div className="text-sm font-bold text-gray-900">{market.name}</div>
+                      <div className="text-2xl font-bold text-black mt-2">{market.value}</div>
+                      <div className="text-xs text-gray-500 mt-1">{market.deals} deal{market.deals > 1 ? 's' : ''}</div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Legend */}
+                <div className="bg-white rounded-lg shadow p-6">
+                  <h4 className="font-bold text-sm mb-4 text-gray-900">Market Connections</h4>
+                  <div className="flex flex-wrap gap-6">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                      <span className="text-sm text-gray-700">UK Hub</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse"></div>
+                      <span className="text-sm text-gray-700">Active Partnerships</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-0.5 bg-gradient-to-r from-yellow-400 to-transparent"></div>
+                      <span className="text-sm text-gray-700">Deal Flow</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -1628,131 +1733,6 @@ function App() {
                 Critical dates for serving notice on subscription agreements and shareholders' agreements.
                 Missing these deadlines can have significant cash flow and equity implications.
               </p>
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'geography' && (
-          <div className="space-y-8">
-            {/* Header Section */}
-            <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-6 rounded-lg border border-cyan-500/30">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-2xl font-bold text-white mb-2">Global Deal Network</h2>
-                  <p className="text-slate-300 text-sm">Real-time visualization of corporate partnerships across 7 markets</p>
-                </div>
-                <div className="flex gap-4">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-cyan-400">7</div>
-                    <div className="text-xs text-slate-400 uppercase tracking-wider">Markets</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-yellow-400">11</div>
-                    <div className="text-xs text-slate-400 uppercase tracking-wider">Active Deals</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-green-400">£120M</div>
-                    <div className="text-xs text-slate-400 uppercase tracking-wider">Total Value</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Globe Visualization */}
-            <DealGeographyGlobe />
-
-            {/* Market Insights */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-lg border border-slate-700">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-3 h-3 rounded-full bg-yellow-400 animate-pulse" />
-                  <h3 className="text-white font-bold">Primary Hub</h3>
-                </div>
-                <div className="text-4xl font-bold text-yellow-400 mb-2">UK</div>
-                <div className="text-slate-300 text-sm mb-4">Central command for EMEA operations</div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-400">Deal Value:</span>
-                    <span className="text-white font-semibold">£35M</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-400">Active Deals:</span>
-                    <span className="text-white font-semibold">3</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-lg border border-slate-700">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-3 h-3 rounded-full bg-purple-400 animate-pulse" />
-                  <h3 className="text-white font-bold">Asia-Pacific Lead</h3>
-                </div>
-                <div className="text-4xl font-bold text-purple-400 mb-2">Japan</div>
-                <div className="text-slate-300 text-sm mb-4">Fastest growing APAC market</div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-400">Deal Value:</span>
-                    <span className="text-white font-semibold">£22M</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-400">Active Deals:</span>
-                    <span className="text-white font-semibold">2</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-lg border border-slate-700">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse" />
-                  <h3 className="text-white font-bold">Emerging Market</h3>
-                </div>
-                <div className="text-4xl font-bold text-green-400 mb-2">Germany</div>
-                <div className="text-slate-300 text-sm mb-4">Strategic European expansion</div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-400">Deal Value:</span>
-                    <span className="text-white font-semibold">£18M</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-400">Active Deals:</span>
-                    <span className="text-white font-semibold">2</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Regional Breakdown */}
-            <div className="bg-white p-6 rounded-lg shadow">
-              <h3 className="text-lg font-bold text-black mb-6">Regional Distribution</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-semibold text-gray-700">EMEA</span>
-                    <span className="text-sm font-bold text-black">£68M (57%)</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3">
-                    <div className="bg-yellow-400 h-3 rounded-full" style={{ width: '57%' }}></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-semibold text-gray-700">Asia-Pacific</span>
-                    <span className="text-sm font-bold text-black">£52M (43%)</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3">
-                    <div className="bg-purple-400 h-3 rounded-full" style={{ width: '43%' }}></div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 pt-6 border-t border-gray-200">
-                <p className="text-sm text-gray-500 text-center">
-                  <span className="font-bold text-black">Live Network Visualization</span> ·
-                  Powered by real-time deal flow data across 7 global markets.
-                  Network connections show active partnerships and capital flows.
-                </p>
-              </div>
             </div>
           </div>
         )}

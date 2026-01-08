@@ -239,7 +239,7 @@ export function DealGeographyGlobe() {
   }, []);
 
   return (
-    <div className="w-full h-[600px] bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 rounded-lg overflow-hidden relative">
+    <div className="w-full h-[700px] bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 rounded-lg overflow-hidden relative shadow-2xl">
       {/* Stats overlay */}
       <div className="absolute top-6 left-6 z-10 space-y-3">
         <div className="bg-slate-900/80 backdrop-blur-sm border border-cyan-500/30 rounded-lg p-4">
