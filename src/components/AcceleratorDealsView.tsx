@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { activeAcceleratorDeals, graduatedAcceleratorDeals, AcceleratorDeal } from '../data/acceleratorDeals';
+import { activeAcceleratorDeals, graduatedAcceleratorDeals } from '../data/acceleratorDeals';
+import type { AcceleratorDeal } from '../data/acceleratorDeals';
 
 export function AcceleratorDealsView() {
   const [selectedDeal, setSelectedDeal] = useState<AcceleratorDeal | null>(null);

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { activeStudioDeals, completedStudioDeals, StudioDeal } from '../data/studioDeals';
+import { activeStudioDeals, completedStudioDeals } from '../data/studioDeals';
+import type { StudioDeal } from '../data/studioDeals';
 
 export function StudioDealsView() {
   const [selectedDeal, setSelectedDeal] = useState<StudioDeal | null>(null);
