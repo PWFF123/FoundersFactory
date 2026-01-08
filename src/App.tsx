@@ -3,11 +3,14 @@ import { DealGeographyGlobe } from './components/DealGeographyGlobe';
 import { StudioDealsView } from './components/StudioDealsView';
 import { AcceleratorDealsView } from './components/AcceleratorDealsView';
 import { FinancingRoundsView } from './components/FinancingRoundsView';
+import { AuditView } from './components/AuditView';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals' | 'studio' | 'accelerator' | 'financing'>('active');
+  const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals' | 'studio' | 'accelerator' | 'financing' | 'audit'>('active');
   const [jvSubTab, setJvSubTab] = useState<'overview' | 'geography'>('overview');
   const [expandedJV, setExpandedJV] = useState<string | null>(null);
+  const [studioJVFilter, setStudioJVFilter] = useState<'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia'>('All');
+  const [acceleratorJVFilter, setAcceleratorJVFilter] = useState<'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia'>('All');
   const [shareIssuances, setShareIssuances] = useState<{[key: string]: boolean}>({
     'aviva-2026-06': false,
     'mediobanca-2026-09': false,
@@ -39,80 +42,289 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Header */}
-      <header className="bg-black text-white py-6 px-8 border-b-4 border-yellow-400">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold">Founders Factory</h1>
-          <p className="text-sm text-gray-400 mt-1">
+    <div className="min-h-screen bg-slate-50">
+      {/* Header - Stripe-inspired clean design */}
+      <header className="bg-slate-900 text-white py-5 px-8 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <img
+              src={`${import.meta.env.BASE_URL}founders-factory-logo.png`}
+              alt="Founders Factory"
+              className="h-9 brightness-0 invert"
+            />
+          </div>
+          <p className="text-sm text-slate-400 font-medium tracking-tight">
             Corporate Partnerships & Portfolio Dashboard
           </p>
         </div>
       </header>
 
-      {/* Tab Navigation */}
-      <div className="bg-white border-b border-gray-200">
+      {/* Tab Navigation - Stripe-inspired refined navigation */}
+      <div className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-8">
-          <div className="flex gap-1">
+          <div className="flex gap-1 overflow-x-auto">
             <button
               onClick={() => setActiveTab('active')}
-              className={`px-6 py-4 font-semibold text-sm transition-colors ${
+              className={`px-5 py-3.5 font-medium text-sm transition-all duration-150 whitespace-nowrap ${
                 activeTab === 'active'
-                  ? 'text-black border-b-2 border-yellow-400'
-                  : 'text-gray-500 hover:text-gray-700'
+                  ? 'text-slate-900 border-b-2 border-ffYellow'
+                  : 'text-slate-600 hover:text-slate-900 border-b-2 border-transparent hover:border-slate-300'
               }`}
             >
               Active Joint Ventures
             </button>
             <button
               onClick={() => setActiveTab('pipeline')}
-              className={`px-6 py-4 font-semibold text-sm transition-colors ${
+              className={`px-5 py-3.5 font-medium text-sm transition-all duration-150 whitespace-nowrap ${
                 activeTab === 'pipeline'
-                  ? 'text-black border-b-2 border-yellow-400'
-                  : 'text-gray-500 hover:text-gray-700'
+                  ? 'text-slate-900 border-b-2 border-ffYellow'
+                  : 'text-slate-600 hover:text-slate-900 border-b-2 border-transparent hover:border-slate-300'
               }`}
             >
               Pipeline
             </button>
             <button
               onClick={() => setActiveTab('renewals')}
-              className={`px-6 py-4 font-semibold text-sm transition-colors ${
+              className={`px-5 py-3.5 font-medium text-sm transition-all duration-150 whitespace-nowrap ${
                 activeTab === 'renewals'
-                  ? 'text-black border-b-2 border-yellow-400'
-                  : 'text-gray-500 hover:text-gray-700'
+                  ? 'text-slate-900 border-b-2 border-ffYellow'
+                  : 'text-slate-600 hover:text-slate-900 border-b-2 border-transparent hover:border-slate-300'
               }`}
             >
               Renewals & Notices
             </button>
-            <button
-              onClick={() => setActiveTab('studio')}
-              className={`px-6 py-4 font-semibold text-sm transition-colors ${
-                activeTab === 'studio'
-                  ? 'text-black border-b-2 border-yellow-400'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-            >
-              Studio Deals
-            </button>
-            <button
-              onClick={() => setActiveTab('accelerator')}
-              className={`px-6 py-4 font-semibold text-sm transition-colors ${
-                activeTab === 'accelerator'
-                  ? 'text-black border-b-2 border-yellow-400'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-            >
-              Accelerator Investments
-            </button>
+
+            {/* Studio Deals with Dropdown */}
+            <div className="relative group">
+              <button
+                onClick={() => {
+                  setActiveTab('studio');
+                  setStudioJVFilter('All');
+                }}
+                className={`px-5 py-3.5 font-medium text-sm transition-all duration-150 whitespace-nowrap ${
+                  activeTab === 'studio'
+                    ? 'text-slate-900 border-b-2 border-ffYellow'
+                    : 'text-slate-600 hover:text-slate-900 border-b-2 border-transparent hover:border-slate-300'
+                }`}
+              >
+                Studio Deals
+              </button>
+
+              {/* Dropdown Menu - Stripe-inspired subtle dropdown */}
+              <div className="absolute top-full left-0 mt-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 ease-out z-50">
+                <div className="bg-white rounded-lg shadow-md border border-slate-200 py-1.5 mt-1 min-w-[160px]">
+                  <div className="px-3.5 py-2 text-2xs font-semibold text-slate-500 uppercase tracking-wider">
+                    JV Partner
+                  </div>
+                  <button
+                    onClick={() => {
+                      setActiveTab('studio');
+                      setStudioJVFilter('All');
+                    }}
+                    className={`w-full text-left px-3.5 py-2 text-xs font-medium transition-all duration-150 ${
+                      activeTab === 'studio' && studioJVFilter === 'All'
+                        ? 'text-slate-900 bg-slate-50'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+                      All
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('studio');
+                      setStudioJVFilter('Aviva');
+                    }}
+                    className={`w-full text-left px-3.5 py-2 text-xs font-medium transition-all duration-150 ${
+                      activeTab === 'studio' && studioJVFilter === 'Aviva'
+                        ? 'text-slate-900 bg-blue-50'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-blue-50/50'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                      Aviva
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('studio');
+                      setStudioJVFilter('Mediobanca');
+                    }}
+                    className={`w-full text-left px-3.5 py-2 text-xs font-medium transition-all duration-150 ${
+                      activeTab === 'studio' && studioJVFilter === 'Mediobanca'
+                        ? 'text-slate-900 bg-purple-50'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-purple-50/50'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+                      Mediobanca
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('studio');
+                      setStudioJVFilter('Fastweb');
+                    }}
+                    className={`w-full text-left px-3.5 py-2 text-xs font-medium transition-all duration-150 ${
+                      activeTab === 'studio' && studioJVFilter === 'Fastweb'
+                        ? 'text-slate-900 bg-green-50'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-green-50/50'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                      Fastweb
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('studio');
+                      setStudioJVFilter('Vonovia');
+                    }}
+                    className={`w-full text-left px-3.5 py-2 text-xs font-medium transition-all duration-150 ${
+                      activeTab === 'studio' && studioJVFilter === 'Vonovia'
+                        ? 'text-slate-900 bg-orange-50'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-orange-50/50'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
+                      Vonovia
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Accelerator Investments with Dropdown */}
+            <div className="relative group">
+              <button
+                onClick={() => {
+                  setActiveTab('accelerator');
+                  setAcceleratorJVFilter('All');
+                }}
+                className={`px-5 py-3.5 font-medium text-sm transition-all duration-150 whitespace-nowrap ${
+                  activeTab === 'accelerator'
+                    ? 'text-slate-900 border-b-2 border-ffYellow'
+                    : 'text-slate-600 hover:text-slate-900 border-b-2 border-transparent hover:border-slate-300'
+                }`}
+              >
+                Accelerator Investments
+              </button>
+
+              {/* Dropdown Menu - Sophisticated Minimal Style */}
+              <div className="absolute top-full left-0 mt-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 ease-out z-50">
+                <div className="bg-white rounded-lg shadow-md border border-slate-200 py-1.5 mt-1 min-w-[160px]">
+                  <div className="px-3.5 py-2 text-2xs font-semibold text-slate-500 uppercase tracking-wider">
+                    JV Partner
+                  </div>
+                  <button
+                    onClick={() => {
+                      setActiveTab('accelerator');
+                      setAcceleratorJVFilter('All');
+                    }}
+                    className={`w-full text-left px-3.5 py-2 text-xs font-medium transition-all duration-150 ${
+                      activeTab === 'accelerator' && acceleratorJVFilter === 'All'
+                        ? 'text-slate-900 bg-slate-50'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+                      All
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('accelerator');
+                      setAcceleratorJVFilter('Aviva');
+                    }}
+                    className={`w-full text-left px-3.5 py-2 text-xs font-medium transition-all duration-150 ${
+                      activeTab === 'accelerator' && acceleratorJVFilter === 'Aviva'
+                        ? 'text-slate-900 bg-blue-50'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-blue-50/50'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                      Aviva
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('accelerator');
+                      setAcceleratorJVFilter('Mediobanca');
+                    }}
+                    className={`w-full text-left px-3.5 py-2 text-xs font-medium transition-all duration-150 ${
+                      activeTab === 'accelerator' && acceleratorJVFilter === 'Mediobanca'
+                        ? 'text-slate-900 bg-purple-50'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-purple-50/50'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+                      Mediobanca
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('accelerator');
+                      setAcceleratorJVFilter('Fastweb');
+                    }}
+                    className={`w-full text-left px-3.5 py-2 text-xs font-medium transition-all duration-150 ${
+                      activeTab === 'accelerator' && acceleratorJVFilter === 'Fastweb'
+                        ? 'text-slate-900 bg-green-50'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-green-50/50'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                      Fastweb
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('accelerator');
+                      setAcceleratorJVFilter('Vonovia');
+                    }}
+                    className={`w-full text-left px-3.5 py-2 text-xs font-medium transition-all duration-150 ${
+                      activeTab === 'accelerator' && acceleratorJVFilter === 'Vonovia'
+                        ? 'text-slate-900 bg-orange-50'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-orange-50/50'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
+                      Vonovia
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <button
               onClick={() => setActiveTab('financing')}
-              className={`px-6 py-4 font-semibold text-sm transition-colors ${
+              className={`px-5 py-3.5 font-medium text-sm transition-all duration-150 whitespace-nowrap ${
                 activeTab === 'financing'
-                  ? 'text-black border-b-2 border-yellow-400'
-                  : 'text-gray-500 hover:text-gray-700'
+                  ? 'text-slate-900 border-b-2 border-ffYellow'
+                  : 'text-slate-600 hover:text-slate-900 border-b-2 border-transparent hover:border-slate-300'
               }`}
             >
               Financing Rounds
+            </button>
+            <button
+              onClick={() => setActiveTab('audit')}
+              className={`px-5 py-3.5 font-medium text-sm transition-all duration-150 whitespace-nowrap ${
+                activeTab === 'audit'
+                  ? 'text-slate-900 border-b-2 border-ffYellow'
+                  : 'text-slate-600 hover:text-slate-900 border-b-2 border-transparent hover:border-slate-300'
+              }`}
+            >
+              Audit & Documents
             </button>
           </div>
         </div>
@@ -1738,15 +1950,19 @@ function App() {
         )}
 
         {activeTab === 'studio' && (
-          <StudioDealsView />
+          <StudioDealsView initialJVFilter={studioJVFilter} />
         )}
 
         {activeTab === 'accelerator' && (
-          <AcceleratorDealsView />
+          <AcceleratorDealsView initialJVFilter={acceleratorJVFilter} />
         )}
 
         {activeTab === 'financing' && (
           <FinancingRoundsView />
+        )}
+
+        {activeTab === 'audit' && (
+          <AuditView />
         )}
       </main>
     </div>

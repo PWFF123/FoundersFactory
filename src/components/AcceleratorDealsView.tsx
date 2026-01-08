@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Line, Pie } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -28,9 +28,19 @@ ChartJS.register(
   Filler
 );
 
-export function AcceleratorDealsView() {
+interface AcceleratorDealsViewProps {
+  initialJVFilter?: 'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia';
+}
+
+export function AcceleratorDealsView({ initialJVFilter = 'All' }: AcceleratorDealsViewProps) {
   const [selectedDeal, setSelectedDeal] = useState<AcceleratorDeal | null>(null);
   const [showGraduated, setShowGraduated] = useState(false);
+  const [jvFilter, setJvFilter] = useState<'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia'>(initialJVFilter);
+
+  // Update filter when prop changes
+  useEffect(() => {
+    setJvFilter(initialJVFilter);
+  }, [initialJVFilter]);
 
   const formatCurrency = (amount: number) => {
     if (amount >= 1000000) {
@@ -82,7 +92,12 @@ export function AcceleratorDealsView() {
     return ((moic - 1) * 100);
   };
 
-  const deals = showGraduated ? graduatedAcceleratorDeals : activeAcceleratorDeals;
+  const allDeals = showGraduated ? graduatedAcceleratorDeals : activeAcceleratorDeals;
+
+  // Apply JV filter
+  const deals = jvFilter === 'All'
+    ? allDeals
+    : allDeals.filter(deal => deal.partner === jvFilter);
 
   // Group deals by partner
   const dealsByPartner = deals.reduce((acc, deal) => {
@@ -321,43 +336,39 @@ interface CompanyDetailModalProps {
 }
 
 function CompanyDetailModal({ deal, onClose, formatCurrency, formatDate, calculateMOIC, calculateROI }: CompanyDetailModalProps) {
-  // NASA-grade technical chart data
+  // Professional chart data - refined colors
   const valuationChartData = {
     labels: deal.valuationHistory?.map(v => formatDate(v.date)) || [],
     datasets: [
       {
-        label: 'Company Valuation',
+        label: 'Valuation',
         data: deal.valuationHistory?.map(v => v.valuation) || [],
-        borderColor: 'rgb(14, 165, 233)', // Sky blue
-        backgroundColor: 'rgba(14, 165, 233, 0.08)',
+        borderColor: 'rgb(59, 130, 246)',
+        backgroundColor: 'rgba(59, 130, 246, 0.05)',
         borderWidth: 2,
-        tension: 0, // Straight lines for technical look
+        tension: 0.3,
         fill: true,
-        pointRadius: 5,
-        pointHoverRadius: 8,
-        pointBackgroundColor: 'rgb(14, 165, 233)',
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        pointBackgroundColor: 'rgb(59, 130, 246)',
         pointBorderColor: 'rgb(255, 255, 255)',
         pointBorderWidth: 2,
-        pointHoverBackgroundColor: 'rgb(239, 68, 68)',
-        pointHoverBorderColor: 'rgb(255, 255, 255)',
       },
     ],
   };
 
-  // Technical doughnut chart
+  // Elegant doughnut chart
   const equityChartData = {
     labels: ['Founders Factory', 'Other Shareholders'],
     datasets: [
       {
         data: [deal.equityStake, 100 - deal.equityStake],
         backgroundColor: [
-          'rgb(14, 165, 233)', // Sky blue
-          'rgb(226, 232, 240)', // Light gray
+          'rgb(59, 130, 246)',
+          'rgb(226, 232, 240)',
         ],
-        borderWidth: 3,
-        borderColor: 'rgb(255, 255, 255)',
-        hoverOffset: 12,
-        hoverBorderWidth: 4,
+        borderWidth: 0,
+        hoverOffset: 4,
       },
     ],
   };
@@ -366,174 +377,124 @@ function CompanyDetailModal({ deal, onClose, formatCurrency, formatDate, calcula
   const roi = calculateROI(deal);
 
   return (
-    <div className="fixed inset-0 bg-white/95 backdrop-blur-md flex items-center justify-center z-50 p-4" onClick={onClose}>
+    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div
-        className="bg-white rounded-none shadow-2xl max-w-7xl w-full max-h-[95vh] overflow-y-auto border-4 border-black"
+        className="bg-white rounded-lg shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, rgb(226, 232, 240) 1px, transparent 1px),
-            linear-gradient(to bottom, rgb(226, 232, 240) 1px, transparent 1px)
-          `,
-          backgroundSize: '20px 20px'
-        }}
       >
-        {/* NASA-Grade Technical Header */}
-        <div className="relative bg-gradient-to-r from-slate-50 to-gray-100 border-b-4 border-black p-8">
+        {/* Clean Professional Header */}
+        <div className="relative bg-white border-b border-gray-200 px-8 py-6">
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 text-black hover:text-red-600 font-mono text-2xl font-bold w-12 h-12 border-2 border-black hover:border-red-600 flex items-center justify-center transition-all bg-white"
+            className="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition-colors"
           >
-            ×
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </button>
 
-          {/* Technical header grid */}
-          <div className="grid grid-cols-12 gap-6">
-            <div className="col-span-8">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-3 h-3 bg-green-500 animate-pulse border border-black"></div>
-                <span className="text-black text-[10px] font-mono uppercase tracking-[0.2em] font-bold">SYSTEM ONLINE</span>
-                <span className="text-gray-400 text-[10px] font-mono">|</span>
-                <span className="text-gray-600 text-[10px] font-mono">{new Date().toISOString()}</span>
-              </div>
-              <h2 className="text-5xl font-black text-black mb-2 tracking-tight uppercase">{deal.companyName}</h2>
-              <div className="flex gap-3 text-xs font-mono font-bold">
-                <span className="bg-black text-white px-3 py-1.5 uppercase tracking-wider">{deal.sector}</span>
-                <span className="border-2 border-black px-3 py-1.5 uppercase tracking-wider">{deal.batch}</span>
-                <span className="bg-sky-500 text-white px-3 py-1.5 uppercase tracking-wider">{deal.partner}</span>
-              </div>
-            </div>
-            <div className="col-span-4 border-l-4 border-black pl-6">
-              <div className="text-right">
-                <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-gray-600 mb-2 font-bold">CURRENT STATUS</div>
-                <div className={`text-4xl font-black uppercase tracking-tight ${
-                  deal.status === 'On Track' ? 'text-green-600' :
-                  deal.status === 'At Risk' ? 'text-yellow-600' : 'text-gray-600'
-                }`}>
-                  {deal.status}
-                </div>
-                <div className="mt-2 h-2 bg-gray-200 border border-black">
-                  <div
-                    className={`h-full ${
-                      deal.status === 'On Track' ? 'bg-green-500' :
-                      deal.status === 'At Risk' ? 'bg-yellow-500' : 'bg-gray-500'
-                    }`}
-                    style={{ width: deal.status === 'On Track' ? '100%' : deal.status === 'At Risk' ? '60%' : '30%' }}
-                  ></div>
-                </div>
-              </div>
+          <div className="pr-12">
+            <h2 className="text-3xl font-semibold text-gray-900 mb-2">{deal.companyName}</h2>
+            <div className="flex items-center gap-4 text-sm text-gray-600">
+              <span>{deal.sector}</span>
+              <span className="text-gray-300">|</span>
+              <span>{deal.batch}</span>
+              <span className="text-gray-300">|</span>
+              <span>{deal.partner}</span>
+              <span className="text-gray-300">|</span>
+              <span className={`font-medium ${
+                deal.status === 'On Track' ? 'text-green-600' :
+                deal.status === 'At Risk' ? 'text-amber-600' : 'text-gray-600'
+              }`}>
+                {deal.status}
+              </span>
             </div>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-8 space-y-8 bg-white">
-          {/* NASA-Grade Technical Metrics */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="border-4 border-black bg-gradient-to-b from-white to-gray-50 p-6 hover:shadow-2xl transition-all relative group">
-              <div className="absolute top-0 left-0 w-full h-1 bg-sky-500"></div>
-              <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-gray-600 mb-3 font-bold">INVESTMENT</div>
-              <div className="text-4xl font-black text-black mb-2">{formatCurrency(deal.investmentAmount)}</div>
-              <div className="text-xs font-mono text-gray-600 uppercase tracking-wider">{deal.equityStake}% EQUITY STAKE</div>
-              <div className="mt-3 h-1 bg-gray-200">
-                <div className="h-full bg-sky-500 transition-all group-hover:w-full" style={{ width: '70%' }}></div>
-              </div>
+        <div className="p-8 space-y-6 bg-gray-50">
+          {/* Key Metrics - Clean & Professional */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-white border border-gray-200 rounded-lg p-5">
+              <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Investment</div>
+              <div className="text-2xl font-semibold text-gray-900 mb-1">{formatCurrency(deal.investmentAmount)}</div>
+              <div className="text-sm text-gray-600">{deal.equityStake}% equity</div>
             </div>
 
-            <div className="border-4 border-black bg-gradient-to-b from-white to-gray-50 p-6 hover:shadow-2xl transition-all relative group">
-              <div className="absolute top-0 left-0 w-full h-1 bg-purple-500"></div>
-              <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-gray-600 mb-3 font-bold">CURRENT VALUE</div>
-              <div className="text-4xl font-black text-black mb-2">{formatCurrency(deal.currentValuation * deal.equityStake / 100)}</div>
-              <div className="text-xs font-mono text-gray-600 uppercase tracking-wider">OUR POSITION</div>
-              <div className="mt-3 h-1 bg-gray-200">
-                <div className="h-full bg-purple-500 transition-all group-hover:w-full" style={{ width: '85%' }}></div>
-              </div>
+            <div className="bg-white border border-gray-200 rounded-lg p-5">
+              <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Current Value</div>
+              <div className="text-2xl font-semibold text-gray-900 mb-1">{formatCurrency(deal.currentValuation * deal.equityStake / 100)}</div>
+              <div className="text-sm text-gray-600">Our position</div>
             </div>
 
-            <div className="border-4 border-black bg-gradient-to-b from-white to-gray-50 p-6 hover:shadow-2xl transition-all relative group">
-              <div className="absolute top-0 left-0 w-full h-1 bg-green-500"></div>
-              <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-gray-600 mb-3 font-bold">MOIC</div>
-              <div className={`text-4xl font-black mb-2 ${moic >= 1 ? 'text-green-600' : 'text-red-600'}`}>{moic.toFixed(2)}x</div>
-              <div className="text-xs font-mono text-gray-600 uppercase tracking-wider">MULTIPLE ON CAPITAL</div>
-              <div className="mt-3 h-1 bg-gray-200">
-                <div className={`h-full transition-all group-hover:w-full ${moic >= 1 ? 'bg-green-500' : 'bg-red-500'}`} style={{ width: `${Math.min(moic * 50, 100)}%` }}></div>
-              </div>
+            <div className="bg-white border border-gray-200 rounded-lg p-5">
+              <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">MOIC</div>
+              <div className={`text-2xl font-semibold mb-1 ${moic >= 1 ? 'text-green-600' : 'text-red-600'}`}>{moic.toFixed(2)}x</div>
+              <div className="text-sm text-gray-600">Multiple on capital</div>
             </div>
 
-            <div className="border-4 border-black bg-gradient-to-b from-white to-gray-50 p-6 hover:shadow-2xl transition-all relative group">
-              <div className="absolute top-0 left-0 w-full h-1 bg-orange-500"></div>
-              <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-gray-600 mb-3 font-bold">ROI</div>
-              <div className={`text-4xl font-black mb-2 ${roi >= 0 ? 'text-green-600' : 'text-red-600'}`}>{roi.toFixed(1)}%</div>
-              <div className="text-xs font-mono text-gray-600 uppercase tracking-wider">RETURN ON INVESTMENT</div>
-              <div className="mt-3 h-1 bg-gray-200">
-                <div className={`h-full transition-all group-hover:w-full ${roi >= 0 ? 'bg-orange-500' : 'bg-red-500'}`} style={{ width: `${Math.min(Math.abs(roi), 100)}%` }}></div>
-              </div>
+            <div className="bg-white border border-gray-200 rounded-lg p-5">
+              <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">ROI</div>
+              <div className={`text-2xl font-semibold mb-1 ${roi >= 0 ? 'text-green-600' : 'text-red-600'}`}>{roi.toFixed(1)}%</div>
+              <div className="text-sm text-gray-600">Return on investment</div>
             </div>
           </div>
 
-          {/* NASA-Grade Technical Charts */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Valuation Timeline - Technical Readout */}
-            <div className="border-4 border-black bg-white p-6 relative group hover:shadow-2xl transition-all">
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-sky-500 to-blue-600"></div>
-              <div className="flex items-center justify-between mb-6 border-b-2 border-gray-200 pb-4">
-                <div>
-                  <h3 className="font-black text-2xl text-black mb-1 uppercase tracking-tight">Valuation Growth</h3>
-                  <p className="text-[10px] text-gray-600 font-mono uppercase tracking-[0.2em] font-bold">Historical Timeline</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-4 h-4 bg-sky-500 border-2 border-black"></div>
-                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] font-bold">VALUATION</span>
-                </div>
+          {/* Professional Charts */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Valuation Timeline */}
+            <div className="bg-white border border-gray-200 rounded-lg p-6">
+              <div className="mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">Valuation Growth</h3>
+                <p className="text-sm text-gray-500 mt-1">Historical valuation trajectory</p>
               </div>
               {deal.valuationHistory && deal.valuationHistory.length > 0 ? (
-                <div className="h-72">
+                <div className="h-64">
                   <Line
                     data={valuationChartData}
                     options={{
                       responsive: true,
                       maintainAspectRatio: false,
                       animation: {
-                        duration: 2000,
-                        easing: 'easeInOutQuart',
+                        duration: 1500,
+                        easing: 'easeInOutCubic',
                       },
                       plugins: {
                         legend: { display: false },
                         tooltip: {
-                          backgroundColor: 'rgb(0, 0, 0)',
-                          titleColor: 'rgb(14, 165, 233)',
-                          bodyColor: 'rgb(255, 255, 255)',
-                          borderColor: 'rgb(14, 165, 233)',
-                          borderWidth: 2,
-                          padding: 16,
+                          backgroundColor: 'rgb(255, 255, 255)',
+                          titleColor: 'rgb(17, 24, 39)',
+                          bodyColor: 'rgb(75, 85, 99)',
+                          borderColor: 'rgb(209, 213, 219)',
+                          borderWidth: 1,
+                          padding: 12,
                           displayColors: false,
-                          titleFont: { family: 'monospace', size: 12, weight: 'bold' },
-                          bodyFont: { family: 'monospace', size: 14, weight: 'bold' },
+                          titleFont: { size: 13, weight: 600 },
+                          bodyFont: { size: 14, weight: 500 },
                           callbacks: {
-                            label: (context) => `VAL: ${formatCurrency(context.parsed.y as number)}`,
+                            label: (context) => formatCurrency(context.parsed.y as number),
                           },
                         },
                       },
                       scales: {
                         x: {
                           grid: {
-                            color: 'rgba(0, 0, 0, 0.1)',
-                            lineWidth: 1,
+                            color: 'rgb(243, 244, 246)',
                           },
                           ticks: {
-                            color: 'rgb(0, 0, 0)',
-                            font: { family: 'monospace', size: 10, weight: 'bold' },
+                            color: 'rgb(107, 114, 128)',
+                            font: { size: 11 },
                           },
                         },
                         y: {
                           beginAtZero: true,
                           grid: {
-                            color: 'rgba(0, 0, 0, 0.1)',
-                            lineWidth: 1,
+                            color: 'rgb(243, 244, 246)',
                           },
                           ticks: {
-                            color: 'rgb(0, 0, 0)',
-                            font: { family: 'monospace', size: 10, weight: 'bold' },
+                            color: 'rgb(107, 114, 128)',
+                            font: { size: 11 },
                             callback: (value) => formatCurrency(value as number),
                           },
                         },
@@ -546,24 +507,17 @@ function CompanyDetailModal({ deal, onClose, formatCurrency, formatDate, calcula
                   />
                 </div>
               ) : (
-                <p className="text-gray-500 text-sm font-mono uppercase">No valuation data available</p>
+                <p className="text-gray-400 text-sm">No valuation data available</p>
               )}
             </div>
 
-            {/* Equity Breakdown - Technical Doughnut */}
-            <div className="border-4 border-black bg-white p-6 relative group hover:shadow-2xl transition-all">
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-500 to-pink-600"></div>
-              <div className="flex items-center justify-between mb-6 border-b-2 border-gray-200 pb-4">
-                <div>
-                  <h3 className="font-black text-2xl text-black mb-1 uppercase tracking-tight">Equity Structure</h3>
-                  <p className="text-[10px] text-gray-600 font-mono uppercase tracking-[0.2em] font-bold">Ownership Breakdown</p>
-                </div>
-                <div className="text-right">
-                  <div className="text-4xl font-black text-sky-500">{deal.equityStake}%</div>
-                  <div className="text-[10px] text-gray-600 font-mono uppercase tracking-[0.2em] font-bold">OUR STAKE</div>
-                </div>
+            {/* Equity Breakdown */}
+            <div className="bg-white border border-gray-200 rounded-lg p-6">
+              <div className="mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">Equity Structure</h3>
+                <p className="text-sm text-gray-500 mt-1">{deal.equityStake}% ownership stake</p>
               </div>
-              <div className="h-72 flex items-center justify-center">
+              <div className="h-64 flex items-center justify-center">
                 <Pie
                   data={equityChartData}
                   options={{
@@ -572,29 +526,26 @@ function CompanyDetailModal({ deal, onClose, formatCurrency, formatDate, calcula
                     animation: {
                       animateRotate: true,
                       animateScale: true,
-                      duration: 2000,
-                      easing: 'easeInOutQuart',
+                      duration: 1500,
+                      easing: 'easeInOutCubic',
                     },
                     plugins: {
                       legend: {
                         position: 'bottom',
                         labels: {
-                          color: 'rgb(0, 0, 0)',
-                          font: { family: 'monospace', size: 11, weight: 'bold' },
-                          padding: 20,
+                          color: 'rgb(75, 85, 99)',
+                          font: { size: 12 },
+                          padding: 16,
                           usePointStyle: true,
-                          pointStyle: 'rectRounded',
                         },
                       },
                       tooltip: {
-                        backgroundColor: 'rgb(0, 0, 0)',
-                        titleColor: 'rgb(168, 85, 247)',
-                        bodyColor: 'rgb(255, 255, 255)',
-                        borderColor: 'rgb(168, 85, 247)',
-                        borderWidth: 2,
-                        padding: 16,
-                        titleFont: { family: 'monospace', size: 12, weight: 'bold' },
-                        bodyFont: { family: 'monospace', size: 14, weight: 'bold' },
+                        backgroundColor: 'rgb(255, 255, 255)',
+                        titleColor: 'rgb(17, 24, 39)',
+                        bodyColor: 'rgb(75, 85, 99)',
+                        borderColor: 'rgb(209, 213, 219)',
+                        borderWidth: 1,
+                        padding: 12,
                         callbacks: {
                           label: (context) => `${context.label}: ${context.parsed}%`,
                         },
@@ -606,108 +557,93 @@ function CompanyDetailModal({ deal, onClose, formatCurrency, formatDate, calcula
             </div>
           </div>
 
-          {/* NASA-Grade Data Panels */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Fundraising Rounds - Technical Readout */}
+          {/* Additional Details */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Fundraising Rounds */}
             {deal.fundraisingRounds && deal.fundraisingRounds.length > 0 && (
-              <div className="border-4 border-black bg-white p-6 relative hover:shadow-2xl transition-all">
-                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
-                <div className="flex items-center gap-3 mb-6 border-b-2 border-gray-200 pb-4">
-                  <h3 className="font-black text-2xl text-black uppercase tracking-tight">Funding Rounds</h3>
+              <div className="bg-white border border-gray-200 rounded-lg p-6">
+                <div className="mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900">Funding Rounds</h3>
+                  <p className="text-sm text-gray-500 mt-1">Investment history</p>
                 </div>
                 <div className="space-y-3">
                   {deal.fundraisingRounds.map((round, idx) => (
-                    <div key={idx} className="border-l-4 border-sky-500 bg-gradient-to-r from-gray-50 to-white p-4 hover:shadow-lg transition-all">
-                      <div className="flex justify-between items-start mb-2">
+                    <div key={idx} className="border-l-4 border-blue-500 bg-gray-50 p-4">
+                      <div className="flex justify-between items-start">
                         <div>
-                          <p className="font-black text-black text-sm uppercase">{round.roundName}</p>
-                          <p className="text-[10px] text-gray-600 font-mono tracking-wider">{formatDate(round.date)}</p>
+                          <p className="font-semibold text-gray-900">{round.roundName}</p>
+                          <p className="text-xs text-gray-500 mt-1">{formatDate(round.date)}</p>
+                          {round.leadInvestor && (
+                            <p className="text-xs text-gray-600 mt-1">Lead: {round.leadInvestor}</p>
+                          )}
                         </div>
                         <div className="text-right">
-                          <p className="font-black text-sky-600 text-xl">{formatCurrency(round.amountRaised)}</p>
-                          <p className="text-[10px] text-gray-600 font-mono">@ {formatCurrency(round.valuation)}</p>
+                          <p className="font-semibold text-gray-900">{formatCurrency(round.amountRaised)}</p>
+                          <p className="text-xs text-gray-500 mt-1">@ {formatCurrency(round.valuation)}</p>
                         </div>
                       </div>
-                      {round.leadInvestor && (
-                        <div className="mt-2 pt-2 border-t border-gray-200">
-                          <p className="text-[9px] text-gray-500 font-mono uppercase tracking-wider">Lead Investor</p>
-                          <p className="text-xs text-black font-bold">{round.leadInvestor}</p>
-                        </div>
-                      )}
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Key Metrics - Technical Dashboard */}
-            <div className="border-4 border-black bg-white p-6 relative hover:shadow-2xl transition-all">
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-green-500 to-emerald-600"></div>
-              <div className="flex items-center gap-3 mb-6 border-b-2 border-gray-200 pb-4">
-                <h3 className="font-black text-2xl text-black uppercase tracking-tight">Performance</h3>
+            {/* Key Metrics */}
+            <div className="bg-white border border-gray-200 rounded-lg p-6">
+              <div className="mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">Performance Metrics</h3>
+                <p className="text-sm text-gray-500 mt-1">Current company metrics</p>
               </div>
               <div className="space-y-3">
                 {deal.keyMetrics.revenue !== undefined && (
-                  <div className="border-2 border-gray-300 bg-gradient-to-r from-white to-gray-50 p-4 hover:border-green-500 transition-all">
-                    <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-gray-600 font-mono uppercase tracking-[0.2em] font-bold">Revenue</span>
-                      <span className="font-black text-black text-2xl">{formatCurrency(deal.keyMetrics.revenue)}</span>
-                    </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm text-gray-600">Revenue</span>
+                    <span className="font-semibold text-gray-900">{formatCurrency(deal.keyMetrics.revenue)}</span>
                   </div>
                 )}
                 {deal.keyMetrics.mrr !== undefined && (
-                  <div className="border-2 border-gray-300 bg-gradient-to-r from-white to-gray-50 p-4 hover:border-green-500 transition-all">
-                    <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-gray-600 font-mono uppercase tracking-[0.2em] font-bold">MRR</span>
-                      <span className="font-black text-black text-2xl">{formatCurrency(deal.keyMetrics.mrr)}</span>
-                    </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm text-gray-600">MRR</span>
+                    <span className="font-semibold text-gray-900">{formatCurrency(deal.keyMetrics.mrr)}</span>
                   </div>
                 )}
                 {deal.keyMetrics.users !== undefined && (
-                  <div className="border-2 border-gray-300 bg-gradient-to-r from-white to-gray-50 p-4 hover:border-green-500 transition-all">
-                    <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-gray-600 font-mono uppercase tracking-[0.2em] font-bold">Total Users</span>
-                      <span className="font-black text-black text-2xl">{deal.keyMetrics.users.toLocaleString()}</span>
-                    </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm text-gray-600">Total Users</span>
+                    <span className="font-semibold text-gray-900">{deal.keyMetrics.users.toLocaleString()}</span>
                   </div>
                 )}
                 {deal.keyMetrics.growth !== undefined && (
-                  <div className="border-2 border-gray-300 bg-gradient-to-r from-white to-gray-50 p-4 hover:border-green-500 transition-all">
-                    <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-gray-600 font-mono uppercase tracking-[0.2em] font-bold">Growth (MoM)</span>
-                      <span className="font-black text-green-600 text-2xl">+{deal.keyMetrics.growth}%</span>
-                    </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm text-gray-600">Growth (MoM)</span>
+                    <span className="font-semibold text-green-600">+{deal.keyMetrics.growth}%</span>
                   </div>
                 )}
                 {deal.pricePerShare && (
-                  <div className="border-2 border-gray-300 bg-gradient-to-r from-white to-gray-50 p-4 hover:border-green-500 transition-all">
-                    <div className="flex justify-between items-center">
-                      <span className="text-[10px] text-gray-600 font-mono uppercase tracking-[0.2em] font-bold">Price / Share</span>
-                      <span className="font-black text-black text-2xl">£{deal.pricePerShare.toFixed(2)}</span>
-                    </div>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                    <span className="text-sm text-gray-600">Price per Share</span>
+                    <span className="font-semibold text-gray-900">£{deal.pricePerShare.toFixed(2)}</span>
                   </div>
                 )}
               </div>
             </div>
           </div>
 
-          {/* Leadership Team - Technical Roster */}
-          <div className="border-4 border-black bg-white p-6 relative hover:shadow-2xl transition-all">
-            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-500 to-red-600"></div>
-            <div className="flex items-center gap-3 mb-6 border-b-2 border-gray-200 pb-4">
-              <h3 className="font-black text-2xl text-black uppercase tracking-tight">Leadership Team</h3>
+          {/* Leadership Team */}
+          <div className="bg-white border border-gray-200 rounded-lg p-6">
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">Leadership Team</h3>
+              <p className="text-sm text-gray-500 mt-1">Company founders</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {deal.founders.map((founder, idx) => (
-                <div key={idx} className="border-2 border-gray-300 bg-gradient-to-br from-white to-gray-50 p-4 hover:border-orange-500 hover:shadow-lg transition-all">
-                  <div className="flex items-center gap-3">
-                    <div className="w-14 h-14 border-4 border-black bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
-                      <span className="text-white font-black text-xl">{founder.name.charAt(0)}</span>
-                    </div>
-                    <div>
-                      <p className="font-black text-black text-sm uppercase">{founder.name}</p>
-                      <p className="text-[10px] text-gray-600 font-mono uppercase tracking-wider">{founder.role}</p>
-                    </div>
+                <div key={idx} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                  <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-semibold text-lg">{founder.name.charAt(0)}</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900 text-sm">{founder.name}</p>
+                    <p className="text-xs text-gray-500">{founder.role}</p>
                   </div>
                 </div>
               ))}

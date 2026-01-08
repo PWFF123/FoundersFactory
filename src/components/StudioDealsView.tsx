@@ -1,9 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { activeStudioDeals, completedStudioDeals } from '../data/studioDeals';
 import type { StudioDeal } from '../data/studioDeals';
 
-export function StudioDealsView() {
+interface StudioDealsViewProps {
+  initialJVFilter?: 'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia';
+}
+
+export function StudioDealsView({ initialJVFilter = 'All' }: StudioDealsViewProps) {
   const [showCompleted, setShowCompleted] = useState(false);
+  const [jvFilter, setJvFilter] = useState<'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia'>(initialJVFilter);
+
+  // Update filter when prop changes
+  useEffect(() => {
+    setJvFilter(initialJVFilter);
+  }, [initialJVFilter]);
 
   const formatCurrency = (amount: number) => {
     if (amount >= 1000000) {
@@ -40,7 +50,12 @@ export function StudioDealsView() {
     }
   };
 
-  const deals = showCompleted ? completedStudioDeals : activeStudioDeals;
+  const allDeals = showCompleted ? completedStudioDeals : activeStudioDeals;
+
+  // Apply JV filter
+  const deals = jvFilter === 'All'
+    ? allDeals
+    : allDeals.filter(deal => deal.partner === jvFilter);
 
   // Group deals by JV partner
   const dealsByPartner = deals.reduce((acc, deal) => {
