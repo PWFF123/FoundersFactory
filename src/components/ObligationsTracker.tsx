@@ -16,33 +16,6 @@ export const ObligationsTracker: React.FC<ObligationsTrackerProps> = ({
     return jointVentures.find(jv => jv.id === jvId)?.partnerName || 'Unknown';
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'on-track': return 'bg-emerald-500';
-      case 'at-risk': return 'bg-amber-500';
-      case 'completed': return 'bg-blue-500';
-      default: return 'bg-gray-400';
-    }
-  };
-
-  const getStatusTextColor = (status: string) => {
-    switch (status) {
-      case 'on-track': return 'text-emerald-400';
-      case 'at-risk': return 'text-amber-400';
-      case 'completed': return 'text-blue-400';
-      default: return 'text-gray-400';
-    }
-  };
-
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'on-track': return { bg: 'bg-emerald-500/10', text: 'text-emerald-400', border: 'border-emerald-500/20' };
-      case 'at-risk': return { bg: 'bg-amber-500/10', text: 'text-amber-400', border: 'border-amber-500/20' };
-      case 'completed': return { bg: 'bg-blue-500/10', text: 'text-blue-400', border: 'border-blue-500/20' };
-      default: return { bg: 'bg-gray-500/10', text: 'text-gray-400', border: 'border-gray-500/20' };
-    }
-  };
-
   return (
     <div className="bg-white p-6 rounded-lg shadow border border-gray-200 relative overflow-hidden mb-8">
       {/* Animated isometric grid background */}
@@ -78,10 +51,6 @@ export const ObligationsTracker: React.FC<ObligationsTrackerProps> = ({
       <div className="space-y-4 relative z-10">
         {obligations.map((obligation, index) => {
           const progress = (obligation.current / obligation.target) * 100;
-          const badge = getStatusBadge(obligation.status);
-          const daysUntilDeadline = Math.ceil(
-            (new Date(obligation.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
-          );
           const isHovered = hoveredId === obligation.id;
 
           return (
