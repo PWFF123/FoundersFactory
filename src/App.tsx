@@ -110,91 +110,73 @@ function App() {
                 Studio Deals
               </button>
 
-              {/* Dropdown Menu - Stripe-inspired subtle dropdown */}
-              <div className="absolute top-full left-0 mt-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-colors ease-out z-50">
-                <div className="bg-white rounded-lg shadow-md border border-gray-200 py-1 mt-1 min-w-[160px]">
-                  <div className="px-3 py-2 text-2xs font-semibold text-slate-500 uppercase tracking-wider">
-                    JV Partner
-                  </div>
+              {/* Dropdown Menu - Apple-esque minimal design */}
+              <div className="absolute top-full left-0 mt-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out z-50">
+                <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-100/50 py-2 mt-2 min-w-[140px]">
                   <button
                     onClick={() => {
                       setActiveTab('studio');
                       setStudioJVFilter('All');
                     }}
-                    className={`w-full text-left px-3 py-2 text-xs font-medium transition-colors ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
                       activeTab === 'studio' && studioJVFilter === 'All'
-                        ? 'text-black bg-gray-100'
-                        : 'text-gray-500 hover:text-black hover:bg-gray-100'
+                        ? 'text-black font-medium bg-gray-50/80'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
-                    <span className="flex items-center gap-2.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
-                      All
-                    </span>
+                    All
                   </button>
                   <button
                     onClick={() => {
                       setActiveTab('studio');
                       setStudioJVFilter('Aviva');
                     }}
-                    className={`w-full text-left px-3 py-2 text-xs font-medium transition-colors ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
                       activeTab === 'studio' && studioJVFilter === 'Aviva'
-                        ? 'text-black bg-blue-50'
-                        : 'text-gray-500 hover:text-black hover:bg-blue-50/50'
+                        ? 'text-black font-medium bg-gray-50/80'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
-                    <span className="flex items-center gap-2.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-                      Aviva
-                    </span>
+                    Aviva
                   </button>
                   <button
                     onClick={() => {
                       setActiveTab('studio');
                       setStudioJVFilter('Mediobanca');
                     }}
-                    className={`w-full text-left px-3 py-2 text-xs font-medium transition-colors ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
                       activeTab === 'studio' && studioJVFilter === 'Mediobanca'
-                        ? 'text-black bg-purple-50'
-                        : 'text-gray-500 hover:text-black hover:bg-purple-50/50'
+                        ? 'text-black font-medium bg-gray-50/80'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
-                    <span className="flex items-center gap-2.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-                      Mediobanca
-                    </span>
+                    Mediobanca
                   </button>
                   <button
                     onClick={() => {
                       setActiveTab('studio');
                       setStudioJVFilter('Fastweb');
                     }}
-                    className={`w-full text-left px-3 py-2 text-xs font-medium transition-colors ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
                       activeTab === 'studio' && studioJVFilter === 'Fastweb'
-                        ? 'text-black bg-green-50'
-                        : 'text-gray-500 hover:text-black hover:bg-green-50/50'
+                        ? 'text-black font-medium bg-gray-50/80'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
-                    <span className="flex items-center gap-2.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                      Fastweb
-                    </span>
+                    Fastweb
                   </button>
                   <button
                     onClick={() => {
                       setActiveTab('studio');
                       setStudioJVFilter('Vonovia');
                     }}
-                    className={`w-full text-left px-3 py-2 text-xs font-medium transition-colors ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
                       activeTab === 'studio' && studioJVFilter === 'Vonovia'
-                        ? 'text-black bg-orange-50'
-                        : 'text-gray-500 hover:text-black hover:bg-orange-50/50'
+                        ? 'text-black font-medium bg-gray-50/80'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
-                    <span className="flex items-center gap-2.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
-                      Vonovia
-                    </span>
+                    Vonovia
                   </button>
                 </div>
               </div>
@@ -216,12 +198,9 @@ function App() {
                 Accelerator Investments
               </button>
 
-              {/* Dropdown Menu - Sophisticated Minimal Style */}
-              <div className="absolute top-full left-0 mt-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-colors ease-out z-50">
-                <div className="bg-white rounded-lg shadow-md border border-gray-200 py-1 mt-1 min-w-[160px]">
-                  <div className="px-3 py-2 text-2xs font-semibold text-slate-500 uppercase tracking-wider">
-                    JV Partner
-                  </div>
+              {/* Dropdown Menu - Apple-esque minimal design */}
+              <div className="absolute top-full left-0 mt-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out z-50">
+                <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-100/50 py-2 mt-2 min-w-[140px]">
                   <button
                     onClick={() => {
                       setActiveTab('accelerator');
@@ -233,74 +212,59 @@ function App() {
                         : 'text-gray-500 hover:text-black hover:bg-gray-100'
                     }`}
                   >
-                    <span className="flex items-center gap-2.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
-                      All
-                    </span>
+                    All
                   </button>
                   <button
                     onClick={() => {
                       setActiveTab('accelerator');
                       setAcceleratorJVFilter('Aviva');
                     }}
-                    className={`w-full text-left px-3 py-2 text-xs font-medium transition-colors ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
                       activeTab === 'accelerator' && acceleratorJVFilter === 'Aviva'
-                        ? 'text-black bg-blue-50'
-                        : 'text-gray-500 hover:text-black hover:bg-blue-50/50'
+                        ? 'text-black font-medium bg-gray-50/80'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
-                    <span className="flex items-center gap-2.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-                      Aviva
-                    </span>
+                    Aviva
                   </button>
                   <button
                     onClick={() => {
                       setActiveTab('accelerator');
                       setAcceleratorJVFilter('Mediobanca');
                     }}
-                    className={`w-full text-left px-3 py-2 text-xs font-medium transition-colors ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
                       activeTab === 'accelerator' && acceleratorJVFilter === 'Mediobanca'
-                        ? 'text-black bg-purple-50'
-                        : 'text-gray-500 hover:text-black hover:bg-purple-50/50'
+                        ? 'text-black font-medium bg-gray-50/80'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
-                    <span className="flex items-center gap-2.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-                      Mediobanca
-                    </span>
+                    Mediobanca
                   </button>
                   <button
                     onClick={() => {
                       setActiveTab('accelerator');
                       setAcceleratorJVFilter('Fastweb');
                     }}
-                    className={`w-full text-left px-3 py-2 text-xs font-medium transition-colors ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
                       activeTab === 'accelerator' && acceleratorJVFilter === 'Fastweb'
-                        ? 'text-black bg-green-50'
-                        : 'text-gray-500 hover:text-black hover:bg-green-50/50'
+                        ? 'text-black font-medium bg-gray-50/80'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
-                    <span className="flex items-center gap-2.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                      Fastweb
-                    </span>
+                    Fastweb
                   </button>
                   <button
                     onClick={() => {
                       setActiveTab('accelerator');
                       setAcceleratorJVFilter('Vonovia');
                     }}
-                    className={`w-full text-left px-3 py-2 text-xs font-medium transition-colors ${
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 ${
                       activeTab === 'accelerator' && acceleratorJVFilter === 'Vonovia'
-                        ? 'text-black bg-orange-50'
-                        : 'text-gray-500 hover:text-black hover:bg-orange-50/50'
+                        ? 'text-black font-medium bg-gray-50/80'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
                     }`}
                   >
-                    <span className="flex items-center gap-2.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
-                      Vonovia
-                    </span>
+                    Vonovia
                   </button>
                 </div>
               </div>
