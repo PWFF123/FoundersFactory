@@ -44,12 +44,12 @@ export const ObligationsTracker: React.FC<ObligationsTrackerProps> = ({
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 p-6 rounded-xl border border-gray-700/50 shadow-2xl relative overflow-hidden">
+    <div className="bg-white p-6 rounded-lg shadow border border-gray-200 relative overflow-hidden mb-8">
       {/* Animated isometric grid background */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
+      <div className="absolute inset-0 opacity-[0.02]" style={{
         backgroundImage: `
-          linear-gradient(30deg, transparent 48%, rgba(255,255,255,0.8) 49%, rgba(255,255,255,0.8) 51%, transparent 52%),
-          linear-gradient(150deg, transparent 48%, rgba(255,255,255,0.8) 49%, rgba(255,255,255,0.8) 51%, transparent 52%)
+          linear-gradient(30deg, transparent 48%, rgba(0,0,0,0.8) 49%, rgba(0,0,0,0.8) 51%, transparent 52%),
+          linear-gradient(150deg, transparent 48%, rgba(0,0,0,0.8) 49%, rgba(0,0,0,0.8) 51%, transparent 52%)
         `,
         backgroundSize: '60px 60px',
         animation: 'isometric-drift 20s linear infinite'
@@ -68,16 +68,11 @@ export const ObligationsTracker: React.FC<ObligationsTrackerProps> = ({
         `}
       </style>
 
-      {/* Header - Elegant and refined */}
-      <div className="flex items-baseline justify-between mb-6 pb-4 border-b border-gray-700/50 relative z-10">
-        <div>
-          <h3 className="text-base font-semibold text-white tracking-tight">
-            Investment Obligations
-          </h3>
-          <p className="text-xs font-normal text-gray-400 mt-0.5 tracking-tight">
-            Commitment tracking overview
-          </p>
-        </div>
+      {/* Header */}
+      <div className="mb-6 relative z-10">
+        <h3 className="text-lg font-bold text-black">
+          Investment Obligations Tracker
+        </h3>
       </div>
 
       <div className="space-y-4 relative z-10">
@@ -94,11 +89,9 @@ export const ObligationsTracker: React.FC<ObligationsTrackerProps> = ({
               key={obligation.id}
               onMouseEnter={() => setHoveredId(obligation.id)}
               onMouseLeave={() => setHoveredId(null)}
-              className="bg-gray-800/40 backdrop-blur-sm rounded-lg p-4 border border-gray-700/30 hover:border-gray-600/50 transition-all duration-300 relative group"
+              className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all duration-300 relative group"
               style={{
-                transform: isHovered ? 'translateY(-2px) rotateX(2deg)' : 'translateY(0)',
-                transformStyle: 'preserve-3d',
-                perspective: '1000px',
+                transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
                 animationDelay: `${index * 100}ms`
               }}
             >
@@ -122,119 +115,83 @@ export const ObligationsTracker: React.FC<ObligationsTrackerProps> = ({
               <div className="flex justify-between items-start mb-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-2.5 mb-1.5">
-                    <h4 className="font-semibold text-sm text-white tracking-tight">
+                    <h4 className="font-bold text-base text-black">
                       {getJVName(obligation.jvId)}
                     </h4>
-                    <span className={`px-2 py-0.5 rounded text-2xs font-medium border ${badge.bg} ${badge.text} ${badge.border}`}>
+                    <span className={`px-2 py-1 rounded text-xs font-medium ${
+                      obligation.status === 'on-track' ? 'bg-green-100 text-green-800' :
+                      obligation.status === 'at-risk' ? 'bg-yellow-100 text-yellow-800' :
+                      'bg-green-100 text-green-800'
+                    }`}>
                       {obligation.status.replace('-', ' ').toUpperCase()}
                     </span>
                   </div>
 
                   {/* Meta info - Refined and elegant */}
-                  <div className="flex items-center gap-3 text-xs font-normal text-gray-400">
-                    <span className="px-2 py-0.5 bg-gray-700/30 rounded text-2xs">
-                      {obligation.type === 'studio' ? 'Studio' : 'Accelerator'}
+                  <div className="flex items-center gap-3 text-xs font-normal text-gray-500">
+                    <span className="font-medium text-gray-600">
+                      {obligation.type === 'studio' ? 'Studio Deals' : 'Accelerator Investments'}
                     </span>
-                    <span className="text-gray-600">•</span>
-                    <span className="tracking-tight">
-                      {new Date(obligation.deadline).toLocaleDateString('en-GB', {
+                    <span className="text-gray-300">•</span>
+                    <span>
+                      Deadline: {new Date(obligation.deadline).toLocaleDateString('en-GB', {
                         day: 'numeric',
                         month: 'short',
                         year: 'numeric'
                       })}
                     </span>
-                    <span className="text-gray-600">•</span>
-                    <span className={daysUntilDeadline < 30 ? 'text-amber-400' : 'text-gray-400'}>
-                      {daysUntilDeadline > 0 ? `${daysUntilDeadline} days remaining` : 'Overdue'}
-                    </span>
                   </div>
                 </div>
 
-                {/* Metrics - Elegant and refined */}
+                {/* Metrics */}
                 <div className="text-right relative">
-                  <div className="text-sm font-semibold text-white tracking-tight">
-                    {obligation.current}<span className="text-gray-500 mx-1">/</span>{obligation.target}
+                  <div className="text-sm font-bold text-black">
+                    {obligation.current} / {obligation.target} committed
                   </div>
-                  <div className={`text-xs font-medium tracking-tight ${getStatusTextColor(obligation.status)}`}>
-                    {Math.round(progress)}%
+                  <div className="text-xs text-gray-500">
+                    {Math.round(progress)}% complete
                   </div>
                 </div>
               </div>
 
-              {/* Progress Bar - Refined with isometric depth effect */}
-              <div className="relative w-full bg-gray-900/50 rounded-full h-2 overflow-visible mb-1">
-                {/* Isometric shadow layer */}
-                <div className="absolute inset-0 rounded-full" style={{
-                  transform: 'translateY(2px) scaleY(0.3)',
-                  background: 'rgba(0,0,0,0.3)',
-                  filter: 'blur(2px)'
-                }}></div>
-
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent rounded-full"></div>
-                <div
-                  className={`h-2 rounded-full transition-all duration-700 ease-out relative ${getStatusColor(obligation.status)}`}
-                  style={{
-                    width: `${Math.min(progress, 100)}%`,
-                    boxShadow: isHovered ? '0 4px 12px rgba(0,0,0,0.4)' : '0 2px 6px rgba(0,0,0,0.2)',
-                    transform: isHovered ? 'translateY(-1px)' : 'translateY(0)'
-                  }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full"></div>
-                  {/* Isometric top edge highlight */}
-                  <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/30 rounded-full"></div>
+              {/* Progress Bar */}
+              <div className="space-y-2">
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div
+                    className={`h-2 rounded-full transition-all duration-700 ease-out ${
+                      obligation.status === 'on-track' ? 'bg-green-500' :
+                      obligation.status === 'at-risk' ? 'bg-yellow-400' :
+                      'bg-green-500'
+                    }`}
+                    style={{ width: `${Math.min(progress, 100)}%` }}
+                  ></div>
                 </div>
-              </div>
-
-              {/* Progress indicators */}
-              <div className="flex justify-between mt-2 text-2xs text-gray-600">
-                <span>0</span>
-                <span className="text-gray-500">{obligation.target / 2}</span>
-                <span>{obligation.target}</span>
               </div>
             </div>
           );
         })}
       </div>
 
-      {/* Footer stats - Elegant summary with isometric cards */}
-      <div className="mt-6 pt-4 border-t border-gray-700/30 grid grid-cols-3 gap-4 relative z-10">
-        {[
-          { label: 'On Track', status: 'on-track', color: 'emerald', count: obligations.filter(o => o.status === 'on-track').length },
-          { label: 'At Risk', status: 'at-risk', color: 'amber', count: obligations.filter(o => o.status === 'at-risk').length },
-          { label: 'Completed', status: 'completed', color: 'blue', count: obligations.filter(o => o.status === 'completed').length }
-        ].map((stat, idx) => (
-          <div
-            key={stat.status}
-            className="relative group cursor-default"
-            style={{
-              animation: `float-up 3s ease-in-out infinite`,
-              animationDelay: `${idx * 0.2}s`
-            }}
-          >
-            {/* Isometric card effect */}
-            <div className="absolute inset-0 bg-gray-700/20 rounded-lg transform translate-x-1 translate-y-1"></div>
-            <div className="relative bg-gray-800/30 rounded-lg p-3 border border-gray-700/30 group-hover:border-gray-600/50 transition-all duration-300"
-              style={{
-                transform: 'translateZ(0)',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
-              }}
-            >
-              <div className="text-xs font-normal text-gray-500 mb-1 tracking-tight">{stat.label}</div>
-              <div className={`text-lg font-semibold text-${stat.color}-400 flex items-center gap-2`}>
-                {stat.count}
-                {/* Small isometric indicator */}
-                <svg width="12" height="12" viewBox="0 0 20 20" className="opacity-50">
-                  <path d="M10,2 L18,6 L18,14 L10,18 L2,14 L2,6 Z"
-                    fill="currentColor"
-                    opacity="0.2"
-                    stroke="currentColor"
-                    strokeWidth="0.5"
-                  />
-                </svg>
-              </div>
-            </div>
+      {/* Summary Stats */}
+      <div className="mt-6 pt-4 border-t border-gray-200 grid grid-cols-3 gap-4 relative z-10">
+        <div className="text-center">
+          <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">On Track</div>
+          <div className="text-2xl font-bold text-green-600">
+            {obligations.filter(o => o.status === 'on-track').length}
           </div>
-        ))}
+        </div>
+        <div className="text-center">
+          <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">At Risk</div>
+          <div className="text-2xl font-bold text-yellow-600">
+            {obligations.filter(o => o.status === 'at-risk').length}
+          </div>
+        </div>
+        <div className="text-center">
+          <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Completed</div>
+          <div className="text-2xl font-bold text-green-600">
+            {obligations.filter(o => o.status === 'completed').length}
+          </div>
+        </div>
       </div>
     </div>
   );
