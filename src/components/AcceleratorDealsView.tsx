@@ -321,30 +321,39 @@ interface CompanyDetailModalProps {
 }
 
 function CompanyDetailModal({ deal, onClose, formatCurrency, formatDate, calculateMOIC, calculateROI }: CompanyDetailModalProps) {
-  // Valuation chart data
+  // Valuation chart data with Bloomberg-style aesthetics
   const valuationChartData = {
     labels: deal.valuationHistory?.map(v => formatDate(v.date)) || [],
     datasets: [
       {
         label: 'Company Valuation',
         data: deal.valuationHistory?.map(v => v.valuation) || [],
-        borderColor: 'rgb(59, 130, 246)',
-        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-        tension: 0.4,
+        borderColor: 'rgb(6, 182, 212)', // Cyan for Bloomberg feel
+        backgroundColor: 'rgba(6, 182, 212, 0.05)',
+        borderWidth: 3,
+        tension: 0.1, // Less curved, more professional
         fill: true,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        pointBackgroundColor: 'rgb(6, 182, 212)',
+        pointBorderColor: 'rgb(15, 23, 42)',
+        pointBorderWidth: 2,
       },
     ],
   };
 
-  // Equity pie chart data
+  // Equity doughnut chart data with professional colors
   const equityChartData = {
-    labels: ['Founders Factory', 'Others'],
+    labels: ['Founders Factory', 'Other Shareholders'],
     datasets: [
       {
         data: [deal.equityStake, 100 - deal.equityStake],
-        backgroundColor: ['rgb(168, 85, 247)', 'rgb(209, 213, 219)'],
-        borderWidth: 2,
-        borderColor: 'white',
+        backgroundColor: [
+          'rgb(6, 182, 212)', // Cyan
+          'rgb(30, 41, 59)', // Slate
+        ],
+        borderWidth: 0,
+        hoverOffset: 8,
       },
     ],
   };
@@ -353,91 +362,167 @@ function CompanyDetailModal({ deal, onClose, formatCurrency, formatDate, calcula
   const roi = calculateROI(deal);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" onClick={onClose}>
-      <div className="bg-white rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-        {/* Header */}
-        <div className="relative bg-gradient-to-r from-slate-900 to-slate-800 p-8 text-white rounded-t-2xl">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={onClose}>
+      <div
+        className="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 rounded-2xl shadow-2xl max-w-7xl w-full max-h-[95vh] overflow-y-auto border border-cyan-500/20"
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(148 163 184 / 0.05) 1px, transparent 0)',
+          backgroundSize: '24px 24px'
+        }}
+      >
+        {/* Bloomberg-style Header */}
+        <div className="relative bg-gradient-to-r from-cyan-600 via-cyan-500 to-blue-600 p-8 border-b-4 border-cyan-400">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-white hover:text-gray-300 text-2xl font-bold"
+            className="absolute top-4 right-4 text-white/90 hover:text-white bg-black/20 hover:bg-black/30 w-10 h-10 rounded-lg flex items-center justify-center text-2xl font-bold transition-all"
           >
             ×
           </button>
-          <h2 className="text-3xl font-bold mb-2">{deal.companyName}</h2>
-          <div className="flex gap-4 text-sm text-gray-300">
-            <span>{deal.sector}</span>
-            <span>•</span>
-            <span>{deal.batch}</span>
-            <span>•</span>
-            <span>{deal.partner} Accelerator</span>
+          <div className="flex items-start justify-between">
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                <span className="text-white/80 text-xs font-mono uppercase tracking-widest">Live Data</span>
+              </div>
+              <h2 className="text-4xl font-bold text-white mb-3 tracking-tight">{deal.companyName}</h2>
+              <div className="flex gap-4 text-sm text-white/90 font-mono">
+                <span className="bg-black/20 px-3 py-1 rounded">{deal.sector}</span>
+                <span className="bg-black/20 px-3 py-1 rounded">{deal.batch}</span>
+                <span className="bg-black/20 px-3 py-1 rounded">{deal.partner}</span>
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="text-white/70 text-xs font-mono uppercase tracking-wider mb-1">Status</div>
+              <div className={`text-2xl font-bold ${
+                deal.status === 'On Track' ? 'text-green-400' :
+                deal.status === 'At Risk' ? 'text-yellow-400' : 'text-gray-400'
+              }`}>
+                {deal.status}
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-8 space-y-8">
-          {/* Key Metrics Grid */}
+        <div className="p-8 space-y-6">
+          {/* Bloomberg-style Terminal Metrics */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
-              <div className="text-xs text-blue-600 font-semibold uppercase tracking-wide mb-1">Investment</div>
-              <div className="text-2xl font-bold text-black">{formatCurrency(deal.investmentAmount)}</div>
-              <div className="text-xs text-gray-600 mt-1">{deal.equityStake}% equity</div>
+            <div className="bg-slate-900/50 backdrop-blur-sm border border-cyan-500/30 rounded-lg p-5 hover:border-cyan-400/50 transition-all">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-1 h-8 bg-cyan-400 rounded-full"></div>
+                <div className="text-xs text-cyan-400 font-mono uppercase tracking-widest">Investment</div>
+              </div>
+              <div className="text-3xl font-bold text-white mb-1">{formatCurrency(deal.investmentAmount)}</div>
+              <div className="text-xs text-slate-400 font-mono">{deal.equityStake}% equity stake</div>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200">
-              <div className="text-xs text-purple-600 font-semibold uppercase tracking-wide mb-1">Current Value</div>
-              <div className="text-2xl font-bold text-black">{formatCurrency(deal.currentValuation * deal.equityStake / 100)}</div>
-              <div className="text-xs text-gray-600 mt-1">Our position</div>
+            <div className="bg-slate-900/50 backdrop-blur-sm border border-purple-500/30 rounded-lg p-5 hover:border-purple-400/50 transition-all">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-1 h-8 bg-purple-400 rounded-full"></div>
+                <div className="text-xs text-purple-400 font-mono uppercase tracking-widest">Current Value</div>
+              </div>
+              <div className="text-3xl font-bold text-white mb-1">{formatCurrency(deal.currentValuation * deal.equityStake / 100)}</div>
+              <div className="text-xs text-slate-400 font-mono">Our position</div>
             </div>
 
-            <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
-              <div className="text-xs text-green-600 font-semibold uppercase tracking-wide mb-1">MOIC</div>
-              <div className={`text-2xl font-bold ${moic >= 1 ? 'text-green-600' : 'text-red-600'}`}>{moic.toFixed(2)}x</div>
-              <div className="text-xs text-gray-600 mt-1">Multiple on capital</div>
+            <div className="bg-slate-900/50 backdrop-blur-sm border border-green-500/30 rounded-lg p-5 hover:border-green-400/50 transition-all">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-1 h-8 bg-green-400 rounded-full"></div>
+                <div className="text-xs text-green-400 font-mono uppercase tracking-widest">MOIC</div>
+              </div>
+              <div className={`text-3xl font-bold mb-1 ${moic >= 1 ? 'text-green-400' : 'text-red-400'}`}>{moic.toFixed(2)}x</div>
+              <div className="text-xs text-slate-400 font-mono">Multiple on invested capital</div>
             </div>
 
-            <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-4 rounded-lg border border-yellow-200">
-              <div className="text-xs text-yellow-600 font-semibold uppercase tracking-wide mb-1">ROI</div>
-              <div className={`text-2xl font-bold ${roi >= 0 ? 'text-green-600' : 'text-red-600'}`}>{roi.toFixed(1)}%</div>
-              <div className="text-xs text-gray-600 mt-1">Return on investment</div>
+            <div className="bg-slate-900/50 backdrop-blur-sm border border-yellow-500/30 rounded-lg p-5 hover:border-yellow-400/50 transition-all">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-1 h-8 bg-yellow-400 rounded-full"></div>
+                <div className="text-xs text-yellow-400 font-mono uppercase tracking-widest">ROI</div>
+              </div>
+              <div className={`text-3xl font-bold mb-1 ${roi >= 0 ? 'text-green-400' : 'text-red-400'}`}>{roi.toFixed(1)}%</div>
+              <div className="text-xs text-slate-400 font-mono">Return on investment</div>
             </div>
           </div>
 
-          {/* Charts Row */}
+          {/* Professional Charts Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Valuation Timeline */}
-            <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
-              <h3 className="font-bold text-lg mb-4 text-gray-900">Valuation Timeline</h3>
+            {/* Valuation Timeline - Bloomberg Terminal Style */}
+            <div className="bg-slate-900/40 backdrop-blur-sm border border-cyan-500/20 rounded-lg p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h3 className="font-bold text-xl text-white mb-1">Valuation Growth</h3>
+                  <p className="text-xs text-slate-400 font-mono">Historical company valuation</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-cyan-400"></div>
+                  <span className="text-xs text-slate-400 font-mono">VALUATION</span>
+                </div>
+              </div>
               {deal.valuationHistory && deal.valuationHistory.length > 0 ? (
-                <Line
-                  data={valuationChartData}
-                  options={{
-                    responsive: true,
-                    plugins: {
-                      legend: { display: false },
-                      tooltip: {
-                        callbacks: {
-                          label: (context) => `${formatCurrency(context.parsed.y as number)}`,
+                <div className="h-64">
+                  <Line
+                    data={valuationChartData}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                          backgroundColor: 'rgb(15, 23, 42)',
+                          titleColor: 'rgb(6, 182, 212)',
+                          bodyColor: 'rgb(255, 255, 255)',
+                          borderColor: 'rgb(6, 182, 212)',
+                          borderWidth: 1,
+                          padding: 12,
+                          displayColors: false,
+                          callbacks: {
+                            label: (context) => `Valuation: ${formatCurrency(context.parsed.y as number)}`,
+                          },
                         },
                       },
-                    },
-                    scales: {
-                      y: {
-                        beginAtZero: true,
-                        ticks: {
-                          callback: (value) => formatCurrency(value as number),
+                      scales: {
+                        x: {
+                          grid: {
+                            color: 'rgba(148, 163, 184, 0.1)',
+                          },
+                          ticks: {
+                            color: 'rgb(148, 163, 184)',
+                            font: { family: 'monospace', size: 11 },
+                          },
+                        },
+                        y: {
+                          beginAtZero: true,
+                          grid: {
+                            color: 'rgba(148, 163, 184, 0.1)',
+                          },
+                          ticks: {
+                            color: 'rgb(148, 163, 184)',
+                            font: { family: 'monospace', size: 11 },
+                            callback: (value) => formatCurrency(value as number),
+                          },
                         },
                       },
-                    },
-                  }}
-                />
+                    }}
+                  />
+                </div>
               ) : (
-                <p className="text-gray-500 text-sm">No valuation history available</p>
+                <p className="text-slate-500 text-sm font-mono">No valuation data available</p>
               )}
             </div>
 
-            {/* Equity Breakdown */}
-            <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
-              <h3 className="font-bold text-lg mb-4 text-gray-900">Equity Breakdown</h3>
+            {/* Equity Breakdown - Bloomberg Doughnut */}
+            <div className="bg-slate-900/40 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h3 className="font-bold text-xl text-white mb-1">Equity Structure</h3>
+                  <p className="text-xs text-slate-400 font-mono">Ownership breakdown</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-cyan-400">{deal.equityStake}%</div>
+                  <div className="text-xs text-slate-400 font-mono">Our Stake</div>
+                </div>
+              </div>
               <div className="h-64 flex items-center justify-center">
                 <Pie
                   data={equityChartData}
@@ -447,8 +532,20 @@ function CompanyDetailModal({ deal, onClose, formatCurrency, formatDate, calcula
                     plugins: {
                       legend: {
                         position: 'bottom',
+                        labels: {
+                          color: 'rgb(226, 232, 240)',
+                          font: { family: 'monospace', size: 12 },
+                          padding: 15,
+                          usePointStyle: true,
+                        },
                       },
                       tooltip: {
+                        backgroundColor: 'rgb(15, 23, 42)',
+                        titleColor: 'rgb(168, 85, 247)',
+                        bodyColor: 'rgb(255, 255, 255)',
+                        borderColor: 'rgb(168, 85, 247)',
+                        borderWidth: 1,
+                        padding: 12,
                         callbacks: {
                           label: (context) => `${context.label}: ${context.parsed}%`,
                         },
@@ -460,80 +557,109 @@ function CompanyDetailModal({ deal, onClose, formatCurrency, formatDate, calcula
             </div>
           </div>
 
-          {/* Additional Details */}
+          {/* Additional Terminal Panels */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Fundraising Rounds */}
+            {/* Fundraising Rounds - Terminal Style */}
             {deal.fundraisingRounds && deal.fundraisingRounds.length > 0 && (
-              <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
-                <h3 className="font-bold text-lg mb-4 text-gray-900">Fundraising History</h3>
-                <div className="space-y-3">
+              <div className="bg-slate-900/40 backdrop-blur-sm border border-blue-500/20 rounded-lg p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-1 h-6 bg-blue-400 rounded-full"></div>
+                  <h3 className="font-bold text-xl text-white">Funding Rounds</h3>
+                </div>
+                <div className="space-y-4">
                   {deal.fundraisingRounds.map((round, idx) => (
-                    <div key={idx} className="border-l-4 border-blue-500 pl-4 py-2">
-                      <div className="flex justify-between items-start">
+                    <div key={idx} className="bg-slate-800/40 border border-blue-500/10 rounded-lg p-4 hover:border-blue-400/30 transition-all">
+                      <div className="flex justify-between items-start mb-2">
                         <div>
-                          <p className="font-semibold text-gray-900">{round.roundName}</p>
-                          <p className="text-xs text-gray-500">{formatDate(round.date)}</p>
-                          {round.leadInvestor && (
-                            <p className="text-xs text-gray-600 mt-1">Lead: {round.leadInvestor}</p>
-                          )}
+                          <p className="font-bold text-white mb-1">{round.roundName}</p>
+                          <p className="text-xs text-slate-400 font-mono">{formatDate(round.date)}</p>
                         </div>
                         <div className="text-right">
-                          <p className="font-bold text-black">{formatCurrency(round.amountRaised)}</p>
-                          <p className="text-xs text-gray-500">@ {formatCurrency(round.valuation)}</p>
+                          <p className="font-bold text-cyan-400 text-lg">{formatCurrency(round.amountRaised)}</p>
+                          <p className="text-xs text-slate-400 font-mono">@ {formatCurrency(round.valuation)}</p>
                         </div>
                       </div>
+                      {round.leadInvestor && (
+                        <div className="mt-2 pt-2 border-t border-slate-700/50">
+                          <p className="text-xs text-slate-500 font-mono">Lead Investor</p>
+                          <p className="text-sm text-white font-medium">{round.leadInvestor}</p>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Key Metrics */}
-            <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
-              <h3 className="font-bold text-lg mb-4 text-gray-900">Key Metrics</h3>
-              <div className="space-y-3">
+            {/* Key Metrics - Terminal Dashboard */}
+            <div className="bg-slate-900/40 backdrop-blur-sm border border-green-500/20 rounded-lg p-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-1 h-6 bg-green-400 rounded-full"></div>
+                <h3 className="font-bold text-xl text-white">Performance Metrics</h3>
+              </div>
+              <div className="space-y-4">
                 {deal.keyMetrics.revenue !== undefined && (
-                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-sm text-gray-600">Revenue</span>
-                    <span className="font-semibold text-black">{formatCurrency(deal.keyMetrics.revenue)}</span>
+                  <div className="bg-slate-800/40 border border-green-500/10 rounded-lg p-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-slate-400 font-mono uppercase tracking-wider">Revenue</span>
+                      <span className="font-bold text-white text-xl">{formatCurrency(deal.keyMetrics.revenue)}</span>
+                    </div>
                   </div>
                 )}
                 {deal.keyMetrics.mrr !== undefined && (
-                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-sm text-gray-600">MRR</span>
-                    <span className="font-semibold text-black">{formatCurrency(deal.keyMetrics.mrr)}</span>
+                  <div className="bg-slate-800/40 border border-green-500/10 rounded-lg p-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-slate-400 font-mono uppercase tracking-wider">MRR</span>
+                      <span className="font-bold text-white text-xl">{formatCurrency(deal.keyMetrics.mrr)}</span>
+                    </div>
                   </div>
                 )}
                 {deal.keyMetrics.users !== undefined && (
-                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-sm text-gray-600">Users</span>
-                    <span className="font-semibold text-black">{deal.keyMetrics.users.toLocaleString()}</span>
+                  <div className="bg-slate-800/40 border border-green-500/10 rounded-lg p-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-slate-400 font-mono uppercase tracking-wider">Total Users</span>
+                      <span className="font-bold text-white text-xl">{deal.keyMetrics.users.toLocaleString()}</span>
+                    </div>
                   </div>
                 )}
                 {deal.keyMetrics.growth !== undefined && (
-                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-sm text-gray-600">Growth (MoM)</span>
-                    <span className="font-semibold text-green-600">+{deal.keyMetrics.growth}%</span>
+                  <div className="bg-slate-800/40 border border-green-500/10 rounded-lg p-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-slate-400 font-mono uppercase tracking-wider">Growth (MoM)</span>
+                      <span className="font-bold text-green-400 text-xl">+{deal.keyMetrics.growth}%</span>
+                    </div>
                   </div>
                 )}
                 {deal.pricePerShare && (
-                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-sm text-gray-600">Price per Share</span>
-                    <span className="font-semibold text-black">£{deal.pricePerShare.toFixed(2)}</span>
+                  <div className="bg-slate-800/40 border border-green-500/10 rounded-lg p-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-slate-400 font-mono uppercase tracking-wider">Price / Share</span>
+                      <span className="font-bold text-white text-xl">£{deal.pricePerShare.toFixed(2)}</span>
+                    </div>
                   </div>
                 )}
               </div>
             </div>
           </div>
 
-          {/* Founders */}
-          <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
-            <h3 className="font-bold text-lg mb-4 text-gray-900">Team</h3>
-            <div className="flex gap-4">
+          {/* Leadership Team - Terminal Style */}
+          <div className="bg-slate-900/40 backdrop-blur-sm border border-orange-500/20 rounded-lg p-6">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-1 h-6 bg-orange-400 rounded-full"></div>
+              <h3 className="font-bold text-xl text-white">Leadership Team</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {deal.founders.map((founder, idx) => (
-                <div key={idx} className="bg-gray-50 px-4 py-3 rounded-lg">
-                  <p className="font-semibold text-gray-900">{founder.name}</p>
-                  <p className="text-sm text-gray-600">{founder.role}</p>
+                <div key={idx} className="bg-slate-800/40 border border-orange-500/10 rounded-lg p-4 hover:border-orange-400/30 transition-all">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
+                      <span className="text-white font-bold text-sm">{founder.name.charAt(0)}</span>
+                    </div>
+                    <div>
+                      <p className="font-bold text-white text-sm">{founder.name}</p>
+                      <p className="text-xs text-slate-400 font-mono">{founder.role}</p>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
