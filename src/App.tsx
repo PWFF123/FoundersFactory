@@ -288,10 +288,6 @@ function App() {
             {/* Audit & Documents with Dropdown */}
             <div className="relative group">
               <button
-                onClick={() => {
-                  setActiveTab('audit');
-                  setAuditSubTab('documents');
-                }}
                 className={`px-6 py-4 font-semibold text-sm transition-colors whitespace-nowrap ${
                   activeTab === 'audit'
                     ? 'text-black border-b-2 border-ffYellow'
