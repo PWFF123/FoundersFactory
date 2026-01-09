@@ -70,26 +70,44 @@ function App() {
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-8">
           <div className="flex gap-1 flex-wrap">
-            <button
-              onClick={() => setActiveTab('active')}
-              className={`px-6 py-4 font-semibold text-sm transition-colors whitespace-nowrap ${
-                activeTab === 'active'
-                  ? 'text-black border-b-2 border-ffYellow'
-                  : 'text-gray-500 hover:text-black border-b-2 border-transparent'
-              }`}
-            >
-              Active Joint Ventures
-            </button>
-            <button
-              onClick={() => setActiveTab('pipeline')}
-              className={`px-6 py-4 font-semibold text-sm transition-colors whitespace-nowrap ${
-                activeTab === 'pipeline'
-                  ? 'text-black border-b-2 border-ffYellow'
-                  : 'text-gray-500 hover:text-black border-b-2 border-transparent'
-              }`}
-            >
-              Pipeline
-            </button>
+            {/* Corporate Development with nested Pipeline */}
+            <div className="relative group">
+              <button
+                className={`px-6 py-4 font-semibold text-sm transition-colors whitespace-nowrap ${
+                  activeTab === 'active' || activeTab === 'pipeline'
+                    ? 'text-black border-b-2 border-ffYellow'
+                    : 'text-gray-500 hover:text-black border-b-2 border-transparent'
+                }`}
+              >
+                Corporate Development
+              </button>
+
+              {/* Dropdown Menu - Active JVs and Pipeline */}
+              <div className="absolute top-full left-0 mt-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out z-50">
+                <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-100/50 py-2 mt-2 min-w-[180px]">
+                  <button
+                    onClick={() => setActiveTab('active')}
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                      activeTab === 'active'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                    }`}
+                  >
+                    Active Joint Ventures
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('pipeline')}
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                      activeTab === 'pipeline'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                    }`}
+                  >
+                    Pipeline
+                  </button>
+                </div>
+              </div>
+            </div>
             <button
               onClick={() => setActiveTab('renewals')}
               className={`px-6 py-4 font-semibold text-sm transition-colors whitespace-nowrap ${
@@ -508,7 +526,7 @@ function App() {
               <div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white px-6 py-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gray-200 hover:-translate-y-1">
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Active Joint Ventures</h3>
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Corporate Development - Active Joint Ventures</h3>
             <p className="text-5xl font-bold text-black mb-3">5</p>
             <p className="text-sm text-gray-600 font-medium">Corporate partnerships</p>
           </div>
