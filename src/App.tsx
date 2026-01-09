@@ -7,10 +7,12 @@ import { AuditView } from './components/AuditView';
 import { ObligationsTracker } from './components/ObligationsTracker';
 import { CompaniesHouseAlerts } from './components/CompaniesHouseAlerts';
 import { CompaniesHouseView } from './components/CompaniesHouseView';
+import { JVCalendar } from './components/JVCalendar';
 
 function App() {
   const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals' | 'portfolio' | 'financing' | 'audit'>('active');
-  const [jvSubTab, setJvSubTab] = useState<'overview' | 'geography'>('overview');
+  const [jvSubTab, setJvSubTab] = useState<'overview' | 'geography' | 'calendar'>('overview');
+  const [isCalendarFullScreen, setIsCalendarFullScreen] = useState(false);
   const [auditSubTab, setAuditSubTab] = useState<'audit' | 'documents' | 'companies-house' | 'alerts'>('documents');
   const [portfolioType, setPortfolioType] = useState<'studio' | 'accelerator'>('studio');
   const [expandedJV, setExpandedJV] = useState<string | null>(null);
@@ -489,6 +491,16 @@ function App() {
                 }`}
               >
                 Deal Geography
+              </button>
+              <button
+                onClick={() => setJvSubTab('calendar')}
+                className={`px-6 py-3 font-semibold text-sm rounded-md transition-all ${
+                  jvSubTab === 'calendar'
+                    ? 'bg-black text-white'
+                    : 'text-gray-600 hover:text-black hover:bg-gray-50'
+                }`}
+              >
+                Calendar
               </button>
             </div>
 
@@ -1506,6 +1518,15 @@ function App() {
                     </div>
                   </div>
                 </div>
+              </div>
+            )}
+
+            {jvSubTab === 'calendar' && (
+              <div>
+                <JVCalendar
+                  isFullScreen={isCalendarFullScreen}
+                  onToggleFullScreen={() => setIsCalendarFullScreen(!isCalendarFullScreen)}
+                />
               </div>
             )}
           </div>
