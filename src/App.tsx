@@ -5,13 +5,19 @@ import { AcceleratorDealsView } from './components/AcceleratorDealsView';
 import { FinancingRoundsView } from './components/FinancingRoundsView';
 import { AuditView } from './components/AuditView';
 import { ObligationsTracker } from './components/ObligationsTracker';
+import { CompaniesHouseView } from './components/CompaniesHouseView';
+import { MobileNav } from './components/MobileNav';
+import { NotificationsModal } from './components/NotificationsModal';
 
 function App() {
   const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals' | 'studio' | 'accelerator' | 'financing' | 'audit'>('active');
   const [jvSubTab, setJvSubTab] = useState<'overview' | 'geography'>('overview');
+  const [auditSubTab, setAuditSubTab] = useState<'audit' | 'documents' | 'companies-house'>('documents');
   const [expandedJV, setExpandedJV] = useState<string | null>(null);
   const [studioJVFilter, setStudioJVFilter] = useState<'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia'>('All');
   const [acceleratorJVFilter, setAcceleratorJVFilter] = useState<'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia'>('All');
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [shareIssuances, setShareIssuances] = useState<{[key: string]: boolean}>({
     'aviva-2026-06': false,
     'mediobanca-2026-09': false,
@@ -44,24 +50,70 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Header - Stripe-inspired clean design */}
-      <header className="bg-black text-white py-6 px-8 border-b border-b-4 border-yellow-400">
+      {/* Mobile Navigation */}
+      <MobileNav
+        isOpen={isMobileNavOpen}
+        onClose={() => setIsMobileNavOpen(false)}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        studioJVFilter={studioJVFilter}
+        setStudioJVFilter={setStudioJVFilter}
+        acceleratorJVFilter={acceleratorJVFilter}
+        setAcceleratorJVFilter={setAcceleratorJVFilter}
+        auditSubTab={auditSubTab}
+        setAuditSubTab={setAuditSubTab}
+      />
+
+      {/* Notifications Modal */}
+      <NotificationsModal
+        isOpen={isNotificationsOpen}
+        onClose={() => setIsNotificationsOpen(false)}
+      />
+
+      {/* Header - Stripe-inspired clean design with mobile support */}
+      <header className="bg-black text-white py-4 md:py-6 px-4 md:px-8 border-b border-b-4 border-yellow-400">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 md:gap-4">
+            {/* Hamburger Menu - Mobile Only */}
+            <button
+              onClick={() => setIsMobileNavOpen(true)}
+              className="md:hidden p-2 hover:bg-gray-800 rounded-lg transition-colors"
+              aria-label="Open menu"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+
             <img
               src={`${import.meta.env.BASE_URL}founders-factory-logo.png`}
               alt="Founders Factory"
-              className="h-9 brightness-0 invert"
+              className="h-7 md:h-9 brightness-0 invert"
             />
           </div>
-          <p className="text-sm text-gray-400 font-medium tracking-tight">
-            Corporate Partnerships & Portfolio Dashboard
-          </p>
+
+          <div className="flex items-center gap-3 md:gap-6">
+            <p className="text-xs md:text-sm text-gray-400 font-medium tracking-tight hidden sm:block">
+              Corporate Partnerships & Portfolio Dashboard
+            </p>
+
+            {/* Notification Bell */}
+            <button
+              onClick={() => setIsNotificationsOpen(true)}
+              className="relative p-2 rounded-lg hover:bg-gray-800 transition-colors group"
+              aria-label="Notifications"
+            >
+              <svg className="w-5 h-5 md:w-6 md:h-6 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* Tab Navigation - Stripe-inspired refined navigation */}
-      <div className="bg-white border-b border-gray-200">
+      {/* Tab Navigation - Desktop Only (hidden on mobile) */}
+      <div className="hidden md:block bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-8">
           <div className="flex gap-1 flex-wrap">
             <button
@@ -72,7 +124,7 @@ function App() {
                   : 'text-gray-500 hover:text-black border-b-2 border-transparent'
               }`}
             >
-              Active Joint Ventures
+              Corporate Development
             </button>
             <button
               onClick={() => setActiveTab('pipeline')}
@@ -281,22 +333,74 @@ function App() {
             >
               Financing Rounds
             </button>
-            <button
-              onClick={() => setActiveTab('audit')}
-              className={`px-6 py-4 font-semibold text-sm transition-colors whitespace-nowrap ${
-                activeTab === 'audit'
-                  ? 'text-black border-b-2 border-ffYellow'
-                  : 'text-gray-500 hover:text-black border-b-2 border-transparent'
-              }`}
-            >
-              Audit & Documents
-            </button>
+
+            {/* Audit & Documents with Dropdown */}
+            <div className="relative group">
+              <button
+                onClick={() => {
+                  setActiveTab('audit');
+                  setAuditSubTab('documents');
+                }}
+                className={`px-6 py-4 font-semibold text-sm transition-colors whitespace-nowrap ${
+                  activeTab === 'audit'
+                    ? 'text-black border-b-2 border-ffYellow'
+                    : 'text-gray-500 hover:text-black border-b-2 border-transparent'
+                }`}
+              >
+                Audit & Documents
+              </button>
+
+              {/* Dropdown Menu - Apple-esque minimal design */}
+              <div className="absolute top-full left-0 mt-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out z-50">
+                <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-100/50 py-2 mt-2 min-w-[180px]">
+                  <button
+                    onClick={() => {
+                      setActiveTab('audit');
+                      setAuditSubTab('audit');
+                    }}
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                      activeTab === 'audit' && auditSubTab === 'audit'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                    }`}
+                  >
+                    Audit
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('audit');
+                      setAuditSubTab('documents');
+                    }}
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                      activeTab === 'audit' && auditSubTab === 'documents'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                    }`}
+                  >
+                    Documents
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('audit');
+                      setAuditSubTab('companies-house');
+                    }}
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                      activeTab === 'audit' && auditSubTab === 'companies-house'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                    }`}
+                  >
+                    Companies House
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-8">
         {activeTab === 'active' && (
           <div>
             {/* JV Subtab Navigation */}
@@ -1885,7 +1989,16 @@ function App() {
         )}
 
         {activeTab === 'audit' && (
-          <AuditView />
+          <>
+            {auditSubTab === 'audit' && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Audit Dashboard</h2>
+                <p className="text-gray-600">Audit functionality coming soon...</p>
+              </div>
+            )}
+            {auditSubTab === 'documents' && <AuditView />}
+            {auditSubTab === 'companies-house' && <CompaniesHouseView />}
+          </>
         )}
       </main>
     </div>

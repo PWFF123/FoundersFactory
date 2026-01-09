@@ -9,6 +9,8 @@ interface MobileNavProps {
   setStudioJVFilter: (filter: 'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia') => void;
   acceleratorJVFilter: 'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia';
   setAcceleratorJVFilter: (filter: 'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia') => void;
+  auditSubTab: 'audit' | 'documents' | 'companies-house';
+  setAuditSubTab: (subTab: 'audit' | 'documents' | 'companies-house') => void;
 }
 
 export function MobileNav({
@@ -20,12 +22,14 @@ export function MobileNav({
   setStudioJVFilter,
   acceleratorJVFilter,
   setAcceleratorJVFilter,
+  auditSubTab,
+  setAuditSubTab,
 }: MobileNavProps) {
-  const [expandedSection, setExpandedSection] = useState<'studio' | 'accelerator' | null>(null);
+  const [expandedSection, setExpandedSection] = useState<'studio' | 'accelerator' | 'audit' | null>(null);
 
   const handleTabClick = (tab: 'active' | 'pipeline' | 'renewals' | 'studio' | 'accelerator' | 'financing' | 'audit') => {
     setActiveTab(tab);
-    if (tab !== 'studio' && tab !== 'accelerator') {
+    if (tab !== 'studio' && tab !== 'accelerator' && tab !== 'audit') {
       onClose();
     }
   };
@@ -39,6 +43,12 @@ export function MobileNav({
   const handleAcceleratorFilterClick = (filter: 'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia') => {
     setActiveTab('accelerator');
     setAcceleratorJVFilter(filter);
+    onClose();
+  };
+
+  const handleAuditSubTabClick = (subTab: 'audit' | 'documents' | 'companies-house') => {
+    setActiveTab('audit');
+    setAuditSubTab(subTab);
     onClose();
   };
 
@@ -273,17 +283,63 @@ export function MobileNav({
             Financing
           </button>
 
-          {/* Audit & Documents */}
-          <button
-            onClick={() => handleTabClick('audit')}
-            className={`w-full text-left px-6 py-4 font-semibold text-sm transition-colors border-l-4 ${
-              activeTab === 'audit'
-                ? 'bg-yellow-50 border-yellow-400 text-black'
-                : 'border-transparent text-gray-600 hover:bg-gray-50'
-            }`}
-          >
-            Audit
-          </button>
+          {/* Audit & Documents - Expandable */}
+          <div>
+            <button
+              onClick={() => setExpandedSection(expandedSection === 'audit' ? null : 'audit')}
+              className={`w-full text-left px-6 py-4 font-semibold text-sm transition-colors border-l-4 flex items-center justify-between ${
+                activeTab === 'audit'
+                  ? 'bg-yellow-50 border-yellow-400 text-black'
+                  : 'border-transparent text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              <span>Audit & Documents</span>
+              <svg
+                className={`w-5 h-5 transition-transform ${expandedSection === 'audit' ? 'rotate-90' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* Audit Submenu */}
+            {expandedSection === 'audit' && (
+              <div className="bg-gray-50 border-l-4 border-yellow-400/30">
+                <button
+                  onClick={() => handleAuditSubTabClick('audit')}
+                  className={`w-full text-left px-12 py-3 text-sm transition-colors ${
+                    activeTab === 'audit' && auditSubTab === 'audit'
+                      ? 'text-black font-semibold bg-yellow-100'
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  Audit
+                </button>
+                <button
+                  onClick={() => handleAuditSubTabClick('documents')}
+                  className={`w-full text-left px-12 py-3 text-sm transition-colors ${
+                    activeTab === 'audit' && auditSubTab === 'documents'
+                      ? 'text-black font-semibold bg-yellow-100'
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  Documents
+                </button>
+                <button
+                  onClick={() => handleAuditSubTabClick('companies-house')}
+                  className={`w-full text-left px-12 py-3 text-sm transition-colors ${
+                    activeTab === 'audit' && auditSubTab === 'companies-house'
+                      ? 'text-black font-semibold bg-yellow-100'
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  Companies House
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>
