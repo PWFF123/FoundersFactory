@@ -9,9 +9,10 @@ import { CompaniesHouseAlerts } from './components/CompaniesHouseAlerts';
 import { CompaniesHouseView } from './components/CompaniesHouseView';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals' | 'studio' | 'accelerator' | 'financing' | 'audit'>('active');
+  const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals' | 'portfolio' | 'financing' | 'audit'>('active');
   const [jvSubTab, setJvSubTab] = useState<'overview' | 'geography'>('overview');
   const [auditSubTab, setAuditSubTab] = useState<'audit' | 'documents' | 'companies-house' | 'alerts'>('documents');
+  const [portfolioType, setPortfolioType] = useState<'studio' | 'accelerator'>('studio');
   const [expandedJV, setExpandedJV] = useState<string | null>(null);
   const [studioJVFilter, setStudioJVFilter] = useState<'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia'>('All');
   const [acceleratorJVFilter, setAcceleratorJVFilter] = useState<'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia'>('All');
@@ -98,178 +99,260 @@ function App() {
               Renewals & Notices
             </button>
 
-            {/* Studio Deals with Dropdown */}
+            {/* Portfolio with nested JV Partners */}
             <div className="relative group">
               <button
-                onClick={() => {
-                  setActiveTab('studio');
-                  setStudioJVFilter('All');
-                }}
                 className={`px-6 py-4 font-semibold text-sm transition-colors whitespace-nowrap ${
-                  activeTab === 'studio'
+                  activeTab === 'portfolio'
                     ? 'text-black border-b-2 border-ffYellow'
                     : 'text-gray-500 hover:text-black border-b-2 border-transparent'
                 }`}
               >
-                Studio Deals
+                Portfolio
               </button>
 
-              {/* Dropdown Menu - Apple-esque minimal design */}
+              {/* Dropdown Menu - JV Partners */}
               <div className="absolute top-full left-0 mt-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out z-50">
-                <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-100/50 py-2 mt-2 min-w-[140px]">
-                  <button
-                    onClick={() => {
-                      setActiveTab('studio');
-                      setStudioJVFilter('All');
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
-                      activeTab === 'studio' && studioJVFilter === 'All'
-                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
-                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
-                    }`}
-                  >
-                    All
-                  </button>
-                  <button
-                    onClick={() => {
-                      setActiveTab('studio');
-                      setStudioJVFilter('Aviva');
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
-                      activeTab === 'studio' && studioJVFilter === 'Aviva'
-                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
-                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
-                    }`}
-                  >
-                    Aviva
-                  </button>
-                  <button
-                    onClick={() => {
-                      setActiveTab('studio');
-                      setStudioJVFilter('Mediobanca');
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
-                      activeTab === 'studio' && studioJVFilter === 'Mediobanca'
-                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
-                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
-                    }`}
-                  >
-                    Mediobanca
-                  </button>
-                  <button
-                    onClick={() => {
-                      setActiveTab('studio');
-                      setStudioJVFilter('Fastweb');
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
-                      activeTab === 'studio' && studioJVFilter === 'Fastweb'
-                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
-                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
-                    }`}
-                  >
-                    Fastweb
-                  </button>
-                  <button
-                    onClick={() => {
-                      setActiveTab('studio');
-                      setStudioJVFilter('Vonovia');
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
-                      activeTab === 'studio' && studioJVFilter === 'Vonovia'
-                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
-                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
-                    }`}
-                  >
-                    Vonovia
-                  </button>
-                </div>
-              </div>
-            </div>
+                <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-100/50 py-2 mt-2 min-w-[160px]">
+                  {/* All - Direct options */}
+                  <div className="relative group/all">
+                    <button
+                      className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 flex items-center justify-between ${
+                        activeTab === 'portfolio' && (studioJVFilter === 'All' || acceleratorJVFilter === 'All')
+                          ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                          : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                      }`}
+                    >
+                      <span>All</span>
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                    <div className="absolute left-full top-0 ml-1 opacity-0 invisible group-hover/all:opacity-100 group-hover/all:visible transition-all duration-200 ease-out">
+                      <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-100/50 py-2 min-w-[160px]">
+                        <button
+                          onClick={() => {
+                            setActiveTab('portfolio');
+                            setPortfolioType('studio');
+                            setStudioJVFilter('All');
+                          }}
+                          className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                            activeTab === 'portfolio' && portfolioType === 'studio' && studioJVFilter === 'All'
+                              ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                              : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                          }`}
+                        >
+                          Studio Deals
+                        </button>
+                        <button
+                          onClick={() => {
+                            setActiveTab('portfolio');
+                            setPortfolioType('accelerator');
+                            setAcceleratorJVFilter('All');
+                          }}
+                          className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                            activeTab === 'portfolio' && portfolioType === 'accelerator' && acceleratorJVFilter === 'All'
+                              ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                              : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                          }`}
+                        >
+                          Accelerator
+                        </button>
+                      </div>
+                    </div>
+                  </div>
 
-            {/* Accelerator Investments with Dropdown */}
-            <div className="relative group">
-              <button
-                onClick={() => {
-                  setActiveTab('accelerator');
-                  setAcceleratorJVFilter('All');
-                }}
-                className={`px-6 py-4 font-semibold text-sm transition-colors whitespace-nowrap ${
-                  activeTab === 'accelerator'
-                    ? 'text-black border-b-2 border-ffYellow'
-                    : 'text-gray-500 hover:text-black border-b-2 border-transparent'
-                }`}
-              >
-                Accelerator Investments
-              </button>
+                  {/* Aviva */}
+                  <div className="relative group/aviva">
+                    <button
+                      className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 flex items-center justify-between ${
+                        activeTab === 'portfolio' && (studioJVFilter === 'Aviva' || acceleratorJVFilter === 'Aviva')
+                          ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                          : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                      }`}
+                    >
+                      <span>Aviva</span>
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                    <div className="absolute left-full top-0 ml-1 opacity-0 invisible group-hover/aviva:opacity-100 group-hover/aviva:visible transition-all duration-200 ease-out">
+                      <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-100/50 py-2 min-w-[160px]">
+                        <button
+                          onClick={() => {
+                            setActiveTab('portfolio');
+                            setPortfolioType('studio');
+                            setStudioJVFilter('Aviva');
+                          }}
+                          className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                            activeTab === 'portfolio' && portfolioType === 'studio' && studioJVFilter === 'Aviva'
+                              ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                              : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                          }`}
+                        >
+                          Studio Deals
+                        </button>
+                        <button
+                          onClick={() => {
+                            setActiveTab('portfolio');
+                            setPortfolioType('accelerator');
+                            setAcceleratorJVFilter('Aviva');
+                          }}
+                          className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                            activeTab === 'portfolio' && portfolioType === 'accelerator' && acceleratorJVFilter === 'Aviva'
+                              ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                              : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                          }`}
+                        >
+                          Accelerator
+                        </button>
+                      </div>
+                    </div>
+                  </div>
 
-              {/* Dropdown Menu - Apple-esque minimal design */}
-              <div className="absolute top-full left-0 mt-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out z-50">
-                <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-100/50 py-2 mt-2 min-w-[140px]">
-                  <button
-                    onClick={() => {
-                      setActiveTab('accelerator');
-                      setAcceleratorJVFilter('All');
-                    }}
-                    className={`w-full text-left px-3 py-2 text-xs font-medium transition-colors ${
-                      activeTab === 'accelerator' && acceleratorJVFilter === 'All'
-                        ? 'text-black bg-gray-100'
-                        : 'text-gray-500 hover:text-black hover:bg-gray-100'
-                    }`}
-                  >
-                    All
-                  </button>
-                  <button
-                    onClick={() => {
-                      setActiveTab('accelerator');
-                      setAcceleratorJVFilter('Aviva');
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
-                      activeTab === 'accelerator' && acceleratorJVFilter === 'Aviva'
-                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
-                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
-                    }`}
-                  >
-                    Aviva
-                  </button>
-                  <button
-                    onClick={() => {
-                      setActiveTab('accelerator');
-                      setAcceleratorJVFilter('Mediobanca');
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
-                      activeTab === 'accelerator' && acceleratorJVFilter === 'Mediobanca'
-                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
-                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
-                    }`}
-                  >
-                    Mediobanca
-                  </button>
-                  <button
-                    onClick={() => {
-                      setActiveTab('accelerator');
-                      setAcceleratorJVFilter('Fastweb');
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
-                      activeTab === 'accelerator' && acceleratorJVFilter === 'Fastweb'
-                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
-                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
-                    }`}
-                  >
-                    Fastweb
-                  </button>
-                  <button
-                    onClick={() => {
-                      setActiveTab('accelerator');
-                      setAcceleratorJVFilter('Vonovia');
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
-                      activeTab === 'accelerator' && acceleratorJVFilter === 'Vonovia'
-                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
-                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
-                    }`}
-                  >
-                    Vonovia
-                  </button>
+                  {/* Mediobanca */}
+                  <div className="relative group/mediobanca">
+                    <button
+                      className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 flex items-center justify-between ${
+                        activeTab === 'portfolio' && (studioJVFilter === 'Mediobanca' || acceleratorJVFilter === 'Mediobanca')
+                          ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                          : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                      }`}
+                    >
+                      <span>Mediobanca</span>
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                    <div className="absolute left-full top-0 ml-1 opacity-0 invisible group-hover/mediobanca:opacity-100 group-hover/mediobanca:visible transition-all duration-200 ease-out">
+                      <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-100/50 py-2 min-w-[160px]">
+                        <button
+                          onClick={() => {
+                            setActiveTab('portfolio');
+                            setPortfolioType('studio');
+                            setStudioJVFilter('Mediobanca');
+                          }}
+                          className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                            activeTab === 'portfolio' && portfolioType === 'studio' && studioJVFilter === 'Mediobanca'
+                              ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                              : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                          }`}
+                        >
+                          Studio Deals
+                        </button>
+                        <button
+                          onClick={() => {
+                            setActiveTab('portfolio');
+                            setPortfolioType('accelerator');
+                            setAcceleratorJVFilter('Mediobanca');
+                          }}
+                          className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                            activeTab === 'portfolio' && portfolioType === 'accelerator' && acceleratorJVFilter === 'Mediobanca'
+                              ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                              : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                          }`}
+                        >
+                          Accelerator
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Fastweb */}
+                  <div className="relative group/fastweb">
+                    <button
+                      className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 flex items-center justify-between ${
+                        activeTab === 'portfolio' && (studioJVFilter === 'Fastweb' || acceleratorJVFilter === 'Fastweb')
+                          ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                          : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                      }`}
+                    >
+                      <span>Fastweb</span>
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                    <div className="absolute left-full top-0 ml-1 opacity-0 invisible group-hover/fastweb:opacity-100 group-hover/fastweb:visible transition-all duration-200 ease-out">
+                      <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-100/50 py-2 min-w-[160px]">
+                        <button
+                          onClick={() => {
+                            setActiveTab('portfolio');
+                            setPortfolioType('studio');
+                            setStudioJVFilter('Fastweb');
+                          }}
+                          className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                            activeTab === 'portfolio' && portfolioType === 'studio' && studioJVFilter === 'Fastweb'
+                              ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                              : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                          }`}
+                        >
+                          Studio Deals
+                        </button>
+                        <button
+                          onClick={() => {
+                            setActiveTab('portfolio');
+                            setPortfolioType('accelerator');
+                            setAcceleratorJVFilter('Fastweb');
+                          }}
+                          className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                            activeTab === 'portfolio' && portfolioType === 'accelerator' && acceleratorJVFilter === 'Fastweb'
+                              ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                              : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                          }`}
+                        >
+                          Accelerator
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Vonovia */}
+                  <div className="relative group/vonovia">
+                    <button
+                      className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 flex items-center justify-between ${
+                        activeTab === 'portfolio' && (studioJVFilter === 'Vonovia' || acceleratorJVFilter === 'Vonovia')
+                          ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                          : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                      }`}
+                    >
+                      <span>Vonovia</span>
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                    <div className="absolute left-full top-0 ml-1 opacity-0 invisible group-hover/vonovia:opacity-100 group-hover/vonovia:visible transition-all duration-200 ease-out">
+                      <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-100/50 py-2 min-w-[160px]">
+                        <button
+                          onClick={() => {
+                            setActiveTab('portfolio');
+                            setPortfolioType('studio');
+                            setStudioJVFilter('Vonovia');
+                          }}
+                          className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                            activeTab === 'portfolio' && portfolioType === 'studio' && studioJVFilter === 'Vonovia'
+                              ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                              : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                          }`}
+                        >
+                          Studio Deals
+                        </button>
+                        <button
+                          onClick={() => {
+                            setActiveTab('portfolio');
+                            setPortfolioType('accelerator');
+                            setAcceleratorJVFilter('Vonovia');
+                          }}
+                          className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                            activeTab === 'portfolio' && portfolioType === 'accelerator' && acceleratorJVFilter === 'Vonovia'
+                              ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                              : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                          }`}
+                        >
+                          Accelerator
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1958,12 +2041,15 @@ function App() {
           </div>
         )}
 
-        {activeTab === 'studio' && (
-          <StudioDealsView initialJVFilter={studioJVFilter} />
-        )}
-
-        {activeTab === 'accelerator' && (
-          <AcceleratorDealsView initialJVFilter={acceleratorJVFilter} />
+        {activeTab === 'portfolio' && (
+          <>
+            {portfolioType === 'studio' && (
+              <StudioDealsView initialJVFilter={studioJVFilter} />
+            )}
+            {portfolioType === 'accelerator' && (
+              <AcceleratorDealsView initialJVFilter={acceleratorJVFilter} />
+            )}
+          </>
         )}
 
         {activeTab === 'financing' && (
