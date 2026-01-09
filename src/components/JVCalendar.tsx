@@ -201,14 +201,6 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     });
   };
 
-  const getEventsForMonth = (monthIndex: number) => {
-    return filteredEvents.filter(event => {
-      const eventDate = new Date(event.date);
-      return eventDate.getMonth() === monthIndex &&
-        eventDate.getFullYear() === currentDate.getFullYear();
-    });
-  };
-
   const isToday = (day: number) => {
     const today = new Date();
     return day === today.getDate() &&
@@ -225,33 +217,79 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
 
   const renderYearView = () => {
     return (
-      <div className="grid grid-cols-3 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {monthNames.map((month, index) => {
-          const monthEvents = getEventsForMonth(index);
+          const daysInMonth = new Date(currentDate.getFullYear(), index + 1, 0).getDate();
+          const firstDayOfMonth = new Date(currentDate.getFullYear(), index, 1).getDay();
+
+          const miniDays = [];
+
+          // Add empty cells for days before month starts
+          for (let i = 0; i < firstDayOfMonth; i++) {
+            miniDays.push(<div key={`empty-${i}`} className="aspect-square" />);
+          }
+
+          // Add all days of the month
+          for (let day = 1; day <= daysInMonth; day++) {
+            const dayEvents = filteredEvents.filter(event => {
+              const eventDate = new Date(event.date);
+              return eventDate.getDate() === day &&
+                eventDate.getMonth() === index &&
+                eventDate.getFullYear() === currentDate.getFullYear();
+            });
+
+            const isCurrentDay = (() => {
+              const today = new Date();
+              return day === today.getDate() &&
+                index === today.getMonth() &&
+                currentDate.getFullYear() === today.getFullYear();
+            })();
+
+            miniDays.push(
+              <div
+                key={day}
+                className="aspect-square flex items-center justify-center relative"
+              >
+                <span className={`text-[10px] ${isCurrentDay ? 'font-bold text-black' : 'text-gray-600'}`}>
+                  {day}
+                </span>
+                {dayEvents.length > 0 && (
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-[1px]">
+                    {dayEvents.slice(0, 1).map((event) => (
+                      <div
+                        key={event.id}
+                        className={`w-1 h-1 rounded-full ${getEventTypeColor(event.type)}`}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          }
+
           return (
             <button
               key={month}
               onClick={() => handleMonthClick(index)}
-              className="aspect-square p-4 rounded-xl bg-white border-2 border-gray-200 hover:border-ffYellow hover:shadow-lg transition-all duration-200 group"
+              className="bg-white rounded-xl border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-200 p-3 group"
             >
-              <div className="flex flex-col items-center justify-center h-full">
-                <span className="text-sm font-semibold text-gray-900 mb-2">{month}</span>
-                {monthEvents.length > 0 && (
-                  <div className="flex flex-wrap gap-1 justify-center">
-                    {monthEvents.slice(0, 6).map((event) => (
-                      <div
-                        key={event.id}
-                        className={`w-2 h-2 rounded-full ${getEventTypeColor(event.type)}`}
-                      />
-                    ))}
-                    {monthEvents.length > 6 && (
-                      <span className="text-xs text-gray-500">+{monthEvents.length - 6}</span>
-                    )}
+              {/* Month name */}
+              <div className="text-center mb-2">
+                <h3 className="text-xs font-semibold text-gray-900 uppercase tracking-wide">{month}</h3>
+              </div>
+
+              {/* Mini day labels */}
+              <div className="grid grid-cols-7 gap-[2px] mb-1">
+                {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, idx) => (
+                  <div key={idx} className="text-center text-[8px] font-medium text-gray-400 uppercase">
+                    {day}
                   </div>
-                )}
-                {monthEvents.length === 0 && (
-                  <span className="text-xs text-gray-400">No events</span>
-                )}
+                ))}
+              </div>
+
+              {/* Mini calendar grid */}
+              <div className="grid grid-cols-7 gap-[2px]">
+                {miniDays}
               </div>
             </button>
           );
