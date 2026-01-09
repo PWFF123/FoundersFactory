@@ -326,32 +326,54 @@ function App() {
                   >
                     Documents
                   </button>
-                  <button
-                    onClick={() => {
-                      setActiveTab('audit');
-                      setAuditSubTab('companies-house');
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
-                      activeTab === 'audit' && auditSubTab === 'companies-house'
-                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
-                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
-                    }`}
-                  >
-                    Companies House
-                  </button>
-                  <button
-                    onClick={() => {
-                      setActiveTab('audit');
-                      setAuditSubTab('alerts');
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
-                      activeTab === 'audit' && auditSubTab === 'alerts'
-                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
-                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
-                    }`}
-                  >
-                    Monitoring & Alerts
-                  </button>
+
+                  {/* Companies House with nested submenu */}
+                  <div className="relative group/ch">
+                    <button
+                      className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 flex items-center justify-between ${
+                        activeTab === 'audit' && (auditSubTab === 'companies-house' || auditSubTab === 'alerts')
+                          ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                          : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                      }`}
+                    >
+                      <span>Companies House</span>
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+
+                    {/* Nested submenu for Companies House */}
+                    <div className="absolute left-full top-0 ml-1 opacity-0 invisible group-hover/ch:opacity-100 group-hover/ch:visible transition-all duration-200 ease-out">
+                      <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-100/50 py-2 min-w-[180px]">
+                        <button
+                          onClick={() => {
+                            setActiveTab('audit');
+                            setAuditSubTab('companies-house');
+                          }}
+                          className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                            activeTab === 'audit' && auditSubTab === 'companies-house'
+                              ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                              : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                          }`}
+                        >
+                          Entity Tracking
+                        </button>
+                        <button
+                          onClick={() => {
+                            setActiveTab('audit');
+                            setAuditSubTab('alerts');
+                          }}
+                          className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                            activeTab === 'audit' && auditSubTab === 'alerts'
+                              ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                              : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                          }`}
+                        >
+                          Monitoring & Alerts
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
