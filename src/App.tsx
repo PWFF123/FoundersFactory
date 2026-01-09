@@ -5,10 +5,13 @@ import { AcceleratorDealsView } from './components/AcceleratorDealsView';
 import { FinancingRoundsView } from './components/FinancingRoundsView';
 import { AuditView } from './components/AuditView';
 import { ObligationsTracker } from './components/ObligationsTracker';
+import { CompaniesHouseAlerts } from './components/CompaniesHouseAlerts';
+import { CompaniesHouseView } from './components/CompaniesHouseView';
 
 function App() {
   const [activeTab, setActiveTab] = useState<'active' | 'pipeline' | 'renewals' | 'studio' | 'accelerator' | 'financing' | 'audit'>('active');
   const [jvSubTab, setJvSubTab] = useState<'overview' | 'geography'>('overview');
+  const [auditSubTab, setAuditSubTab] = useState<'audit' | 'documents' | 'companies-house' | 'alerts'>('documents');
   const [expandedJV, setExpandedJV] = useState<string | null>(null);
   const [studioJVFilter, setStudioJVFilter] = useState<'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia'>('All');
   const [acceleratorJVFilter, setAcceleratorJVFilter] = useState<'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia'>('All');
@@ -281,16 +284,81 @@ function App() {
             >
               Financing Rounds
             </button>
-            <button
-              onClick={() => setActiveTab('audit')}
-              className={`px-6 py-4 font-semibold text-sm transition-colors whitespace-nowrap ${
-                activeTab === 'audit'
-                  ? 'text-black border-b-2 border-ffYellow'
-                  : 'text-gray-500 hover:text-black border-b-2 border-transparent'
-              }`}
-            >
-              Audit & Documents
-            </button>
+
+            {/* Audit & Documents with Dropdown */}
+            <div className="relative group">
+              <button
+                onClick={() => {
+                  setActiveTab('audit');
+                  setAuditSubTab('documents');
+                }}
+                className={`px-6 py-4 font-semibold text-sm transition-colors whitespace-nowrap ${
+                  activeTab === 'audit'
+                    ? 'text-black border-b-2 border-ffYellow'
+                    : 'text-gray-500 hover:text-black border-b-2 border-transparent'
+                }`}
+              >
+                Audit & Documents
+              </button>
+
+              {/* Dropdown Menu - Apple-esque minimal design */}
+              <div className="absolute top-full left-0 mt-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-out z-50">
+                <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-100/50 py-2 mt-2 min-w-[180px]">
+                  <button
+                    onClick={() => {
+                      setActiveTab('audit');
+                      setAuditSubTab('audit');
+                    }}
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                      activeTab === 'audit' && auditSubTab === 'audit'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                    }`}
+                  >
+                    Audit
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('audit');
+                      setAuditSubTab('documents');
+                    }}
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                      activeTab === 'audit' && auditSubTab === 'documents'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                    }`}
+                  >
+                    Documents
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('audit');
+                      setAuditSubTab('companies-house');
+                    }}
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                      activeTab === 'audit' && auditSubTab === 'companies-house'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                    }`}
+                  >
+                    Companies House
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('audit');
+                      setAuditSubTab('alerts');
+                    }}
+                    className={`w-full text-left px-4 py-2.5 text-sm tracking-tight transition-all duration-150 border-b border-yellow-400/0 hover:border-yellow-400/30 ${
+                      activeTab === 'audit' && auditSubTab === 'alerts'
+                        ? 'text-black font-medium bg-gray-50/80 !border-yellow-400/60'
+                        : 'text-gray-600 font-normal hover:text-black hover:bg-gray-50/50'
+                    }`}
+                  >
+                    Monitoring & Alerts
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1885,7 +1953,17 @@ function App() {
         )}
 
         {activeTab === 'audit' && (
-          <AuditView />
+          <>
+            {auditSubTab === 'audit' && (
+              <div className="bg-white p-8 rounded-lg shadow-lg">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Audit Dashboard</h2>
+                <p className="text-gray-600">Audit functionality coming soon...</p>
+              </div>
+            )}
+            {auditSubTab === 'documents' && <AuditView />}
+            {auditSubTab === 'companies-house' && <CompaniesHouseView />}
+            {auditSubTab === 'alerts' && <CompaniesHouseAlerts />}
+          </>
         )}
       </main>
     </div>
