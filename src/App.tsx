@@ -526,7 +526,7 @@ function App() {
               <div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white px-6 py-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gray-200 hover:-translate-y-1">
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Corporate Development - Active Joint Ventures</h3>
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Active Joint Ventures</h3>
             <p className="text-5xl font-bold text-black mb-3">5</p>
             <p className="text-sm text-gray-600 font-medium">Corporate partnerships</p>
           </div>
