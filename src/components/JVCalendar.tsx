@@ -29,7 +29,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     // January
     {
       id: '1',
-      date: new Date(2025, 0, 9),
+      date: new Date(2026, 0, 9),
       title: 'Aviva Accounting Reference',
       type: 'accounting',
       jvPartner: 'Aviva',
@@ -38,7 +38,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     },
     {
       id: '2',
-      date: new Date(2025, 0, 15),
+      date: new Date(2026, 0, 15),
       title: 'Pico Share Issuance',
       type: 'share-issuance',
       jvPartner: 'Pico',
@@ -48,7 +48,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     // February
     {
       id: '3',
-      date: new Date(2025, 1, 14),
+      date: new Date(2026, 1, 14),
       title: 'Mediobanca JV Anniversary',
       type: 'anniversary',
       jvPartner: 'Mediobanca',
@@ -57,7 +57,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     },
     {
       id: '4',
-      date: new Date(2025, 1, 28),
+      date: new Date(2026, 1, 28),
       title: 'Fastweb SHA Break Date',
       type: 'break-date',
       jvPartner: 'Fastweb',
@@ -67,7 +67,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     // March
     {
       id: '5',
-      date: new Date(2025, 2, 15),
+      date: new Date(2026, 2, 15),
       title: 'Aviva SHA Break Date',
       type: 'break-date',
       jvPartner: 'Aviva',
@@ -76,7 +76,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     },
     {
       id: '6',
-      date: new Date(2025, 2, 31),
+      date: new Date(2026, 2, 31),
       title: 'Mediobanca Accounting Reference',
       type: 'accounting',
       jvPartner: 'Mediobanca',
@@ -86,7 +86,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     // April
     {
       id: '7',
-      date: new Date(2025, 3, 1),
+      date: new Date(2026, 3, 1),
       title: 'Aviva Share Issuance',
       type: 'share-issuance',
       jvPartner: 'Aviva',
@@ -95,7 +95,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     },
     {
       id: '8',
-      date: new Date(2025, 3, 15),
+      date: new Date(2026, 3, 15),
       title: 'Fastweb Subscription Renewal',
       type: 'renewal',
       jvPartner: 'Fastweb',
@@ -105,7 +105,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     // May
     {
       id: '9',
-      date: new Date(2025, 4, 10),
+      date: new Date(2026, 4, 10),
       title: 'Vonovia Share Issuance',
       type: 'share-issuance',
       jvPartner: 'Vonovia',
@@ -114,7 +114,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     },
     {
       id: '10',
-      date: new Date(2025, 4, 20),
+      date: new Date(2026, 4, 20),
       title: 'Vonovia JV Anniversary',
       type: 'anniversary',
       jvPartner: 'Vonovia',
@@ -124,7 +124,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     // June
     {
       id: '11',
-      date: new Date(2025, 5, 5),
+      date: new Date(2026, 5, 5),
       title: 'Pico Subscription Renewal',
       type: 'renewal',
       jvPartner: 'Pico',
@@ -133,7 +133,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     },
     {
       id: '12',
-      date: new Date(2025, 5, 10),
+      date: new Date(2026, 5, 10),
       title: 'Pico Break Date Notice',
       type: 'break-date',
       jvPartner: 'Pico',
@@ -142,7 +142,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     },
     {
       id: '13',
-      date: new Date(2025, 5, 30),
+      date: new Date(2026, 5, 30),
       title: 'Vonovia Accounting Reference',
       type: 'accounting',
       jvPartner: 'Vonovia',
@@ -152,7 +152,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     // July
     {
       id: '14',
-      date: new Date(2025, 6, 1),
+      date: new Date(2026, 6, 1),
       title: 'Mediobanca Share Issuance',
       type: 'share-issuance',
       jvPartner: 'Mediobanca',
@@ -161,7 +161,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     },
     {
       id: '15',
-      date: new Date(2025, 6, 15),
+      date: new Date(2026, 6, 15),
       title: 'Aviva Subscription Renewal',
       type: 'renewal',
       jvPartner: 'Aviva',
@@ -171,7 +171,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     // August
     {
       id: '16',
-      date: new Date(2025, 7, 8),
+      date: new Date(2026, 7, 8),
       title: 'Fastweb JV Anniversary',
       type: 'anniversary',
       jvPartner: 'Fastweb',
@@ -180,7 +180,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     },
     {
       id: '17',
-      date: new Date(2025, 7, 20),
+      date: new Date(2026, 7, 20),
       title: 'Mediobanca Break Date',
       type: 'break-date',
       jvPartner: 'Mediobanca',
@@ -190,7 +190,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     // September
     {
       id: '18',
-      date: new Date(2025, 8, 12),
+      date: new Date(2026, 8, 12),
       title: 'Pico Accounting Reference',
       type: 'accounting',
       jvPartner: 'Pico',
@@ -199,7 +199,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     },
     {
       id: '19',
-      date: new Date(2025, 8, 30),
+      date: new Date(2026, 8, 30),
       title: 'Fastweb Accounting Reference',
       type: 'accounting',
       jvPartner: 'Fastweb',
@@ -209,7 +209,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     // October
     {
       id: '20',
-      date: new Date(2025, 9, 1),
+      date: new Date(2026, 9, 1),
       title: 'Vonovia Subscription Renewal',
       type: 'renewal',
       jvPartner: 'Vonovia',
@@ -218,7 +218,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     },
     {
       id: '21',
-      date: new Date(2025, 9, 15),
+      date: new Date(2026, 9, 15),
       title: 'Fastweb Share Issuance',
       type: 'share-issuance',
       jvPartner: 'Fastweb',
@@ -228,7 +228,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     // November
     {
       id: '22',
-      date: new Date(2025, 10, 7),
+      date: new Date(2026, 10, 7),
       title: 'Pico JV Anniversary',
       type: 'anniversary',
       jvPartner: 'Pico',
@@ -237,7 +237,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     },
     {
       id: '23',
-      date: new Date(2025, 10, 20),
+      date: new Date(2026, 10, 20),
       title: 'Aviva Break Date Notice',
       type: 'break-date',
       jvPartner: 'Aviva',
@@ -247,7 +247,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     // December
     {
       id: '24',
-      date: new Date(2025, 11, 10),
+      date: new Date(2026, 11, 10),
       title: 'Mediobanca Subscription Renewal',
       type: 'renewal',
       jvPartner: 'Mediobanca',
@@ -256,7 +256,7 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
     },
     {
       id: '25',
-      date: new Date(2025, 11, 31),
+      date: new Date(2026, 11, 31),
       title: 'Vonovia Share Issuance',
       type: 'share-issuance',
       jvPartner: 'Vonovia',
