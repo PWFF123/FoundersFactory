@@ -15,9 +15,14 @@ interface JVCalendarProps {
   onToggleFullScreen?: () => void;
 }
 
+type ViewMode = 'year' | 'month' | 'day';
+type JVFilter = 'All' | 'Aviva' | 'Mediobanca' | 'Fastweb' | 'Vonovia' | 'Pico';
+
 export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalendarProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [viewMode, setViewMode] = useState<ViewMode>('month');
+  const [jvFilter, setJvFilter] = useState<JVFilter>('All');
 
   // Sample events - in production this would come from your data source
   const events: CalendarEvent[] = [
@@ -66,25 +71,77 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
       description: '3-year partnership anniversary',
       priority: 'low',
     },
+    {
+      id: '6',
+      date: new Date(2024, 5, 10),
+      title: 'Pico Break Date Notice',
+      type: 'break-date',
+      jvPartner: 'Pico',
+      description: 'Subscription agreement break date',
+      priority: 'high',
+    },
+    {
+      id: '7',
+      date: new Date(2024, 6, 1),
+      title: 'Mediobanca Share Issuance',
+      type: 'share-issuance',
+      jvPartner: 'Mediobanca',
+      description: 'Allot shares for Q2 performance',
+      priority: 'medium',
+    },
+    {
+      id: '8',
+      date: new Date(2024, 8, 30),
+      title: 'Fastweb Accounting Reference',
+      type: 'accounting',
+      jvPartner: 'Fastweb',
+      description: 'Financial year end',
+      priority: 'medium',
+    },
   ];
 
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'];
 
-  const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
-  const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+  const filteredEvents = jvFilter === 'All'
+    ? events
+    : events.filter(event => event.jvPartner === jvFilter);
 
-  const previousMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1));
+  const previousPeriod = () => {
+    if (viewMode === 'year') {
+      setCurrentDate(new Date(currentDate.getFullYear() - 1, currentDate.getMonth()));
+    } else if (viewMode === 'month') {
+      setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1));
+    } else {
+      setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 1));
+    }
   };
 
-  const nextMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1));
+  const nextPeriod = () => {
+    if (viewMode === 'year') {
+      setCurrentDate(new Date(currentDate.getFullYear() + 1, currentDate.getMonth()));
+    } else if (viewMode === 'month') {
+      setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1));
+    } else {
+      setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1));
+    }
   };
 
   const goToToday = () => {
     setCurrentDate(new Date());
     setSelectedDate(new Date());
+  };
+
+  const handleMonthClick = (monthIndex: number) => {
+    setCurrentDate(new Date(currentDate.getFullYear(), monthIndex, 1));
+    setViewMode('month');
+  };
+
+  const handleDayClick = (day: number) => {
+    const clickedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    setSelectedDate(clickedDate);
+    setCurrentDate(clickedDate);
+    setViewMode('day');
   };
 
   const getEventTypeColor = (type: string) => {
@@ -136,10 +193,18 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
   };
 
   const getEventsForDate = (day: number) => {
-    return events.filter(event => {
+    return filteredEvents.filter(event => {
       const eventDate = new Date(event.date);
       return eventDate.getDate() === day &&
         eventDate.getMonth() === currentDate.getMonth() &&
+        eventDate.getFullYear() === currentDate.getFullYear();
+    });
+  };
+
+  const getEventsForMonth = (monthIndex: number) => {
+    return filteredEvents.filter(event => {
+      const eventDate = new Date(event.date);
+      return eventDate.getMonth() === monthIndex &&
         eventDate.getFullYear() === currentDate.getFullYear();
     });
   };
@@ -158,46 +223,183 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
       currentDate.getFullYear() === selectedDate.getFullYear();
   };
 
-  const days = [];
-  for (let i = 0; i < firstDayOfMonth; i++) {
-    days.push(<div key={`empty-${i}`} className="aspect-square" />);
-  }
+  const renderYearView = () => {
+    return (
+      <div className="grid grid-cols-3 md:grid-cols-4 gap-4">
+        {monthNames.map((month, index) => {
+          const monthEvents = getEventsForMonth(index);
+          return (
+            <button
+              key={month}
+              onClick={() => handleMonthClick(index)}
+              className="aspect-square p-4 rounded-xl bg-white border-2 border-gray-200 hover:border-ffYellow hover:shadow-lg transition-all duration-200 group"
+            >
+              <div className="flex flex-col items-center justify-center h-full">
+                <span className="text-sm font-semibold text-gray-900 mb-2">{month}</span>
+                {monthEvents.length > 0 && (
+                  <div className="flex flex-wrap gap-1 justify-center">
+                    {monthEvents.slice(0, 6).map((event) => (
+                      <div
+                        key={event.id}
+                        className={`w-2 h-2 rounded-full ${getEventTypeColor(event.type)}`}
+                      />
+                    ))}
+                    {monthEvents.length > 6 && (
+                      <span className="text-xs text-gray-500">+{monthEvents.length - 6}</span>
+                    )}
+                  </div>
+                )}
+                {monthEvents.length === 0 && (
+                  <span className="text-xs text-gray-400">No events</span>
+                )}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    );
+  };
 
-  for (let day = 1; day <= daysInMonth; day++) {
-    const dayEvents = getEventsForDate(day);
-    days.push(
-      <button
-        key={day}
-        onClick={() => setSelectedDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), day))}
-        className={`aspect-square p-1.5 rounded-xl transition-all duration-200 relative group ${
-          isToday(day)
-            ? 'bg-black text-white font-semibold shadow-lg'
-            : isSelected(day)
-            ? 'bg-ffYellow/20 ring-2 ring-ffYellow'
-            : 'hover:bg-gray-50'
-        }`}
-      >
-        <span className={`text-sm block ${isToday(day) ? 'text-white' : 'text-gray-900'}`}>{day}</span>
-        {dayEvents.length > 0 && (
-          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 flex gap-0.5">
-            {dayEvents.slice(0, 3).map((event) => (
+  const renderMonthView = () => {
+    const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+
+    const days = [];
+    for (let i = 0; i < firstDayOfMonth; i++) {
+      days.push(<div key={`empty-${i}`} className="aspect-square" />);
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dayEvents = getEventsForDate(day);
+      days.push(
+        <button
+          key={day}
+          onClick={() => handleDayClick(day)}
+          className={`aspect-square p-1.5 rounded-xl transition-all duration-200 relative group ${
+            isToday(day)
+              ? 'bg-black text-white font-semibold shadow-lg'
+              : isSelected(day)
+              ? 'bg-ffYellow/20 ring-2 ring-ffYellow'
+              : 'hover:bg-gray-50'
+          }`}
+        >
+          <span className={`text-sm block ${isToday(day) ? 'text-white' : 'text-gray-900'}`}>{day}</span>
+          {dayEvents.length > 0 && (
+            <div className="absolute bottom-1 left-1/2 -translate-x-1/2 flex gap-0.5">
+              {dayEvents.slice(0, 3).map((event) => (
+                <div
+                  key={event.id}
+                  className={`w-1 h-1 rounded-full ${getEventTypeColor(event.type)}`}
+                />
+              ))}
+            </div>
+          )}
+        </button>
+      );
+    }
+
+    return (
+      <>
+        {/* Day Names */}
+        <div className="grid grid-cols-7 gap-2 mb-2">
+          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+            <div key={day} className="text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              {day}
+            </div>
+          ))}
+        </div>
+
+        {/* Days Grid */}
+        <div className="grid grid-cols-7 gap-2">
+          {days}
+        </div>
+      </>
+    );
+  };
+
+  const renderDayView = () => {
+    const dayEvents = filteredEvents.filter(event => {
+      const eventDate = new Date(event.date);
+      return eventDate.getDate() === currentDate.getDate() &&
+        eventDate.getMonth() === currentDate.getMonth() &&
+        eventDate.getFullYear() === currentDate.getFullYear();
+    });
+
+    return (
+      <div>
+        <div className="text-center mb-8">
+          <h3 className="text-4xl font-bold text-gray-900 mb-2">
+            {currentDate.getDate()}
+          </h3>
+          <p className="text-lg text-gray-600">
+            {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          {dayEvents.length > 0 ? (
+            dayEvents.map(event => (
               <div
                 key={event.id}
-                className={`w-1 h-1 rounded-full ${getEventTypeColor(event.type)}`}
-              />
-            ))}
-          </div>
-        )}
-      </button>
+                className="group p-6 bg-white hover:bg-gray-50 rounded-2xl border-2 border-gray-200 hover:border-ffYellow transition-all duration-200 cursor-pointer shadow-sm hover:shadow-lg"
+              >
+                <div className="flex items-start gap-4">
+                  <div className={`flex-shrink-0 w-12 h-12 rounded-xl ${getEventTypeColor(event.type)} bg-opacity-10 flex items-center justify-center`}>
+                    <div className={`${getEventTypeColor(event.type).replace('bg-', 'text-')}`}>
+                      {getEventTypeIcon(event.type)}
+                    </div>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-lg font-semibold text-gray-900 mb-2">{event.title}</p>
+                    <p className="text-sm text-gray-600 mb-3">{event.description}</p>
+                    <div className="flex items-center gap-2">
+                      <span className="inline-flex items-center px-3 py-1 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 border border-gray-200">
+                        {event.jvPartner}
+                      </span>
+                      {event.priority === 'high' && (
+                        <span className="inline-flex items-center px-3 py-1 rounded-lg text-sm font-medium bg-red-50 text-red-700 border border-red-200">
+                          High Priority
+                        </span>
+                      )}
+                      <span className={`inline-flex items-center px-3 py-1 rounded-lg text-sm font-medium border ${
+                        event.type === 'break-date' ? 'bg-red-50 text-red-700 border-red-200' :
+                        event.type === 'share-issuance' ? 'bg-purple-50 text-purple-700 border-purple-200' :
+                        event.type === 'accounting' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                        event.type === 'renewal' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                        'bg-teal-50 text-teal-700 border-teal-200'
+                      }`}>
+                        {event.type.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="text-center py-12">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <p className="text-lg font-medium text-gray-900 mb-1">No events scheduled</p>
+              <p className="text-sm text-gray-500">This day has no joint venture events</p>
+            </div>
+          )}
+        </div>
+      </div>
     );
-  }
+  };
 
-  const selectedDateEvents = selectedDate ? events.filter(event => {
-    const eventDate = new Date(event.date);
-    return eventDate.getDate() === selectedDate.getDate() &&
-      eventDate.getMonth() === selectedDate.getMonth() &&
-      eventDate.getFullYear() === selectedDate.getFullYear();
-  }) : [];
+  const getViewTitle = () => {
+    if (viewMode === 'year') {
+      return currentDate.getFullYear().toString();
+    } else if (viewMode === 'month') {
+      return `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+    } else {
+      return currentDate.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    }
+  };
 
   return (
     <div className={`${isFullScreen ? 'fixed inset-0 z-50 bg-white overflow-auto' : ''}`}>
@@ -206,13 +408,46 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
           {/* Header */}
           <div className="bg-gradient-to-br from-gray-50 to-white border-b border-gray-100 px-6 py-5">
             <div className="flex items-center justify-between mb-4">
-              <div>
+              <div className="flex-1">
                 <h2 className="text-2xl font-semibold text-gray-900 tracking-tight">
-                  {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+                  {getViewTitle()}
                 </h2>
                 <p className="text-sm text-gray-500 mt-1">Joint Venture Key Dates</p>
               </div>
               <div className="flex items-center gap-2">
+                {/* View Mode Toggle */}
+                <div className="bg-white border border-gray-200 rounded-lg p-1 flex gap-1">
+                  <button
+                    onClick={() => setViewMode('year')}
+                    className={`px-3 py-1.5 text-xs font-medium rounded transition-all ${
+                      viewMode === 'year'
+                        ? 'bg-black text-white'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    }`}
+                  >
+                    Year
+                  </button>
+                  <button
+                    onClick={() => setViewMode('month')}
+                    className={`px-3 py-1.5 text-xs font-medium rounded transition-all ${
+                      viewMode === 'month'
+                        ? 'bg-black text-white'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    }`}
+                  >
+                    Month
+                  </button>
+                  <button
+                    onClick={() => setViewMode('day')}
+                    className={`px-3 py-1.5 text-xs font-medium rounded transition-all ${
+                      viewMode === 'day'
+                        ? 'bg-black text-white'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    }`}
+                  >
+                    Day
+                  </button>
+                </div>
                 <button
                   onClick={goToToday}
                   className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-gray-300 transition-all duration-200"
@@ -239,21 +474,41 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
               </div>
             </div>
 
-            {/* Month Navigation */}
+            {/* JV Partner Filter */}
+            <div className="flex items-center gap-4 mb-4">
+              <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Filter by JV:</span>
+              <div className="flex flex-wrap gap-2">
+                {(['All', 'Aviva', 'Mediobanca', 'Fastweb', 'Vonovia', 'Pico'] as JVFilter[]).map(partner => (
+                  <button
+                    key={partner}
+                    onClick={() => setJvFilter(partner)}
+                    className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all ${
+                      jvFilter === partner
+                        ? 'bg-black text-white shadow-sm'
+                        : 'bg-white text-gray-600 border border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                    }`}
+                  >
+                    {partner}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Navigation */}
             <div className="flex items-center justify-between">
               <button
-                onClick={previousMonth}
+                onClick={previousPeriod}
                 className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-200"
-                aria-label="Previous month"
+                aria-label={`Previous ${viewMode}`}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
               <button
-                onClick={nextMonth}
+                onClick={nextPeriod}
                 className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-200"
-                aria-label="Next month"
+                aria-label={`Next ${viewMode}`}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -262,27 +517,17 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
             </div>
           </div>
 
-          <div className={`${isFullScreen ? 'grid grid-cols-1 lg:grid-cols-3 gap-6' : ''} p-6`}>
-            {/* Calendar Grid */}
-            <div className={isFullScreen ? 'lg:col-span-2' : ''}>
-              {/* Day Names */}
-              <div className="grid grid-cols-7 gap-2 mb-2">
-                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                  <div key={day} className="text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                    {day}
-                  </div>
-                ))}
-              </div>
+          <div className="p-6">
+            {/* Render appropriate view */}
+            {viewMode === 'year' && renderYearView()}
+            {viewMode === 'month' && renderMonthView()}
+            {viewMode === 'day' && renderDayView()}
 
-              {/* Days Grid */}
-              <div className="grid grid-cols-7 gap-2">
-                {days}
-              </div>
-
-              {/* Legend */}
+            {/* Legend */}
+            {viewMode !== 'day' && (
               <div className="mt-6 pt-6 border-t border-gray-100">
                 <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Event Types</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full bg-red-500" />
                     <span className="text-xs text-gray-600">Break Dates</span>
@@ -303,51 +548,6 @@ export function JVCalendar({ isFullScreen = false, onToggleFullScreen }: JVCalen
                     <div className="w-3 h-3 rounded-full bg-teal-500" />
                     <span className="text-xs text-gray-600">Anniversaries</span>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Events Sidebar */}
-            {(isFullScreen || selectedDate) && (
-              <div className={`${isFullScreen ? '' : 'mt-6 pt-6 border-t border-gray-100'}`}>
-                <h3 className="text-sm font-semibold text-gray-900 mb-4">
-                  {selectedDate
-                    ? `Events on ${selectedDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}`
-                    : 'Upcoming Events'}
-                </h3>
-                <div className="space-y-3 max-h-96 overflow-y-auto">
-                  {selectedDateEvents.length > 0 ? (
-                    selectedDateEvents.map(event => (
-                      <div
-                        key={event.id}
-                        className="group p-4 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-200 transition-all duration-200 cursor-pointer"
-                      >
-                        <div className="flex items-start gap-3">
-                          <div className={`flex-shrink-0 w-8 h-8 rounded-lg ${getEventTypeColor(event.type)} bg-opacity-10 flex items-center justify-center`}>
-                            <div className={`${getEventTypeColor(event.type).replace('bg-', 'text-')}`}>
-                              {getEventTypeIcon(event.type)}
-                            </div>
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-semibold text-gray-900 mb-1">{event.title}</p>
-                            <p className="text-xs text-gray-600 mb-2">{event.description}</p>
-                            <div className="flex items-center gap-2">
-                              <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-white text-gray-700 border border-gray-200">
-                                {event.jvPartner}
-                              </span>
-                              {event.priority === 'high' && (
-                                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-red-50 text-red-700 border border-red-200">
-                                  High Priority
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-sm text-gray-500 italic">No events scheduled for this date</p>
-                  )}
                 </div>
               </div>
             )}
